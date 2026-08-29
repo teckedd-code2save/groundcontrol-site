@@ -6,7 +6,7 @@ const GITHUB_URL = "https://github.com/teckedd-code2save/groundcontrol";
 const PRODUCT_URL = "https://groundcontrol.serendepify.com";
 
 describe("Home page", () => {
-  it("renders the product-led hero and live product CTA", () => {
+  it("renders the product-led hero and product CTA", () => {
     render(<Home />);
     expect(
       screen.getByRole("heading", { level: 1, name: /run your vps without becoming your own sre team/i }),
@@ -17,12 +17,20 @@ describe("Home page", () => {
     );
   });
 
-  it("uses real product captures as proof", () => {
+  it("uses product screens to show the workflow", () => {
     render(<Home />);
     expect(screen.getByAltText(/co-pilot returning live container health/i)).toBeInTheDocument();
     expect(screen.getByAltText(/repository validation, inferred compose configuration/i)).toBeInTheDocument();
     expect(screen.getByAltText(/intelligence tracing a failed endpoint/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/terminal running a real docker ps command/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/terminal running docker ps/i)).toBeInTheDocument();
+  });
+
+  it("keeps the operator in control through GroundControl", () => {
+    render(<Home />);
+    expect(
+      screen.getByRole("heading", { name: /build with your agents\. deploy and manage with groundcontrol/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/you or your approved agents stay in control/i)).toBeInTheDocument();
   });
 
   it("points every GitHub link at the GroundControl product repo", () => {
