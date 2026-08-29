@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./session.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GroundControl — Self-hosted VPS operations",
+  title: "GroundControl — Build, deploy and operate your VPS",
   description:
-    "Install a self-hosted control plane for deployments, runtime evidence and infrastructure operations on your VPS.",
+    "Open-source, self-hosted VPS operations for deployments, runtime, terminal, domains, templates and AI-agent workflows.",
   other: {
     "codex-preview": "development",
   },
