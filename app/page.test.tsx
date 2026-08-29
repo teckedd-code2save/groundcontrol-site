@@ -9,12 +9,20 @@ describe("Home page", () => {
   it("renders the product-led hero and live product CTA", () => {
     render(<Home />);
     expect(
-      screen.getByRole("heading", { level: 1, name: /build, deploy and operate your vps/i }),
+      screen.getByRole("heading", { level: 1, name: /run your vps without becoming your own sre team/i }),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /open groundcontrol/i })[0]).toHaveAttribute(
       "href",
       PRODUCT_URL,
     );
+  });
+
+  it("uses real product captures as proof", () => {
+    render(<Home />);
+    expect(screen.getByAltText(/co-pilot returning live container health/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/repository validation, inferred compose configuration/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/intelligence tracing a failed endpoint/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/terminal running a real docker ps command/i)).toBeInTheDocument();
   });
 
   it("points every GitHub link at the GroundControl product repo", () => {

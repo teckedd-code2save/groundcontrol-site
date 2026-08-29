@@ -2,6 +2,21 @@
 
 The public site should only use real product captures. Do not add invented dashboards, fake metrics, synthetic terminal output, or decorative UI mockups.
 
+## Capture status — 29 August 2026
+
+The first real-media pass is now committed under `public/product/`:
+
+- `assistant-health-check.webp` — live AI Co-Pilot inspection with container image, health and port evidence
+- `existing-compose-flow.webp` — animated WebP made from three real workflow states: source validation, inferred configuration and verified deployment
+- `deployment-verified.webp` and `release-history.webp` — successful Ghana Health AI deployment and release evidence
+- `runtime-inventory.webp` — live container health, ports and resource usage
+- `terminal-docker-ps.webp` — harmless real `docker ps` command in the onboard terminal
+- `intelligence-recovery.webp` — failed endpoint, exact upstream problem, uncertainty and safe recovery action
+- `template-catalogue.webp`, `template-source-verified.webp` and `template-config.webp` — live template workflow evidence
+- `operations-overview.webp` — current fleet overview, including real unhealthy state
+
+Still worth recording later: a true 8–15 second deployment video, an external ChatGPT + GroundControl split-context capture, and a successful public-domain/HTTPS verification clip. Until those exist, the site must not imply that the animated WebP is a continuous screen recording.
+
 ## Capture set
 
 ### 1. Agent workflow hero
