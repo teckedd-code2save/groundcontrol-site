@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "GroundControl — Operational intelligence for your VPS",
   description:
-    "Deploy, inspect and recover Docker and Compose applications on infrastructure you own—with live runtime evidence and controlled AI assistance.",
+    "Build with your team or coding agents, then deploy, inspect, manage and recover applications through GroundControl on infrastructure you own.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
