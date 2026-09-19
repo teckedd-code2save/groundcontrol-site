@@ -66,8 +66,8 @@ const proofFrames = [
   {
     step: "03",
     label: "OPERATE",
-    src: "/product/deployment-verified.webp",
-    alt: "GroundControl showing successful deployment verification and operational evidence",
+    src: "/product/redeploy-proof.webp",
+    alt: "ChatGPT reporting a successful GroundControl redeploy with an operation ID and verification evidence",
     title: "Let GroundControl own the operation.",
     copy: "Redeploy returns a durable operation ID, continues independently of the chat, then records verification evidence.",
   },
@@ -112,6 +112,7 @@ function SafeProofImage({
       height={780}
       sizes={sizes}
       className={className}
+      unoptimized
       onError={() => setFailed(true)}
     />
   );
