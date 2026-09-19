@@ -48,6 +48,26 @@ describe("Home page", () => {
     expect(screen.getByRole("img", { name: /health check.*unavailable/i })).toBeInTheDocument();
   });
 
+  it("uses direct outcome-first product language", () => {
+    render(<Home />);
+    expect(
+      screen.getByRole("heading", { name: /your agents only need to tell GroundControl what they want done/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/deploy this release\. check the health\. roll back if verification fails/i),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/agents should ask for outcomes, not learn your server/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/current proof, not decorative product frames/i)).not.toBeInTheDocument();
+  });
+
+  it("renders the Verify and Operate proof captures from real public assets", () => {
+    render(<Home />);
+    const verify = screen.getAllByAltText(/live GroundControl health check for RentAWeekend/i)[0];
+    const operate = screen.getAllByAltText(/successful GroundControl redeploy with an operation ID/i)[0];
+    expect(verify).toHaveAttribute("src", "/product/assistant-health-check.webp");
+    expect(operate).toHaveAttribute("src", "/product/redeploy-proof.webp");
+  });
+
   it("shows the scoped MCP tool surface", () => {
     render(<Home />);
     expect(screen.getByText("deployment.list")).toBeInTheDocument();
