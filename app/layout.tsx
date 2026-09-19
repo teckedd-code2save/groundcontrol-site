@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GroundControl — Operational intelligence for your VPS",
+  title: "GroundControl — Infrastructure arms for software agents",
   description:
-    "Build with your team or coding agents, then deploy, inspect, manage and recover applications through GroundControl on infrastructure you own.",
+    "Connect ChatGPT and other software agents to scoped deployment, runtime and recovery capabilities on infrastructure you own.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

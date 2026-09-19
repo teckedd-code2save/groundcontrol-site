@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # GroundControl Site Agent Notes
 
-The public product and installation site for [GroundControl](https://github.com/teckedd-code2save/groundcontrol) — a self-hosted VPS cockpit for Docker containers, Caddy proxies, deployments, domains, and system health. This site is the marketing + installer surface; the private console is a separate app at `console.groundcontrol.serendepify.com` and is **not** part of this repo. No authentication or dashboard access belongs here.
+The public product and installation site for [GroundControl](https://github.com/teckedd-code2save/groundcontrol), a self-hosted single-tenant infrastructure control plane for operators and software agents. This site is public-only. Authentication and dashboard access belong to each operator's GroundControl instance, never this repo.
 
 ## Tech stack
 
@@ -44,8 +44,8 @@ The public product and installation site for [GroundControl](https://github.com/
 
 - Vercel, no environment variables, no runtime server features. The single page is statically prerendered at build time.
 - Keep `vercel.json` (`framework: nextjs`, `buildCommand: npm run vercel-build`) intact; `vercel-build` is `next build`.
-- Public site domain: `groundcontrol.serendepify.com`. The private console app lives at `console.groundcontrol.serendepify.com` — its GitHub callback and webhook URLs must keep using the console hostname, never this site.
-- The installer command on the page downloads `scripts/bootstrap` from the main GroundControl repo (`teckedd-code2save/groundcontrol`, `main` branch). Keep that URL in sync with the product.
+- Public product domain: `trygroundcontrol.serendepify.com`. `groundcontrol.serendepify.com` is the operator's current private instance, not a multi-tenant product login. Future installs use operator-owned instance URLs/domains.
+- The installer command on the page downloads the canonical `scripts/install` from the main GroundControl repo. Prefer the `--json` mode for agent-assisted installation.
 
 ## Code conventions
 

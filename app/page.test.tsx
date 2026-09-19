@@ -3,75 +3,69 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Home from "@/app/page";
 
 const GITHUB_URL = "https://github.com/teckedd-code2save/groundcontrol";
-const PRODUCT_URL = "https://groundcontrol.serendepify.com";
 
 describe("Home page", () => {
-  it("renders the product-led hero and product CTA", () => {
+  it("positions GroundControl as an agent-native self-hosted control plane", () => {
     render(<Home />);
     expect(
-      screen.getByRole("heading", { level: 1, name: /run your vps without becoming your own sre team/i }),
+      screen.getByRole("heading", { level: 1, name: /give your agents infrastructure arms/i }),
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /open groundcontrol/i })[0]).toHaveAttribute(
-      "href",
-      PRODUCT_URL,
-    );
+    expect(screen.getByText(/MCP \+ OAuth/i)).toBeInTheDocument();
+    expect(screen.getByText(/single tenant/i)).toBeInTheDocument();
   });
 
-  it("uses product screens to show the workflow", () => {
+  it("does not send visitors into the private operator login", () => {
     render(<Home />);
-    expect(screen.getByAltText(/co-pilot returning live container health/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/repository validation, inferred compose configuration/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/intelligence tracing a failed endpoint/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/terminal running docker ps/i)).toBeInTheDocument();
+    const links = screen.getAllByRole("link");
+    expect(links.some((link) => link.getAttribute("href") === "https://groundcontrol.serendepify.com")).toBe(false);
   });
 
-  it("keeps the operator in control through GroundControl", () => {
+  it("uses current GroundControl product captures", () => {
     render(<Home />);
-    expect(
-      screen.getByRole("heading", { name: /build with your agents\. deploy and manage with groundcontrol/i }),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/you or your approved agents stay in control/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/current GroundControl dashboard/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/current GroundControl infrastructure/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/current GroundControl topology/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/current GroundControl runtime containers/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/current GroundControl native PTY terminal/i)).toBeInTheDocument();
   });
 
-  it("points every GitHub link at the GroundControl product repo", () => {
+  it("shows the scoped MCP tool surface", () => {
     render(<Home />);
-    const githubLinks = screen.getAllByRole("link", { name: /github/i });
+    expect(screen.getByText("deployment.list")).toBeInTheDocument();
+    expect(screen.getByText("deployment.health")).toBeInTheDocument();
+    expect(screen.getByText("deployment.config.check")).toBeInTheDocument();
+    expect(screen.getByText("deployment.redeploy")).toBeInTheDocument();
+    expect(screen.getByText("operation.get")).toBeInTheDocument();
+  });
+
+  it("uses Connect Repo language for repository linking", () => {
+    render(<Home />);
+    expect(screen.getByText("Connect Repo")).toBeInTheDocument();
+    expect(screen.queryByText(/install on repositories/i)).not.toBeInTheDocument();
+  });
+
+  it("points GitHub links at the GroundControl product repo", () => {
+    render(<Home />);
+    const githubLinks = screen.getAllByRole("link", { name: /github|view source/i });
     expect(githubLinks.length).toBeGreaterThan(0);
     for (const link of githubLinks) expect(link).toHaveAttribute("href", GITHUB_URL);
   });
 
-  it("markets real GroundControl capabilities", () => {
+  it("shows the agent-assisted installer by default", () => {
     render(<Home />);
-    expect(screen.getByText("Deployments")).toBeInTheDocument();
-    expect(screen.getByText("Runtime")).toBeInTheDocument();
-    expect(screen.getByText("Terminal")).toBeInTheDocument();
-    expect(screen.getByText("Intelligence")).toBeInTheDocument();
-    expect(screen.getByText("Domains & edge")).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: /agent/i })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByText(/scripts\/install/)).toBeInTheDocument();
+    expect(screen.getByText(/--json/)).toBeInTheDocument();
   });
 
-  it("shows production deployment templates", () => {
+  it("switches to the human-readable installer", () => {
     render(<Home />);
-    expect(screen.getByText("Existing Compose")).toBeInTheDocument();
-    expect(screen.getByText("Odoo Community")).toBeInTheDocument();
-    expect(screen.getByText("Next.js SaaS")).toBeInTheDocument();
-    expect(screen.getByText("FastAPI + worker")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("tab", { name: /on your vps/i }));
+    expect(screen.getByRole("tab", { name: /on your vps/i })).toHaveAttribute("aria-selected", "true");
+    expect(screen.queryByText(/--json/)).not.toBeInTheDocument();
   });
 
-  it("shows the remote install command by default", () => {
-    render(<Home />);
-    expect(screen.getByRole("tab", { name: /remote/i })).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByText(/root@YOUR_VPS_IP/)).toBeInTheDocument();
-  });
-
-  it("switches the install command when another tab is selected", () => {
-    render(<Home />);
-    fireEvent.click(screen.getByRole("tab", { name: /guided/i }));
-    expect(screen.getByRole("tab", { name: /guided/i })).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByText(/--interactive/)).toBeInTheDocument();
-    expect(screen.queryByText(/root@YOUR_VPS_IP/)).not.toBeInTheDocument();
-  });
-
-  it("copies the active command to the clipboard", async () => {
+  it("copies the active install command", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
 
@@ -79,7 +73,8 @@ describe("Home page", () => {
     fireEvent.click(screen.getByRole("button", { name: "Copy installation command" }));
 
     await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1));
-    expect(writeText).toHaveBeenCalledWith(expect.stringContaining("root@YOUR_VPS_IP"));
+    expect(writeText).toHaveBeenCalledWith(expect.stringContaining("scripts/install"));
+    expect(writeText).toHaveBeenCalledWith(expect.stringContaining("--json"));
     expect(screen.getByText("COPIED")).toBeInTheDocument();
   });
 });
