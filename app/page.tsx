@@ -32,18 +32,18 @@ const agentTools = [
   ["deployment.list", "See only the workloads the grant allows."],
   ["deployment.inspect", "Read source, target, release and runtime identity."],
   ["deployment.health", "Check containers and the public endpoint."],
-  ["deployment.config.check", "Confirm named config keys without returning values."],
+  ["deployment.config.check", "Confirm named config keys while values stay private."],
   ["deployment.redeploy", "Start an idempotent durable redeploy."],
   ["operation.get", "Return later for final status and evidence."],
 ] as const;
 
 const capabilities = [
-  ["Agent-native operations", "ChatGPT and MCP clients receive scoped capabilities, never your SSH keys.", "MCP · OAuth"],
+  ["Agent-native operations", "ChatGPT and MCP clients receive scoped capabilities while SSH keys stay inside GroundControl.", "MCP · OAuth"],
   ["Durable operations", "Deployments continue after the calling chat disappears and retain verification evidence.", "operation id · evidence"],
   ["Connector health", "GitHub, GHCR and Daytona are verified capability by capability.", "healthy · degraded"],
   ["Native operator PTY", "Humans still get a real terminal with Tab, Ctrl+C, history and persistent state.", "xterm · PTY"],
-  ["Secret-safe config checks", "Agents can confirm named configuration exists without seeing its value.", "metadata only"],
-  ["Single tenant", "Every install is your own control plane, not an account in a shared operations SaaS.", "self-hosted"],
+  ["Secret-safe config checks", "Agents can confirm named configuration exists while values remain private.", "metadata only"],
+  ["Single tenant", "Every install is your own private control plane on infrastructure you own.", "self-hosted"],
 ] as const;
 
 const proofFrames = [
@@ -58,16 +58,16 @@ const proofFrames = [
   {
     step: "02",
     label: "VERIFY",
-    src: "/product/health-proof.webp",
+    src: "/product/assistant-health-check.webp",
     alt: "ChatGPT showing a live GroundControl health check for RentAWeekend with healthy containers and HTTP 200",
-    title: "Read the live deployment, not chat history.",
+    title: "Read the live deployment state.",
     copy: "GroundControl resolves containers, runtime health and the public endpoint before the agent forms a conclusion.",
   },
   {
     step: "03",
     label: "OPERATE",
-    src: "/product/redeploy-proof.webp",
-    alt: "ChatGPT reporting a successful GroundControl redeploy with an operation ID and verification evidence",
+    src: "/product/deployment-verified.webp",
+    alt: "GroundControl showing successful deployment verification and operational evidence",
     title: "Let GroundControl own the operation.",
     copy: "Redeploy returns a durable operation ID, continues independently of the chat, then records verification evidence.",
   },
@@ -291,7 +291,7 @@ function ProofSequence() {
     <section className="proof-sequence section-shell">
       <div className="section-heading" data-reveal>
         <p className="eyebrow">LIVE ACCEPTANCE · SEPTEMBER 2026</p>
-        <h2>Current proof, not decorative product frames.</h2>
+        <h2>See the live agent workflow end to end.</h2>
         <p>
           These are the live steps that moved through ChatGPT and GroundControl:
           a scoped grant, a real health read, and a verified redeploy.
@@ -380,7 +380,7 @@ export default function Home() {
           </h1>
           <p className="hero-private-copy fade-in-seq">
             GroundControl gives ChatGPT and other approved agents typed deployment, runtime and recovery capabilities
-            on infrastructure you own. No SSH keys in the conversation. No generic remote shell.
+            on infrastructure you own. SSH keys and provider credentials stay inside your control plane.
           </p>
           <div className="hero-actions fade-in-seq">
             <button type="button" className="button button--primary" onClick={scrollToInstall}>
@@ -406,11 +406,10 @@ export default function Home() {
       <section className="statement section-shell" data-reveal>
         <p className="eyebrow">THE PRODUCT THESIS</p>
         <div>
-          <h2>Agents should ask for outcomes, not learn your server.</h2>
+          <h2>Your agents only need to say what they want done.</h2>
           <p>
-            GroundControl turns repositories, containers, domains, health and deployment evidence into bounded
-            operational capabilities. The agent says what should happen. GroundControl handles the host mechanics
-            and returns proof.
+            Ask GroundControl to deploy, inspect, verify, recover, or investigate. GroundControl handles the server-specific
+            work, verifies the result, and returns evidence.
           </p>
         </div>
       </section>
@@ -439,10 +438,10 @@ export default function Home() {
         <div className="section-shell tools-layout">
           <div data-reveal>
             <p className="eyebrow">NARROW TOOL SURFACE</p>
-            <h2>Capabilities, not a bag of shell commands.</h2>
+            <h2>A small, typed capability surface.</h2>
             <p>
-              External agents do not get the human terminal. They get intent-level operations with resource scopes,
-              idempotency and evidence.
+              External agents get intent-level operations with resource scopes, idempotency and evidence. The native terminal
+              remains an operator tool.
             </p>
           </div>
           <div className="tool-list" data-reveal>
@@ -462,7 +461,7 @@ export default function Home() {
           <h2>Connect GitHub. Connect Repo. Prove what actually works.</h2>
           <p>
             Repository access, signed events, repair PR permissions, private GHCR pulls and Daytona sandbox
-            reproduction are verified independently. “Configured” does not get to cosplay as healthy.
+            reproduction are verified independently, so each capability has a trustworthy current status.
           </p>
         </div>
         <div className="connector-flow" data-reveal>
@@ -478,7 +477,7 @@ export default function Home() {
           </div>
           <p>
             The installer runs on the authorized VPS, generates secrets there, starts GroundControl on loopback and
-            returns a short-lived one-time claim. The installing agent never becomes the permanent administrator.
+            returns a short-lived one-time claim. Human ownership is established explicitly during claim.
           </p>
         </div>
         <InstallConsole />
