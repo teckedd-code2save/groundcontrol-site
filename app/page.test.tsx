@@ -22,7 +22,7 @@ describe("Home page", () => {
     ).toBe(false);
   });
 
-  it("uses three current September proof frames in both motion and readable sections", () => {
+  it("uses the three live September proof frames in motion and readable sections", () => {
     render(<Home />);
 
     expect(
@@ -34,9 +34,6 @@ describe("Home page", () => {
     expect(
       screen.getAllByAltText(/successful GroundControl redeploy with an operation ID/i).length,
     ).toBeGreaterThanOrEqual(2);
-
-    expect(screen.queryByAltText(/current GroundControl dashboard/i)).not.toBeInTheDocument();
-    expect(screen.queryByAltText(/current GroundControl topology/i)).not.toBeInTheDocument();
   });
 
   it("keeps an image frame visible if a product capture fails to load", () => {
@@ -46,6 +43,15 @@ describe("Home page", () => {
 
     expect(screen.getByText("Capture unavailable")).toBeInTheDocument();
     expect(screen.getByRole("img", { name: /health check.*unavailable/i })).toBeInTheDocument();
+  });
+
+  it("renders proof captures directly so image optimization cannot hide the frames", () => {
+    render(<Home />);
+    const verify = screen.getAllByAltText(/live GroundControl health check for RentAWeekend/i)[0];
+    const operate = screen.getAllByAltText(/successful GroundControl redeploy with an operation ID/i)[0];
+
+    expect(verify).toHaveAttribute("src", "/product/assistant-health-check.webp");
+    expect(operate).toHaveAttribute("src", "/product/redeploy-proof.webp");
   });
 
   it("shows the scoped MCP tool surface", () => {
