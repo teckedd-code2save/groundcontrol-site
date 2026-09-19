@@ -54,6 +54,16 @@ describe("Home page", () => {
     expect(operate).toHaveAttribute("src", "/product/redeploy-proof.webp");
   });
 
+  it("uses direct outcome-first product language", () => {
+    render(<Home />);
+    expect(
+      screen.getByRole("heading", { name: /your agents only need to say what they want done/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/ask GroundControl to deploy, inspect, verify, recover, or investigate/i)).toBeInTheDocument();
+    expect(screen.queryByText(/agents should ask for outcomes, not learn your server/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/current proof, not decorative product frames/i)).not.toBeInTheDocument();
+  });
+
   it("shows the scoped MCP tool surface", () => {
     render(<Home />);
     expect(screen.getByText("deployment.list")).toBeInTheDocument();
