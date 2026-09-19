@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const GITHUB_URL = "https://github.com/teckedd-code2save/groundcontrol";
 const INSTALL_URL =
@@ -28,46 +28,22 @@ const commands = [
   },
 ] as const;
 
-const features = [
-  {
-    title: "Agent-native operations",
-    copy: "Connect ChatGPT or another MCP client through OAuth. Agents receive scoped deployment capabilities, not your SSH keys or provider secrets.",
-    meta: "MCP · OAuth · resource scopes",
-  },
-  {
-    title: "Durable deployment work",
-    copy: "Redeployments return operation IDs, continue after the chat disconnects, verify the result, and preserve evidence for the next agent session.",
-    meta: "Idempotent · resumable · verifiable",
-  },
-  {
-    title: "Connector capability health",
-    copy: "GitHub, GHCR and Daytona are checked capability by capability so configured never masquerades as healthy.",
-    meta: "Healthy · degraded · missing scope",
-  },
-  {
-    title: "Native terminal",
-    copy: "Operators get a real xterm + PTY with Tab, Ctrl+C, history, ANSI output and persistent shell state when direct access is appropriate.",
-    meta: "PTY · SSH · host bridge",
-  },
-  {
-    title: "Deployment evidence",
-    copy: "Inspect runtime containers, routes, health, releases, source identity and public verification from one operational record.",
-    meta: "Runtime · source · verification",
-  },
-  {
-    title: "Single-tenant by design",
-    copy: "Every installation is your own control plane. The public site never doubles as a shared dashboard and your instance keeps its credentials locally.",
-    meta: "Self-hosted · private · open source",
-  },
-] as const;
-
 const agentTools = [
   ["deployment.list", "See only the workloads the grant allows."],
   ["deployment.inspect", "Read source, target, release and runtime identity."],
   ["deployment.health", "Check containers and the public endpoint."],
-  ["deployment.config.check", "Confirm named config keys without returning secret values."],
-  ["deployment.redeploy", "Start an idempotent durable redeploy operation."],
-  ["operation.get", "Return later and read final status + evidence."],
+  ["deployment.config.check", "Confirm named config keys without returning values."],
+  ["deployment.redeploy", "Start an idempotent durable redeploy."],
+  ["operation.get", "Return later for final status and evidence."],
+] as const;
+
+const capabilities = [
+  ["Agent-native operations", "ChatGPT and MCP clients receive scoped capabilities, never your SSH keys.", "MCP · OAuth"],
+  ["Durable operations", "Deployments continue after the calling chat disappears and retain verification evidence.", "operation id · evidence"],
+  ["Connector health", "GitHub, GHCR and Daytona are verified capability by capability.", "healthy · degraded"],
+  ["Native operator PTY", "Humans still get a real terminal with Tab, Ctrl+C, history and persistent state.", "xterm · PTY"],
+  ["Secret-safe config checks", "Agents can confirm named configuration exists without seeing its value.", "metadata only"],
+  ["Single tenant", "Every install is your own control plane, not an account in a shared operations SaaS.", "self-hosted"],
 ] as const;
 
 function Arrow() {
@@ -86,19 +62,9 @@ function InstallConsole() {
   async function copyCommand() {
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(active.command);
-    } else {
-      const textArea = document.createElement("textarea");
-      textArea.value = active.command;
-      textArea.setAttribute("readonly", "");
-      textArea.style.position = "fixed";
-      textArea.style.opacity = "0";
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand("copy");
-      textArea.remove();
     }
     setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+    window.setTimeout(() => setCopied(false), 1600);
   }
 
   return (
@@ -132,12 +98,132 @@ function InstallConsole() {
   );
 }
 
+function MotionGrid() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const travel = Math.max(1, section.offsetHeight - window.innerHeight);
+      const value = Math.min(1, Math.max(0, -rect.top / travel));
+      setProgress(value);
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  const eased = progress * progress * (3 - 2 * progress);
+  const compact = { left: 55, top: 23, width: 26, height: 62 };
+  const expanded = { left: 7, top: 7, width: 86, height: 86 };
+  const frame = {
+    left: compact.left + (expanded.left - compact.left) * eased,
+    top: compact.top + (expanded.top - compact.top) * eased,
+    width: compact.width + (expanded.width - compact.width) * eased,
+    height: compact.height + (expanded.height - compact.height) * eased,
+  };
+
+  return (
+    <section className="motion-grid-section" ref={sectionRef} id="agents">
+      <div className="motion-grid-pin">
+        <div className="motion-grid-lines" aria-hidden="true" />
+        <div
+          className="motion-grid-copy"
+          style={{ opacity: Math.max(0, 1 - progress * 2.15), transform: `translateY(${-20 * progress}px)` }}
+        >
+          <p className="eyebrow">CHATGPT + GROUNDCONTROL</p>
+          <h2>Your agent gets a bounded operating envelope.</h2>
+          <p>
+            Connect once through OAuth. Choose the exact deployments and capabilities. GroundControl keeps the
+            infrastructure credentials and executes the work.
+          </p>
+        </div>
+
+        <div
+          className="motion-image-shell"
+          style={{
+            left: `${frame.left}%`,
+            top: `${frame.top}%`,
+            width: `${frame.width}%`,
+            height: `${frame.height}%`,
+          }}
+        >
+          <div className="motion-image-stack">
+            <Image
+              src="/product/agent-access.webp"
+              alt="GroundControl showing an active ChatGPT OAuth grant with scoped deployment capabilities"
+              width={320}
+              height={569}
+              className="motion-shot"
+              style={{ opacity: Math.max(0, 1 - Math.max(0, progress - 0.48) * 4) }}
+            />
+            <Image
+              src="/product/redeploy-proof.webp"
+              alt="ChatGPT reporting a successful GroundControl redeploy with an operation ID and verification evidence"
+              width={320}
+              height={549}
+              className="motion-shot motion-shot--second"
+              style={{ opacity: Math.min(1, Math.max(0, (progress - 0.45) * 3.2)) }}
+            />
+          </div>
+          <div className="motion-vignette" style={{ opacity: Math.max(0, (progress - 0.55) * 1.8) }} />
+        </div>
+
+        <div className="motion-grid-final" style={{ opacity: Math.max(0, (progress - 0.67) * 3.3) }}>
+          <p className="eyebrow">THE RESULT</p>
+          <h3>Chat requests an outcome. GroundControl owns the operation.</h3>
+          <div className="motion-metrics">
+            <span><strong>OAuth</strong> scoped access</span>
+            <span><strong>Operation ID</strong> durable work</span>
+            <span><strong>HTTP 200</strong> public verification</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
+  useEffect(() => {
+    const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    if (!("IntersectionObserver" in window)) {
+      elements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main id="top">
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="GroundControl home">
-          <span className="brand-mark" aria-hidden="true">GC</span>
+          <span className="orbit-mark" aria-hidden="true"><i /></span>
           <span>GroundControl</span>
         </a>
         <nav aria-label="Primary navigation">
@@ -148,309 +234,188 @@ export default function Home() {
         </nav>
       </header>
 
-      <section className="hero section-shell">
-        <div className="hero-copy-block">
-          <p className="eyebrow">SELF-HOSTED CONTROL PLANE FOR SOFTWARE AGENTS</p>
-          <h1>Give your agents infrastructure arms.</h1>
-          <p className="hero-copy">
-            GroundControl lets ChatGPT and other approved agents inspect, deploy, verify and recover
-            applications on infrastructure you own without handing the conversation your SSH keys,
-            provider credentials or an unrestricted shell.
+      <section className="hero-private">
+        <div className="ambient-mesh" aria-hidden="true">
+          <div className="ambient-orb ambient-orb--one" />
+          <div className="ambient-orb ambient-orb--two" />
+          <div className="ambient-grain" />
+        </div>
+        <div className="hero-shade" aria-hidden="true" />
+        <div className="hero-private-inner">
+          <p className="eyebrow hero-kicker">SELF-HOSTED CONTROL PLANE FOR SOFTWARE AGENTS</p>
+          <h1 aria-label="Give your agents infrastructure arms.">
+            <span className="line-mask"><span className="line-inner">Give your agents</span></span>
+            <span className="line-mask"><span className="line-inner line-inner--accent">infrastructure arms.</span></span>
+          </h1>
+          <p className="hero-private-copy fade-in-seq">
+            GroundControl gives ChatGPT and other approved agents typed deployment, runtime and recovery capabilities
+            on infrastructure you own. No SSH keys in the conversation. No generic remote shell.
           </p>
-          <div className="hero-actions">
+          <div className="hero-actions fade-in-seq">
             <button type="button" className="button button--primary" onClick={scrollToInstall}>
-              Install GroundControl <Arrow />
+              Install on your VPS <Arrow />
             </button>
             <a className="button button--secondary" href={GITHUB_URL} target="_blank" rel="noreferrer">
               View source
             </a>
           </div>
-          <div className="hero-notes">
-            <span>Open source</span>
-            <span>Single tenant</span>
+          <div className="hero-notes fade-in-seq">
             <span>MCP + OAuth</span>
+            <span>Single tenant</span>
+            <span>Durable operations</span>
             <span>Agent-assisted install</span>
           </div>
         </div>
-
-        <figure className="hero-media">
-          <Image
-            src="/product/current-dashboard.png"
-            alt="Current GroundControl dashboard showing the private operator control plane"
-            width={1440}
-            height={1000}
-            priority
-            sizes="(max-width: 980px) 100vw, 46vw"
-          />
-          <figcaption>
-            <strong>Your instance, not a shared SaaS dashboard.</strong> GroundControl runs beside the
-            infrastructure it operates and becomes the bounded execution layer between your agents and the host.
-          </figcaption>
-        </figure>
+        <a href="#agents" className="scroll-cue" aria-label="Scroll to agent workflow">
+          <span />
+          Scroll
+        </a>
       </section>
 
-      <section className="proof-band">
-        <div className="section-shell proof-grid">
-          <p className="eyebrow">THE PRODUCT THESIS</p>
-          <div>
-            <h2>Agents should ask for outcomes, not learn your server.</h2>
-            <p>
-              GroundControl turns repositories, containers, domains, deployment evidence and provider connections
-              into typed operational capabilities. The agent asks to inspect or redeploy. GroundControl handles
-              the host mechanics, verifies the result and returns evidence.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="evidence-section section-shell" id="agents">
-        <div className="section-heading section-heading--split">
-          <div>
-            <p className="eyebrow">CHATGPT + YOUR INFRASTRUCTURE</p>
-            <h2>Connect once. Grant only what the agent needs.</h2>
-          </div>
+      <section className="statement section-shell" data-reveal>
+        <p className="eyebrow">THE PRODUCT THESIS</p>
+        <div>
+          <h2>Agents should ask for outcomes, not learn your server.</h2>
           <p>
-            GroundControl exposes a remote MCP endpoint with OAuth. Each client receives exact deployment and
-            capability scopes. Human approval is reserved for the boundaries you choose, not every harmless operation.
+            GroundControl turns repositories, containers, domains, health and deployment evidence into bounded
+            operational capabilities. The agent says what should happen. GroundControl handles the host mechanics
+            and returns proof.
           </p>
         </div>
-
-        <div className="grid gap-px border border-[var(--line-strong)] bg-[var(--line-strong)] md:grid-cols-3">
-          {[
-            ["01", "Connect", "Add the GroundControl MCP URL to ChatGPT or another compatible agent."],
-            ["02", "Authorize", "Sign into your private instance and choose exact workloads + capabilities."],
-            ["03", "Operate", "The agent can inspect, redeploy and verify within that autonomy envelope."],
-          ].map(([step, title, copy]) => (
-            <article key={step} className="bg-[var(--deep)] p-7">
-              <span className="font-mono text-[9px] tracking-[0.12em] text-[var(--accent-bright)]">{step}</span>
-              <h3 className="mt-5 text-2xl font-medium tracking-[-0.03em]">{title}</h3>
-              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{copy}</p>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-6 grid gap-3 md:grid-cols-2">
-          {agentTools.map(([name, copy]) => (
-            <article key={name} className="border border-[var(--line)] bg-[var(--deep)] p-5">
-              <code className="font-mono text-xs text-[var(--accent-bright)]">{name}</code>
-              <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{copy}</p>
-            </article>
-          ))}
-        </div>
       </section>
 
-      <section className="workflow-section">
-        <div className="section-shell workflow-grid">
-          <div className="section-heading workflow-copy">
-            <p className="eyebrow">REAL OPERATING SURFACE</p>
-            <h2>GroundControl knows what is actually running.</h2>
-            <p>
-              The control plane keeps deployment identity, runtime state and public verification close enough that
-              agents can make decisions without scraping a pile of shell output.
-            </p>
-            <figure className="workflow-media">
-              <Image
-                src="/product/current-infrastructure.png"
-                alt="Current GroundControl infrastructure view"
-                width={1440}
-                height={1000}
-                sizes="(max-width: 980px) 100vw, 42vw"
-              />
-              <figcaption>Current infrastructure surface · host and operational state.</figcaption>
-            </figure>
+      <MotionGrid />
+
+      <section className="fresh-proof section-shell">
+        <div className="fresh-proof-copy" data-reveal>
+          <p className="eyebrow">LIVE ACCEPTANCE · SEPTEMBER 2026</p>
+          <h2>This is not a mockup. ChatGPT redeployed a real workload through GroundControl.</h2>
+          <p>
+            The agent received a durable operation ID. GroundControl reconciled the deployment, checked Postgres,
+            Redis, migrations, API and web, verified the running images, then hit the public endpoint and returned
+            the evidence to ChatGPT.
+          </p>
+          <div className="proof-facts">
+            <span><strong>success</strong> first attempt</span>
+            <span><strong>HTTP 200</strong> endpoint verified</span>
+            <span><strong>no shell</strong> typed MCP capability</span>
           </div>
-
-          <ol className="workflow-steps">
-            <li>
-              <span>01</span>
-              <div>
-                <strong>Connect GitHub</strong>
-                <p>Use an operator-owned GitHub App, then choose the exact account and repository GroundControl may see.</p>
-              </div>
-            </li>
-            <li>
-              <span>02</span>
-              <div>
-                <strong>Connect Repo</strong>
-                <p>Link an installation-backed repository to the deployment. Private repositories are first-class, not a public-API fallback.</p>
-              </div>
-            </li>
-            <li>
-              <span>03</span>
-              <div>
-                <strong>Deploy and verify</strong>
-                <p>Operations keep their own durable state and evidence, even when the calling chat disappears.</p>
-              </div>
-            </li>
-            <li>
-              <span>04</span>
-              <div>
-                <strong>Investigate safely</strong>
-                <p>Connector health distinguishes configured, healthy, degraded, missing-scope and revoked capabilities.</p>
-              </div>
-            </li>
-          </ol>
         </div>
-      </section>
-
-      <section className="evidence-section section-shell">
-        <div className="section-heading">
-          <p className="eyebrow">CURRENT PRODUCT</p>
-          <h2>The interface changed. The proof should change with it.</h2>
-        </div>
-
-        <figure className="evidence-feature">
+        <figure className="phone-proof" data-reveal>
           <Image
-            src="/product/current-topology.png"
-            alt="Current GroundControl topology view"
-            width={1440}
-            height={1000}
-            sizes="(max-width: 720px) 100vw, 92vw"
+            src="/product/redeploy-proof.webp"
+            alt="Successful GroundControl redeploy evidence returned inside ChatGPT"
+            width={320}
+            height={549}
+            sizes="(max-width: 720px) 82vw, 320px"
           />
-          <figcaption>
-            <span>01 · Topology</span>
-            <strong>Understand services and their relationships before changing them.</strong>
-            <small>Current product capture.</small>
-          </figcaption>
+          <figcaption>Real ChatGPT + GroundControl acceptance run.</figcaption>
         </figure>
-
-        <div className="evidence-grid">
-          <figure className="evidence-card">
-            <Image
-              src="/product/current-containers.png"
-              alt="Current GroundControl runtime containers view"
-              width={1440}
-              height={1000}
-              sizes="(max-width: 720px) 100vw, 46vw"
-            />
-            <figcaption>
-              <span>02 · Runtime</span>
-              <strong>See containers, health and what is actually alive.</strong>
-              <small>Runtime evidence stays separate from source assumptions.</small>
-            </figcaption>
-          </figure>
-
-          <figure className="evidence-card">
-            <Image
-              src="/product/current-terminal.png"
-              alt="Current GroundControl native PTY terminal"
-              width={1440}
-              height={1000}
-              sizes="(max-width: 720px) 100vw, 46vw"
-            />
-            <figcaption>
-              <span>03 · Terminal</span>
-              <strong>A real PTY for the operator, not an agent escape hatch.</strong>
-              <small>Tab, Ctrl+C, history, ANSI and persistent cwd.</small>
-            </figcaption>
-          </figure>
-        </div>
       </section>
 
-      <section className="features section-shell" id="product">
-        <div className="section-heading">
-          <p className="eyebrow">WHY AGENTS PREFER THE CONTROL PLANE</p>
+      <section className="capabilities section-shell" id="product">
+        <div className="section-heading" data-reveal>
+          <p className="eyebrow">WHAT GROUNDCONTROL GIVES THE AGENT</p>
           <h2>More reach. Less infrastructure-specific reasoning.</h2>
         </div>
-        <div className="feature-grid">
-          {features.map((feature) => (
-            <article key={feature.title}>
-              <h3>{feature.title}</h3>
-              <p>{feature.copy}</p>
-              <small>{feature.meta}</small>
+        <div className="capability-grid">
+          {capabilities.map(([title, copy, meta], index) => (
+            <article key={title} data-reveal style={{ transitionDelay: `${index * 55}ms` }}>
+              <span className="capability-index">0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+              <small>{meta}</small>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="ownership-section">
-        <div className="section-shell ownership-grid">
-          <div className="ownership-copy">
-            <p className="eyebrow">CONNECTORS AS CAPABILITIES</p>
-            <h2>“Configured” is not the same thing as healthy.</h2>
+      <section className="tools-band">
+        <div className="section-shell tools-layout">
+          <div data-reveal>
+            <p className="eyebrow">NARROW TOOL SURFACE</p>
+            <h2>Capabilities, not a bag of shell commands.</h2>
             <p>
-              GitHub repository reads, signed webhooks, repair PR permissions, GHCR pulls and Daytona sandbox
-              lifecycle are verified independently. GroundControl tells agents what works now and exactly what needs repair.
+              External agents do not get the human terminal. They get intent-level operations with resource scopes,
+              idempotency and evidence.
             </p>
-            <div className="mt-6 space-y-2 font-mono text-[10px] text-[var(--muted)]">
-              <p><span className="text-[var(--success)]">healthy</span> · repository read verified</p>
-              <p><span className="text-amber-300">unverified</span> · configured but not yet proven</p>
-              <p><span className="text-red-300">missing_scope</span> · reconnect with the capability required</p>
-            </div>
           </div>
+          <div className="tool-list" data-reveal>
+            {agentTools.map(([name, copy]) => (
+              <div key={name}>
+                <code>{name}</code>
+                <span>{copy}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <figure className="terminal-capture">
-            <Image
-              src="/product/current-dashboard.png"
-              alt="Current GroundControl operator dashboard"
-              width={1440}
-              height={1000}
-              sizes="(max-width: 980px) 100vw, 52vw"
-            />
-            <figcaption>
-              <strong>The public website is only the front door.</strong> Every operator gets their own GroundControl instance and private login plane.
-            </figcaption>
-          </figure>
+      <section className="connectors section-shell">
+        <div className="section-heading" data-reveal>
+          <p className="eyebrow">CONNECTORS AS CAPABILITIES</p>
+          <h2>Connect GitHub. Connect Repo. Prove what actually works.</h2>
+          <p>
+            Repository access, signed events, repair PR permissions, private GHCR pulls and Daytona sandbox
+            reproduction are verified independently. “Configured” does not get to cosplay as healthy.
+          </p>
+        </div>
+        <div className="connector-flow" data-reveal>
+          <span>Connect GitHub</span><i>→</i><span>Connect Repo</span><i>→</i><span>Deploy</span><i>→</i><span>Verify</span>
         </div>
       </section>
 
       <section className="install-section section-shell" id="install">
-        <div className="section-heading section-heading--split">
+        <div className="section-heading section-heading--split" data-reveal>
           <div>
             <p className="eyebrow">AGENT-ASSISTED INSTALL</p>
             <h2>Install mechanically. Claim ownership personally.</h2>
           </div>
           <p>
-            The installer runs on the VPS, generates secrets there, starts GroundControl on loopback and returns a
-            short-lived one-time claim. The installing agent never becomes the permanent administrator.
+            The installer runs on the authorized VPS, generates secrets there, starts GroundControl on loopback and
+            returns a short-lived one-time claim. The installing agent never becomes the permanent administrator.
           </p>
         </div>
-
         <InstallConsole />
-
-        <div className="mt-5 grid gap-3 md:grid-cols-4">
+        <div className="install-steps">
           {[
-            ["1", "Install", "Agent or operator runs the canonical installer on the authorized VPS."],
-            ["2", "Claim", "Human opens the short-lived claim URL and creates the first administrator."],
-            ["3", "Publish", "Attach your domain/reverse proxy or keep the instance private."],
-            ["4", "Connect agent", "Add the instance MCP URL to ChatGPT and approve the exact scope."],
-          ].map(([step, title, copy]) => (
-            <article key={step} className="border border-[var(--line)] bg-[var(--deep)] p-4">
-              <span className="font-mono text-[9px] text-[var(--accent-bright)]">{step}</span>
-              <strong className="mt-3 block text-sm">{title}</strong>
-              <p className="mt-2 text-xs leading-5 text-[var(--muted)]">{copy}</p>
+            ["01", "Install", "Run the canonical installer on the VPS."],
+            ["02", "Claim", "Human creates the first administrator."],
+            ["03", "Publish", "Attach HTTPS/domain or keep it private."],
+            ["04", "Connect agent", "Approve the exact MCP scope."],
+          ].map(([step, title, copy], index) => (
+            <article key={step} data-reveal style={{ transitionDelay: `${index * 65}ms` }}>
+              <span>{step}</span>
+              <strong>{title}</strong>
+              <p>{copy}</p>
             </article>
           ))}
         </div>
-
-        <p className="mt-5 max-w-3xl text-xs leading-6 text-[var(--dim)]">
-          A fresh install binds locally first. GroundControl should be published through HTTPS before you use the
-          operator login over the public internet. Domain/bridge automation is the next distribution step.
-        </p>
       </section>
 
-      <section className="final-cta section-shell">
+      <section className="final-cta section-shell" data-reveal>
         <p className="eyebrow">YOUR INFRASTRUCTURE, NOW AGENT-ADDRESSABLE</p>
         <h2>Build anywhere. Let GroundControl operate what you ship.</h2>
-        <p className="final-cta-copy">
-          The agent gets typed capabilities and evidence. You keep ownership, credentials and the private control plane.
+        <p>
+          Your agent gets bounded reach and operational evidence. You keep ownership, credentials and the private
+          control plane.
         </p>
         <div className="hero-actions">
           <button type="button" className="button button--primary" onClick={scrollToInstall}>
             Install GroundControl <Arrow />
           </button>
           <a className="button button--secondary" href={GITHUB_URL} target="_blank" rel="noreferrer">
-            View source
+            GitHub
           </a>
         </div>
       </section>
 
       <footer className="section-shell">
         <a className="wordmark" href="#top">
-          <span className="brand-mark" aria-hidden="true">GC</span>
+          <span className="orbit-mark" aria-hidden="true"><i /></span>
           <span>GroundControl</span>
         </a>
-        <p>A Serendepify product. Open source, self-hosted and single tenant.</p>
+        <p>A Serendepify product. Open source, self-hosted, single tenant.</p>
         <div>
           <a href="#install">Install</a>
           <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
