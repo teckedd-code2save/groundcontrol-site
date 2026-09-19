@@ -14,19 +14,28 @@ describe("Home page", () => {
     expect(screen.getByText(/single tenant/i)).toBeInTheDocument();
   });
 
-  it("does not send visitors into the private operator login", () => {
+  it("keeps the public site separate from the private operator login", () => {
     render(<Home />);
     const links = screen.getAllByRole("link");
-    expect(links.some((link) => link.getAttribute("href") === "https://groundcontrol.serendepify.com")).toBe(false);
+    expect(
+      links.some((link) => link.getAttribute("href") === "https://groundcontrol.serendepify.com"),
+    ).toBe(false);
   });
 
-  it("uses current GroundControl product captures", () => {
+  it("uses the fresh September MCP and durable-operation proof", () => {
     render(<Home />);
-    expect(screen.getByAltText(/current GroundControl dashboard/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/current GroundControl infrastructure/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/current GroundControl topology/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/current GroundControl runtime containers/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/current GroundControl native PTY terminal/i)).toBeInTheDocument();
+    expect(
+      screen.getByAltText(/active ChatGPT OAuth grant with scoped deployment capabilities/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByAltText(/successful GroundControl redeploy with an operation ID/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByAltText(/successful GroundControl redeploy evidence returned inside ChatGPT/i),
+    ).toBeInTheDocument();
+
+    expect(screen.queryByAltText(/current GroundControl dashboard/i)).not.toBeInTheDocument();
+    expect(screen.queryByAltText(/current GroundControl topology/i)).not.toBeInTheDocument();
   });
 
   it("shows the scoped MCP tool surface", () => {
@@ -67,7 +76,10 @@ describe("Home page", () => {
 
   it("copies the active install command", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
-    Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
+    Object.defineProperty(navigator, "clipboard", {
+      value: { writeText },
+      configurable: true,
+    });
 
     render(<Home />);
     fireEvent.click(screen.getByRole("button", { name: "Copy installation command" }));
