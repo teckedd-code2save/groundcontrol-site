@@ -22,20 +22,30 @@ describe("Home page", () => {
     ).toBe(false);
   });
 
-  it("uses the fresh September MCP and durable-operation proof", () => {
+  it("uses three current September proof frames in both motion and readable sections", () => {
     render(<Home />);
+
     expect(
-      screen.getByAltText(/active ChatGPT OAuth grant with scoped deployment capabilities/i),
-    ).toBeInTheDocument();
+      screen.getAllByAltText(/active ChatGPT OAuth grant with scoped deployment capabilities/i).length,
+    ).toBeGreaterThanOrEqual(2);
     expect(
-      screen.getByAltText(/successful GroundControl redeploy with an operation ID/i),
-    ).toBeInTheDocument();
+      screen.getAllByAltText(/live GroundControl health check for RentAWeekend/i).length,
+    ).toBeGreaterThanOrEqual(2);
     expect(
-      screen.getByAltText(/successful GroundControl redeploy evidence returned inside ChatGPT/i),
-    ).toBeInTheDocument();
+      screen.getAllByAltText(/successful GroundControl redeploy with an operation ID/i).length,
+    ).toBeGreaterThanOrEqual(2);
 
     expect(screen.queryByAltText(/current GroundControl dashboard/i)).not.toBeInTheDocument();
     expect(screen.queryByAltText(/current GroundControl topology/i)).not.toBeInTheDocument();
+  });
+
+  it("keeps an image frame visible if a product capture fails to load", () => {
+    render(<Home />);
+    const image = screen.getAllByAltText(/live GroundControl health check for RentAWeekend/i)[0];
+    fireEvent.error(image);
+
+    expect(screen.getByText("Capture unavailable")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /health check.*unavailable/i })).toBeInTheDocument();
   });
 
   it("shows the scoped MCP tool surface", () => {
