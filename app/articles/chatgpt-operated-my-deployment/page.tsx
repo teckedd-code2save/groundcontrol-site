@@ -37,13 +37,13 @@ export default function ArticlePage() {
 
         <div className="article-body">
           <p>
-            Most AI infrastructure demos begin by placing a model in front of a terminal. That is
-            impressive, but it is the wrong trust boundary for production.
+            ChatGPT deployed a real production application for me. It inspected the deployment,
+            followed the work and confirmed that the public application was healthy.
           </p>
           <p>
-            I built GroundControl around a narrower idea: an agent should ask for an operational
-            outcome, while a control plane owns credentials, policy, execution, verification and
-            rollback.
+            It did this without repeatedly stopping to ask for permission, without asking me to
+            paste credentials, and without receiving an SSH key. One scoped OAuth grant gave it a
+            smooth operational path; GroundControl made every action bounded and observable.
           </p>
 
           <h2>The test</h2>

@@ -7,25 +7,25 @@ const guides = [
     label: "START HERE",
     title: "Adopt GroundControl",
     copy: "Install privately, claim the instance, connect one deployment, grant an agent scoped access and run a safe first pilot.",
-    href: `${SOURCE}/blob/main/docs/ADOPTION.md`,
+    href: "/docs/getting-started",
   },
   {
     label: "DEPLOYMENT",
     title: "Deployment automation and Daytona",
     copy: "Understand the merge-to-deploy contract, durable operations, verification boundary and isolated reproduction path.",
-    href: `${SOURCE}/blob/main/docs/DEPLOYMENT-AUTOMATION-AND-DAYTONA.md`,
+    href: "/docs/deployment-automation",
   },
   {
     label: "DISTRIBUTION",
     title: "Agent-assisted distribution",
     copy: "Review private-first installation, one-time ownership claim, publishing, upgrades, rollback and uninstall.",
-    href: `${SOURCE}/blob/main/docs/agent-assisted-distribution.md`,
+    href: "/docs/distribution",
   },
   {
     label: "EVIDENCE",
-    title: "Clean-host acceptance",
-    copy: "Read the exact checks and redacted evidence behind the current distribution claim.",
-    href: `${SOURCE}/blob/main/docs/acceptance/distribution-2026-09-21.md`,
+    title: "Agent access with OAuth and MCP",
+    copy: "See how grants bind typed capabilities to selected deployments while infrastructure credentials stay private.",
+    href: "/docs/agent-access",
   },
 ] as const;
 
@@ -60,12 +60,12 @@ export default function DocsPage() {
 
       <section className="doc-grid" aria-label="GroundControl documentation">
         {guides.map((guide, index) => (
-          <a key={guide.title} href={guide.href} target="_blank" rel="noreferrer">
+          <Link key={guide.title} href={guide.href}>
             <span>0{index + 1} · {guide.label}</span>
             <h2>{guide.title}</h2>
             <p>{guide.copy}</p>
-            <strong>Read on GitHub ↗</strong>
-          </a>
+            <strong>Read guide →</strong>
+          </Link>
         ))}
       </section>
 
