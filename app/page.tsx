@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const GITHUB_URL = "https://github.com/teckedd-code2save/groundcontrol";
@@ -46,76 +45,12 @@ const capabilities = [
   ["Single tenant", "Every install is your own private control plane on infrastructure you own.", "self-hosted"],
 ] as const;
 
-const proofFrames = [
-  {
-    step: "01",
-    label: "AUTHORIZE",
-    src: "/product/agent-access.webp",
-    alt: "GroundControl showing an active ChatGPT OAuth grant with scoped deployment capabilities",
-    title: "Give the agent a bounded operating envelope.",
-    copy: "ChatGPT gets exact deployment and capability scopes. SSH keys and provider credentials stay inside your control plane.",
-  },
-  {
-    step: "02",
-    label: "VERIFY",
-    src: "/product/assistant-health-check.webp",
-    alt: "ChatGPT showing a live GroundControl health check for RentAWeekend with healthy containers and HTTP 200",
-    title: "Read the live deployment state.",
-    copy: "GroundControl resolves containers, runtime health and the public endpoint before the agent forms a conclusion.",
-  },
-  {
-    step: "03",
-    label: "OPERATE",
-    src: "/product/redeploy-proof.webp",
-    alt: "ChatGPT reporting a successful GroundControl redeploy with an operation ID and verification evidence",
-    title: "Let GroundControl own the operation.",
-    copy: "Redeploy returns a durable operation ID, continues independently of the chat, then records verification evidence.",
-  },
-] as const;
-
 function Arrow() {
   return <span aria-hidden="true">↗</span>;
 }
 
 function scrollToInstall() {
   document.getElementById("install")?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function SafeProofImage({
-  src,
-  alt,
-  className = "",
-  sizes,
-}: {
-  src: string;
-  alt: string;
-  className?: string;
-  sizes?: string;
-}) {
-  const [failed, setFailed] = useState(false);
-
-  if (failed) {
-    return (
-      <div className={`proof-image-fallback ${className}`} role="img" aria-label={`${alt} unavailable`}>
-        <span>LIVE PRODUCT PROOF</span>
-        <strong>Capture unavailable</strong>
-        <small>The frame stays visible instead of collapsing.</small>
-      </div>
-    );
-  }
-
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={360}
-      height={780}
-      sizes={sizes}
-      className={className}
-      unoptimized
-      onError={() => setFailed(true)}
-    />
-  );
 }
 
 function InstallConsole() {
@@ -161,172 +96,6 @@ function InstallConsole() {
     </div>
   );
 }
-
-function MotionGrid() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const rect = section.getBoundingClientRect();
-      const travel = Math.max(1, section.offsetHeight - window.innerHeight);
-      setProgress(Math.min(1, Math.max(0, -rect.top / travel)));
-    };
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  const eased = progress * progress * (3 - 2 * progress);
-  const compact = { left: 57, top: 18, width: 29, height: 68 };
-  const expanded = { left: 4.5, top: 6, width: 91, height: 86 };
-  const frame = {
-    left: compact.left + (expanded.left - compact.left) * eased,
-    top: compact.top + (expanded.top - compact.top) * eased,
-    width: compact.width + (expanded.width - compact.width) * eased,
-    height: compact.height + (expanded.height - compact.height) * eased,
-  };
-  const spread = Math.min(1, Math.max(0, (progress - 0.14) / 0.48));
-  const finalOpacity = Math.min(1, Math.max(0, (progress - 0.7) * 4));
-
-  return (
-    <section className="motion-grid-section" ref={sectionRef} id="agents">
-      <div className="motion-grid-pin">
-        <div className="motion-grid-lines" aria-hidden="true" />
-        <div className="motion-grid-crosshairs" aria-hidden="true">
-          {Array.from({ length: 12 }).map((_, index) => <i key={index} />)}
-        </div>
-
-        <div
-          className="motion-grid-copy"
-          style={{
-            opacity: Math.max(0, 1 - progress * 2.15),
-            transform: `translateY(${-22 * progress}px)`,
-          }}
-        >
-          <p className="eyebrow">CHATGPT + GROUNDCONTROL</p>
-          <h2>Your agent gets a bounded operating envelope.</h2>
-          <p>
-            Connect once through OAuth. Choose the exact deployments and capabilities.
-            GroundControl keeps the credentials and executes the work.
-          </p>
-        </div>
-
-        <div
-          className="motion-proof-stage"
-          style={{
-            left: `${frame.left}%`,
-            top: `${frame.top}%`,
-            width: `${frame.width}%`,
-            height: `${frame.height}%`,
-          }}
-        >
-          {proofFrames.map((proof, index) => {
-            const offset = (index - 1) * 34 * spread;
-            const opacity = index === 0
-              ? 1
-              : Math.min(1, Math.max(0, spread * 1.35 - (index === 2 ? 0.1 : 0)));
-            const scale = 1 - (index === 1 ? 0 : 0.06 * spread);
-            const rotation = index === 0 ? -2.5 * spread : index === 2 ? 2.5 * spread : 0;
-
-            return (
-              <figure
-                key={proof.step}
-                className={`motion-proof-card motion-proof-card--${index}`}
-                style={{
-                  left: `calc(50% + ${offset}%)`,
-                  opacity,
-                  transform: `translateX(-50%) scale(${scale}) rotate(${rotation}deg)`,
-                  zIndex: index === 1 ? 4 : 3,
-                }}
-              >
-                <div className="motion-proof-rail">
-                  <span>{proof.step}</span>
-                  <strong>{proof.label}</strong>
-                  <i aria-hidden="true" />
-                </div>
-                <div className="motion-proof-image">
-                  <SafeProofImage
-                    src={proof.src}
-                    alt={proof.alt}
-                    sizes="(max-width: 720px) 74vw, 320px"
-                  />
-                </div>
-              </figure>
-            );
-          })}
-
-          <div className="motion-stage-vignette" style={{ opacity: Math.max(0, (progress - 0.48) * 1.4) }} />
-        </div>
-
-        <div className="motion-grid-final" style={{ opacity: finalOpacity }}>
-          <p className="eyebrow">THE RESULT</p>
-          <h3>Authorize. Verify. Operate. GroundControl keeps the evidence.</h3>
-          <div className="motion-metrics">
-            <span><strong>OAuth</strong> scoped access</span>
-            <span><strong>HTTP 200</strong> live health</span>
-            <span><strong>Operation ID</strong> durable work</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProofSequence() {
-  return (
-    <section className="proof-sequence section-shell">
-      <div className="section-heading" data-reveal>
-        <p className="eyebrow">LIVE ACCEPTANCE · SEPTEMBER 2026</p>
-        <h2>See the live agent workflow end to end.</h2>
-        <p>
-          These are the live steps that moved through ChatGPT and GroundControl:
-          a scoped grant, a real health read, and a verified redeploy.
-        </p>
-      </div>
-
-      <div className="proof-sequence-grid">
-        {proofFrames.map((proof, index) => (
-          <article
-            key={proof.step}
-            className="proof-reveal-card"
-            data-reveal
-            style={{ transitionDelay: `${index * 70}ms` }}
-          >
-            <div className="proof-reveal-meta">
-              <span>{proof.step}</span>
-              <strong>{proof.label}</strong>
-            </div>
-            <div className="proof-reveal-window">
-              <SafeProofImage
-                src={proof.src}
-                alt={proof.alt}
-                sizes="(max-width: 720px) 82vw, 310px"
-              />
-            </div>
-            <h3>{proof.title}</h3>
-            <p>{proof.copy}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 
 function DeploymentEvidence() {
   const evidence = [
