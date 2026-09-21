@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const GITHUB_URL = "https://github.com/teckedd-code2save/groundcontrol";
 const INSTALL_URL =
@@ -144,9 +146,34 @@ function DeploymentEvidence() {
         ))}
       </div>
 
+      <div className="proof-gallery" data-reveal>
+        <figure>
+          <div className="proof-capture">
+            <Image src="/proof/oauth-scoped-grant.jpg" alt="GroundControl OAuth screen granting ChatGPT selected deployment capabilities" width={710} height={1536} />
+          </div>
+          <figcaption><strong>01 · AUTHORIZE</strong><span>The operator selects both capabilities and deployments. Everything else remains invisible.</span></figcaption>
+        </figure>
+        <figure className="proof-live-card">
+          <div className="proof-live-head"><span>FRESH MCP CHECK</span><i>HEALTHY</i></div>
+          <div className="proof-live-body">
+            <p><span>deployment</span><strong>rentaweekend</strong></p>
+            <p><span>runtime</span><strong>4 / 4 healthy</strong></p>
+            <p><span>public endpoint</span><strong>HTTP 200</strong></p>
+            <pre>{`ChatGPT → deployment.health\nweb       healthy\napi       healthy\npostgres  healthy\nredis     healthy\npublic    200 OK`}</pre>
+          </div>
+          <figcaption><strong>02 · OPERATE</strong><span>A live read through the scoped OAuth/MCP grant on 21 September 2026—no SSH session or credential handoff.</span></figcaption>
+        </figure>
+        <figure>
+          <div className="proof-capture">
+            <Image src="/proof/rentaweekend-live.jpg" alt="The live RentAWeekend application after its verified deployment" width={710} height={1536} />
+          </div>
+          <figcaption><strong>03 · VERIFY</strong><span>The application GroundControl deployed and checked at its public endpoint.</span></figcaption>
+        </figure>
+      </div>
+
       <div className="proof-actions" data-reveal>
-        <a href="/articles/chatgpt-operated-my-deployment">Read the deployment story <Arrow /></a>
-        <a href="/docs">Open technical docs <Arrow /></a>
+        <Link href="/articles/chatgpt-operated-my-deployment">Read the deployment story <Arrow /></Link>
+        <Link href="/docs">Open technical docs <Arrow /></Link>
         <a href="https://github.com/teckedd-code2save/groundcontrol/actions/runs/35617805067" target="_blank" rel="noreferrer">
           View acceptance run <Arrow />
         </a>
@@ -188,8 +215,8 @@ export default function Home() {
         </a>
         <nav aria-label="Primary navigation">
           <a href="#proof">How it works</a>
-          <a href="/docs">Docs</a>
-          <a href="/articles/chatgpt-operated-my-deployment">Article</a>
+          <Link href="/docs">Docs</Link>
+          <Link href="/articles/chatgpt-operated-my-deployment">Article</Link>
           <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub <Arrow /></a>
         </nav>
       </header>
@@ -203,13 +230,13 @@ export default function Home() {
         <div className="hero-shade" aria-hidden="true" />
         <div className="hero-private-inner">
           <p className="eyebrow hero-kicker">OPEN-SOURCE AGENTIC DEPLOYMENT · MCP + OAUTH</p>
-          <h1 aria-label="Agentic deployment for infrastructure you own.">
-            <span className="line-mask"><span className="line-inner">Agentic deployment</span></span>
-            <span className="line-mask"><span className="line-inner line-inner--accent">for infrastructure you own.</span></span>
+          <h1 aria-label="Give AI agents controlled access to deploy.">
+            <span className="line-mask"><span className="line-inner">Give AI agents controlled</span></span>
+            <span className="line-mask"><span className="line-inner line-inner--accent">access to deploy.</span></span>
           </h1>
           <p className="hero-private-copy fade-in-seq">
-            GroundControl lets ChatGPT and other approved agents inspect, deploy and verify Docker Compose applications
-            through scoped OAuth and MCP access. Your SSH keys and provider credentials stay private.
+            No repeated permission prompts. No credential handoffs. GroundControl makes deployment safe, smooth,
+            observable and agentic—so ChatGPT can inspect, deploy, follow progress and verify the result through one scoped OAuth grant.
           </p>
           <div className="hero-actions fade-in-seq">
             <button type="button" className="button button--primary" onClick={scrollToInstall}>
@@ -349,8 +376,8 @@ export default function Home() {
         </a>
         <p>A Serendepify product. Open source, self-hosted, single tenant.</p>
         <div>
-          <a href="/docs">Docs</a>
-          <a href="/articles/chatgpt-operated-my-deployment">Article</a>
+          <Link href="/docs">Docs</Link>
+          <Link href="/articles/chatgpt-operated-my-deployment">Article</Link>
           <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </footer>

@@ -10,20 +10,21 @@ describe("GroundControl public site", () => {
   it("states the open-source agentic deployment product clearly", () => {
     render(<Home />);
     expect(
-      screen.getByRole("heading", { level: 1, name: /agentic deployment for infrastructure you own/i }),
+      screen.getByRole("heading", { level: 1, name: /give AI agents controlled access to deploy/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/scoped OAuth and MCP access/i)).toBeInTheDocument();
-    expect(screen.getByText(/SSH keys and provider credentials stay private/i)).toBeInTheDocument();
+    expect(screen.getByText(/No repeated permission prompts/i)).toBeInTheDocument();
+    expect(screen.getByText(/one scoped OAuth grant/i)).toBeInTheDocument();
   });
 
-  it("shows a real text evidence chain without broken image frames", () => {
+  it("shows a real evidence chain with authentic proof images", () => {
     render(<Home />);
     expect(screen.getByText(/operation cmubbc14l/i)).toBeInTheDocument();
     expect(screen.getByText(/HTTP 200 · 99 ms/i)).toBeInTheDocument();
     expect(screen.getByText(/one attempt with no recorded error/i)).toBeInTheDocument();
     expect(screen.queryByText(/capture unavailable/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Daytona remains an early-access/i)).not.toBeInTheDocument();
-    expect(screen.queryByAltText(/ChatGPT OAuth grant/i)).not.toBeInTheDocument();
+    expect(screen.getByAltText(/OAuth screen granting ChatGPT/i)).toHaveAttribute("src", expect.stringContaining("oauth-scoped-grant.jpg"));
+    expect(screen.getByAltText(/live RentAWeekend application/i)).toHaveAttribute("src", expect.stringContaining("rentaweekend-live.jpg"));
   });
 
   it("links public documentation and the technical article", () => {
@@ -86,7 +87,8 @@ describe("GroundControl public site", () => {
     render(<DocsPage />);
     expect(screen.getByRole("heading", { name: /install it\. connect one deployment/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Adopt GroundControl" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Clean-host acceptance" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Agent access with OAuth and MCP" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Adopt GroundControl/i })).toHaveAttribute("href", "/docs/getting-started");
   });
 
   it("publishes the complete technical article", () => {
