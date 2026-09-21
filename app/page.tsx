@@ -375,11 +375,13 @@ function DeploymentEvidence() {
         ))}
       </div>
 
-      <p className="evidence-note" data-reveal>
-        Verified on RentAWeekend in September 2026. Daytona remains an early-access,
-        isolated reproduction path for eligible code and configuration failures—not the
-        production runtime.
-      </p>
+      <div className="proof-actions" data-reveal>
+        <a href="/articles/chatgpt-operated-my-deployment">Read the deployment story <Arrow /></a>
+        <a href="/docs">Open technical docs <Arrow /></a>
+        <a href="https://github.com/teckedd-code2save/groundcontrol/actions/runs/35617805067" target="_blank" rel="noreferrer">
+          View acceptance run <Arrow />
+        </a>
+      </div>
     </section>
   );
 }
@@ -416,9 +418,9 @@ export default function Home() {
           <span>GroundControl</span>
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#agents">Agents</a>
-          <a href="#proof">Proof</a>
-          <a href="#install">Install</a>
+          <a href="#proof">How it works</a>
+          <a href="/docs">Docs</a>
+          <a href="/articles/chatgpt-operated-my-deployment">Article</a>
           <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub <Arrow /></a>
         </nav>
       </header>
@@ -431,14 +433,14 @@ export default function Home() {
         </div>
         <div className="hero-shade" aria-hidden="true" />
         <div className="hero-private-inner">
-          <p className="eyebrow hero-kicker">SELF-HOSTED CONTROL PLANE FOR SOFTWARE AGENTS</p>
-          <h1 aria-label="Give your agents infrastructure arms.">
-            <span className="line-mask"><span className="line-inner">Give your agents</span></span>
-            <span className="line-mask"><span className="line-inner line-inner--accent">infrastructure arms.</span></span>
+          <p className="eyebrow hero-kicker">OPEN-SOURCE AGENTIC DEPLOYMENT · MCP + OAUTH</p>
+          <h1 aria-label="Agentic deployment for infrastructure you own.">
+            <span className="line-mask"><span className="line-inner">Agentic deployment</span></span>
+            <span className="line-mask"><span className="line-inner line-inner--accent">for infrastructure you own.</span></span>
           </h1>
           <p className="hero-private-copy fade-in-seq">
-            GroundControl gives ChatGPT and other approved agents typed deployment, runtime and recovery capabilities
-            on infrastructure you own. SSH keys and provider credentials stay inside your control plane.
+            GroundControl lets ChatGPT and other approved agents inspect, deploy and verify Docker Compose applications
+            through scoped OAuth and MCP access. Your SSH keys and provider credentials stay private.
           </p>
           <div className="hero-actions fade-in-seq">
             <button type="button" className="button button--primary" onClick={scrollToInstall}>
@@ -455,7 +457,7 @@ export default function Home() {
             <span>Agent-assisted install</span>
           </div>
         </div>
-        <a href="#agents" className="scroll-cue" aria-label="Scroll to agent workflow">
+        <a href="#proof" className="scroll-cue" aria-label="Scroll to deployment workflow">
           <span />
           Scroll
         </a>
@@ -472,9 +474,7 @@ export default function Home() {
         </div>
       </section>
 
-      <MotionGrid />
       <DeploymentEvidence />
-      <ProofSequence />
 
       <section className="capabilities section-shell" id="product">
         <div className="section-heading" data-reveal>
@@ -580,7 +580,8 @@ export default function Home() {
         </a>
         <p>A Serendepify product. Open source, self-hosted, single tenant.</p>
         <div>
-          <a href="#install">Install</a>
+          <a href="/docs">Docs</a>
+          <a href="/articles/chatgpt-operated-my-deployment">Article</a>
           <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </footer>
