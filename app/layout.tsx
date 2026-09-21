@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GroundControl — Infrastructure arms for software agents",
+  title: "GroundControl — Open-source agentic deployment with MCP + OAuth",
   description:
-    "Connect ChatGPT and other software agents to scoped deployment, runtime and recovery capabilities on infrastructure you own.",
+    "Open-source agentic deployment for Docker Compose infrastructure, with scoped OAuth and MCP access for ChatGPT and other software agents.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
