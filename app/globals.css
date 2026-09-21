@@ -803,3 +803,74 @@ footer > div { justify-self: end; display: flex; gap: 22px; }
     opacity: 1 !important;
   }
 }
+
+
+/* Compact evidence chain for the verified ChatGPT deployment flow. */
+.deployment-evidence {
+  padding-block: 130px;
+  border-top: 1px solid var(--line);
+}
+.deployment-evidence .section-heading {
+  max-width: 860px;
+}
+.evidence-chain {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line-strong);
+  border-left: 1px solid var(--line);
+}
+.evidence-chain article {
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 36px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--darker);
+}
+.evidence-meta {
+  display: flex;
+  justify-content: space-between;
+  color: var(--dim);
+  font: 560 9px/1 var(--font-geist-mono);
+  letter-spacing: .08em;
+}
+.evidence-meta strong {
+  color: var(--accent-bright);
+  font-weight: 600;
+}
+.evidence-chain h3 {
+  margin: 46px 0 0;
+  max-width: 310px;
+  font-size: 23px;
+  font-weight: 420;
+  line-height: 1.18;
+  letter-spacing: -.035em;
+}
+.evidence-chain p {
+  margin: 16px 0 28px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.evidence-chain code {
+  margin-top: auto;
+  color: var(--success);
+  font: 560 10px/1.4 var(--font-geist-mono);
+}
+.evidence-note {
+  max-width: 760px;
+  margin: 24px 0 0;
+  color: var(--dim);
+  font: 500 10px/1.7 var(--font-geist-mono);
+}
+
+@media (max-width: 900px) {
+  .evidence-chain { grid-template-columns: 1fr; }
+  .evidence-chain article { min-height: 250px; }
+}
+
+@media (max-width: 720px) {
+  .deployment-evidence { padding-block: 88px; }
+  .evidence-chain h3 { margin-top: 34px; }
+}
