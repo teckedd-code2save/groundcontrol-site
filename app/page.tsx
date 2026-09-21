@@ -327,6 +327,63 @@ function ProofSequence() {
   );
 }
 
+
+function DeploymentEvidence() {
+  const evidence = [
+    {
+      label: "REQUEST",
+      title: "ChatGPT asked GroundControl to operate one deployment.",
+      copy: "The OAuth grant exposed only the selected workload and typed deployment capabilities. VPS credentials never entered the chat.",
+      value: "scoped access",
+    },
+    {
+      label: "TRIGGER",
+      title: "A signed merge event became durable work.",
+      copy: "A push to the allowed RentAWeekend main branch created a deployment.source.deploy operation tied to the exact revision.",
+      value: "operation cmubbc14l…",
+    },
+    {
+      label: "VERIFY",
+      title: "GroundControl checked the customer outcome.",
+      copy: "The operation completed in one attempt with no recorded error. Web, API, PostgreSQL and Redis were healthy, and the public route returned HTTP 200.",
+      value: "HTTP 200 · 99 ms",
+    },
+  ] as const;
+
+  return (
+    <section className="deployment-evidence section-shell" id="proof">
+      <div className="section-heading" data-reveal>
+        <p className="eyebrow">ONE REAL REQUEST · COMPLETE EVIDENCE CHAIN</p>
+        <h2>ChatGPT did more than call a deploy endpoint.</h2>
+        <p>
+          It used GroundControl to stay inside policy, start durable work, reconnect to the
+          operation, and report the verified customer-facing result.
+        </p>
+      </div>
+
+      <div className="evidence-chain">
+        {evidence.map((item, index) => (
+          <article key={item.label} data-reveal style={{ transitionDelay: `${index * 70}ms` }}>
+            <div className="evidence-meta">
+              <span>0{index + 1}</span>
+              <strong>{item.label}</strong>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.copy}</p>
+            <code>{item.value}</code>
+          </article>
+        ))}
+      </div>
+
+      <p className="evidence-note" data-reveal>
+        Verified on RentAWeekend in September 2026. Daytona remains an early-access,
+        isolated reproduction path for eligible code and configuration failures—not the
+        production runtime.
+      </p>
+    </section>
+  );
+}
+
 export default function Home() {
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -360,7 +417,7 @@ export default function Home() {
         </a>
         <nav aria-label="Primary navigation">
           <a href="#agents">Agents</a>
-          <a href="#product">Product</a>
+          <a href="#proof">Proof</a>
           <a href="#install">Install</a>
           <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub <Arrow /></a>
         </nav>
@@ -416,6 +473,7 @@ export default function Home() {
       </section>
 
       <MotionGrid />
+      <DeploymentEvidence />
       <ProofSequence />
 
       <section className="capabilities section-shell" id="product">

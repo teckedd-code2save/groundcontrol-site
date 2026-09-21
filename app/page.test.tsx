@@ -68,6 +68,17 @@ describe("Home page", () => {
     expect(operate).toHaveAttribute("src", "/product/redeploy-proof.webp");
   });
 
+  it("shows the verified ChatGPT deployment evidence chain", () => {
+    render(<Home />);
+    expect(
+      screen.getByRole("heading", { name: /ChatGPT did more than call a deploy endpoint/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/operation cmubbc14l/i)).toBeInTheDocument();
+    expect(screen.getByText(/HTTP 200 · 99 ms/i)).toBeInTheDocument();
+    expect(screen.getByText(/one attempt with no recorded error/i)).toBeInTheDocument();
+    expect(screen.getByText(/Daytona remains an early-access/i)).toBeInTheDocument();
+  });
+
   it("shows the scoped MCP tool surface", () => {
     render(<Home />);
     expect(screen.getByText("deployment.list")).toBeInTheDocument();

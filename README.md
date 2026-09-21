@@ -17,6 +17,19 @@ GroundControl gives software agents bounded infrastructure capabilities through 
 
 Fresh installs use the canonical on-host installer and a one-time human ownership claim.
 
+## Verified deployment proof
+
+In September 2026, ChatGPT used a scoped GroundControl grant to operate the enrolled RentAWeekend deployment:
+
+- a signed push to the allowed `main` branch created durable operation `cmubbc14l0002tjpa0r56r1sm`;
+- the operation completed in one attempt with no recorded error;
+- web, API, PostgreSQL and Redis were healthy;
+- the public route returned HTTP 200 at approximately 99 ms during verification;
+- VPS credentials and secret values remained outside the agent tool surface.
+
+The full deployment and Daytona contract is maintained in the main repository at
+[`docs/DEPLOYMENT-AUTOMATION-AND-DAYTONA.md`](https://github.com/teckedd-code2save/groundcontrol/blob/main/docs/DEPLOYMENT-AUTOMATION-AND-DAYTONA.md).
+
 ## Install
 
 Human-readable:
