@@ -13,11 +13,11 @@ export function Header() {
         <Link href="/docs">Docs</Link>
         <Link href="/articles/chatgpt-operated-my-deployment">Field notes</Link>
         <a href={SOURCE} target="_blank" rel="noreferrer">
-          View source ↗
+          View source ↗︎
         </a>
       </nav>
       <Link className="button compact" href="/docs/agent-access">
-        Connect ChatGPT <span aria-hidden="true">↗</span>
+        Connect ChatGPT <span aria-hidden="true">↗︎</span>
       </Link>
     </header>
   );
@@ -39,7 +39,7 @@ export function Footer() {
         <Link href="/docs/getting-started">Installation</Link>
         <Link href="/docs/agent-access">Connect ChatGPT</Link>
         <Link href="/docs/evidence">Evidence</Link>
-        <a href={SOURCE}>View source ↗</a>
+        <a href={SOURCE}>View source ↗︎</a>
       </nav>
       <span className="mono">Built for infrastructure you own.</span>
     </footer>

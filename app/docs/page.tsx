@@ -51,7 +51,7 @@ export default function DocsPage() {
                   <h3>{g.title}</h3>
                   <p>{g.description}</p>
                 </div>
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">↗︎</span>
               </Link>
             ))}
           </section>

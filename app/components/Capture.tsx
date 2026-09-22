@@ -30,7 +30,7 @@ export default function Capture({
       <figcaption>
         <span>{caption}</span>
         <a href={`/proof/${file}`} target="_blank" rel="noreferrer">
-          Enlarge ↗
+          Enlarge ↗︎
         </a>
       </figcaption>
     </figure>

@@ -16,9 +16,9 @@ export default function ArticlePage() {
         <header className="article-header">
           <p className="eyebrow">FIELD NOTES / 001 · BUILDING IN PUBLIC</p>
           <h1>
-            Giving ChatGPT a real
+            GroundControl brings agentic
             <br />
-            role in deployment.
+            deployment to ChatGPT.
           </h1>
           <p className="article-subtitle">
             GroundControl is an open-source agentic deployment tool with OAuth
@@ -245,7 +245,7 @@ export default function ArticlePage() {
               </p>
               <div className="article-cta">
                 <Link className="button" href="/docs/getting-started">
-                  Start the walkthrough ↗
+                  Start the walkthrough ↗︎
                 </Link>
                 <Link className="text-link" href="/docs/agent-access">
                   Already installed? Connect ChatGPT →
