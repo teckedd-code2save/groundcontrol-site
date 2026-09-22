@@ -1,0 +1,28 @@
+{
+  "provenance": "Selected fields from operation.get retrieved through the Ground Control MCP connection in ChatGPT on 22 September 2026. Host paths, environment fingerprints and delivery identifiers omitted.",
+  "operation": {
+    "id": "cmubbc14l0002tjpa0r56r1sm",
+    "type": "deployment.source.deploy",
+    "status": "success",
+    "attempts": 1,
+    "error": null,
+    "createdAt": "2026-09-21T14:00:45.238Z",
+    "startedAt": "2026-09-21T14:00:46.192Z",
+    "finishedAt": "2026-09-21T14:03:16.791Z",
+    "sourceSync": {
+      "repository": "teckedd-code2save/RentAWeekend",
+      "branch": "main",
+      "commitSha": "468acf8d69821cf2c83af1629ee853325354a306"
+    },
+    "selectedEvidenceLines": [
+      "[build] Building Compose services on the deployment host",
+      "[build] Host build completed",
+      "[verify] api: expected ghcr.io/teckedd-code2save/rentaweekend-api:0661793317ffeafd5b6740ee3bea0884336a0d26",
+      "[verify] api: running ghcr.io/teckedd-code2save/rentaweekend-api:0661793317ffeafd5b6740ee3bea0884336a0d26",
+      "[verify] Service images and runtime states match the effective Compose configuration",
+      "[check] Public endpoint: HTTP 200 passed",
+      "[public] Public endpoint verified",
+      "[check] Release verification passed"
+    ]
+  }
+}

@@ -1,46 +1,25 @@
-# GroundControl marketing media
+# Public evidence captures
 
-The public site uses real product evidence only. Do not add invented dashboards, fake metrics, synthetic terminal output, or decorative UI mockups presented as product state.
+The public site uses unaltered desktop captures from the operator's authenticated GroundControl interface, captured on 22 September 2026. No generated interface or chat image is presented as product evidence.
 
-## Visible proof set — September 2026
+| Asset | Product page | What it proves |
+|---|---|---|
+| `public/proof/agents-desktop.jpg` | Agents | MCP endpoint, active ChatGPT grant, five displayed scopes, eight allowed workloads |
+| `public/proof/configure-desktop.jpg` | Deployments / RentAWeekend / Configure | Explicit repository, branch, recorded revision and enabled deployment-specific merge automation |
+| `public/proof/verification-desktop.jpg` | Deployments / RentAWeekend / Deploy / View evidence | Service image comparison, migration exit, public verification for the recorded 21 September release |
 
-The live public page is deliberately using fresh evidence from the current agent-native rollout:
+The public screenshot captions distinguish capture date from operation date. Images open full-size; their original aspect ratio is preserved. The previous mobile captures were removed.
 
-- `agent-access.webp` — GroundControl's current Agents workspace showing ChatGPT authorized through OAuth with the granted deployment scopes.
-- `redeploy-proof.webp` — ChatGPT reporting a real GroundControl durable redeploy operation, operation ID and verification evidence.
+## MCP records
 
-These are used inside the animated product-proof sequence and the live-acceptance section.
+- `public/evidence/rentaweekend-health-2026-09-22.json` contains a fresh deployment.health result with a provenance wrapper.
+- `public/evidence/rentaweekend-operation-2026-09-21.json` contains selected fields and exact log excerpts from the existing operation retrieved through operation.get on 22 September. The record explicitly marks omissions.
+- The operation was triggered by GitHub push, not a new ChatGPT redeploy call.
+- Evidence records a host build and a runtime image tag different from the synced source commit. Do not claim that this proves off-host building or exact source-to-image provenance.
+- These are dated snapshots, not a continuous status feed.
 
-The previous `current-dashboard.png`, `current-containers.png`, `current-terminal.png`, `current-topology.png`, and `current-infrastructure.png` aliases were removed because they were captures of an older interface and should not be presented as current.
+## Documentation verification
 
-Older media may remain in Git history or as unreferenced archival assets, but must not be reintroduced into the visible page unless it still matches the live product.
+ChatGPT's connection path was checked against https://developers.openai.com/plugins/deploy/connect-chatgpt on 22 September 2026. It currently describes Settings → Security and login → Developer mode, then Plugins → +. Older product copy refers to Apps / Connectors. Account and workspace availability can differ.
 
-## Next proof worth capturing
-
-1. **Connect Repo**
-   - current GitHub connector surface
-   - account/repository selection
-   - explicit deployment ↔ repository identity
-
-2. **Connector capability health**
-   - GitHub source/webhook/GHCR capability states
-   - Daytona exact-revision acceptance evidence
-
-3. **Agent-assisted installation**
-   - structured installer `--json` output
-   - one-time claim page
-   - publish/domain step
-   - final HTTPS + MCP verification
-
-4. **Native operator PTY**
-   - only after a current capture is taken from the post-PTY redesign
-   - harmless command output, no secrets
-
-## Editing rules
-
-- Prefer current real screenshots and short recordings over illustrations.
-- Crop for focus, never to manufacture a different product state.
-- Redact secrets rather than replacing them with fictional values.
-- Never fabricate success states, counts or metrics.
-- Keep typography and product UI untouched inside screenshots.
-- Replace visible captures whenever the product surface materially changes.
+GroundControl setup labels, installer options, claim behavior, publishing paths, OAuth scopes and revocation behavior were checked against product main `68e2c23` and the running UI. Docs are rendered natively from `content/guides.tsx`; `content/guide-index.ts` drives the sidebar and guide navigation.

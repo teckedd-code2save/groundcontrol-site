@@ -1,0 +1,43 @@
+{
+  "capturedOn": "2026-09-22",
+  "provenance": "Read through the Ground Control MCP connection in ChatGPT. Snapshot, not continuous monitoring.",
+  "health": {
+    "deployment": "rentaweekend",
+    "runtime": {
+      "healthy": true,
+      "containers": [
+        {
+          "name": "rentaweekend-web-1",
+          "image": "ghcr.io/teckedd-code2save/rentaweekend-web:0661793317ffeafd5b6740ee3bea0884336a0d26",
+          "state": "running",
+          "status": "Up 12 hours (healthy)"
+        },
+        {
+          "name": "rentaweekend-api-1",
+          "image": "ghcr.io/teckedd-code2save/rentaweekend-api:0661793317ffeafd5b6740ee3bea0884336a0d26",
+          "state": "running",
+          "status": "Up 12 hours (healthy)"
+        },
+        {
+          "name": "rentaweekend-postgres-1",
+          "image": "postgres:16-alpine",
+          "state": "running",
+          "status": "Up 12 hours (healthy)"
+        },
+        {
+          "name": "rentaweekend-redis-1",
+          "image": "redis:7-alpine",
+          "state": "running",
+          "status": "Up 12 hours (healthy)"
+        }
+      ]
+    },
+    "public": {
+      "checked": true,
+      "url": "https://rentmyweekend.serendepify.com/",
+      "status": 200,
+      "healthy": true
+    },
+    "healthy": true
+  }
+}

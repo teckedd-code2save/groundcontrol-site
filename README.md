@@ -19,13 +19,15 @@ Fresh installs use the canonical on-host installer and a one-time human ownershi
 
 ## Verified deployment proof
 
-In September 2026, ChatGPT used a scoped GroundControl grant to operate the enrolled RentAWeekend deployment:
+On 22 September 2026, ChatGPT used a scoped GroundControl grant to read RentAWeekend health and retrieve an existing deployment operation:
 
 - a signed push to the allowed `main` branch created durable operation `cmubbc14l0002tjpa0r56r1sm`;
 - the operation completed in one attempt with no recorded error;
 - web, API, PostgreSQL and Redis were healthy;
-- the public route returned HTTP 200 at approximately 99 ms during verification;
+- the recorded verification and the fresh health response both reported public HTTP 200;
 - VPS credentials and secret values remained outside the agent tool surface.
+
+The recorded deployment was triggered by GitHub, not by a new ChatGPT redeploy request. It used a host build. Its source SHA and runtime image tag differ, so this evidence does not establish that the running images were built from that source revision. Exact captured fields and log excerpts live in `public/evidence/`.
 
 The full deployment and Daytona contract is maintained in the main repository at
 [`docs/DEPLOYMENT-AUTOMATION-AND-DAYTONA.md`](https://github.com/teckedd-code2save/groundcontrol/blob/main/docs/DEPLOYMENT-AUTOMATION-AND-DAYTONA.md).
@@ -73,3 +75,15 @@ npm run vercel-build
 ## License
 
 MIT
+
+## Native documentation and public evidence
+
+The complete adoption path lives at `/docs`: install/claim, HTTPS publishing, deployment enrollment, ChatGPT OAuth/MCP connection, deployment automation, maintenance, troubleshooting and evidence. No GitHub visit is required to follow a guide.
+
+- `content/guides.tsx` contains the guide sections, runnable examples and expected results.
+- `content/guide-index.ts` defines sidebar order and search terms.
+- `app/docs/_components/EndpointBuilder.tsx` formats the operator's HTTPS MCP URL entirely in the browser; it performs no network request.
+- Product screenshots open at full size and preserve their aspect ratio.
+- See `MEDIA_CAPTURE.md` for capture provenance, dates and claim boundaries.
+
+Validate guide links/anchors, assets, endpoint formatting and clipboard behavior with `npm test`. Before publishing, inspect the hosted preview at desktop and narrow viewport widths, including copy actions and the ChatGPT setup guide.
