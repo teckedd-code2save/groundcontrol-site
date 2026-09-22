@@ -28,7 +28,15 @@ export default async function GuidePage({
   const guide = guides[slug];
   if (!guide) notFound();
   const index = guideIndex.findIndex((g) => g.slug === slug);
-  const next = guideIndex[index + 1];
+  const nextFor: Record<string, string> = {
+    "after-install": "discovery",
+    publishing: "discovery",
+    "first-deployment": "agent-access",
+    "new-deployment": "agent-access",
+  };
+  const next = nextFor[slug]
+    ? guideIndex.find((item) => item.slug === nextFor[slug])
+    : guideIndex[index + 1];
   return (
     <>
       <Header />

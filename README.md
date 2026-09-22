@@ -78,12 +78,15 @@ MIT
 
 ## Native documentation and public evidence
 
-The complete adoption path lives at `/docs`: install/claim, HTTPS publishing, deployment enrollment, ChatGPT OAuth/MCP connection, deployment automation, maintenance, troubleshooting and evidence. No GitHub visit is required to follow a guide.
+The complete adoption path lives at `/docs`. Twelve guides cover the philosophy and workload model, install/claim, next steps after installation, HTTPS publishing, host discovery, existing application enrollment, new template deployments, ChatGPT OAuth/MCP, deployment automation, maintenance, troubleshooting and evidence. No GitHub visit is required to follow a guide.
 
 - `content/guides.tsx` contains the guide sections, runnable examples and expected results.
+- `content/journey-guides.tsx` contains the philosophy, post-install, discovery and new-deployment guides. `content/guide-parts.tsx` supplies shared guide elements.
 - `content/guide-index.ts` defines sidebar order and search terms.
+- `ProductTour` offers four views of the actual product with keyboard-accessible tabs. `NextSteps` provides separate session-only checklists for existing and new workloads; checking an item performs no host operation.
+- `WorkloadModel` is a labeled conceptual illustration, not a screenshot or live status display.
 - `app/docs/_components/EndpointBuilder.tsx` formats the operator's HTTPS MCP URL entirely in the browser; it performs no network request.
 - Product screenshots open at full size and preserve their aspect ratio.
 - See `MEDIA_CAPTURE.md` for capture provenance, dates and claim boundaries.
 
-Validate guide links/anchors, assets, endpoint formatting and clipboard behavior with `npm test`. Before publishing, inspect the hosted preview at desktop and narrow viewport widths, including copy actions and the ChatGPT setup guide.
+Validate guide links/anchors, assets, endpoint formatting, clipboard behavior, product-tour keyboard navigation and checklist state with `npm test`. Review the actual rendered pages and capture any limits in `SITE_REVIEW.md`. The current browser runtime does not expose viewport emulation, so real phone testing remains outstanding.

@@ -2,227 +2,283 @@ import Link from "next/link";
 import { Header, Footer } from "@/app/components/SiteChrome";
 import Capture from "@/app/components/Capture";
 import CodeBlock from "@/app/components/CodeBlock";
+import ProductTour from "@/app/components/ProductTour";
+import WorkloadModel from "@/app/components/WorkloadModel";
 export default function Home() {
   return (
     <>
       <Header />
       <main id="main">
-        <section className="hero wrap">
-          <div className="hero-copy">
+        <section className="landing-hero wrap">
+          <div className="hero-heading">
             <p className="eyebrow">
-              <span className="status-dot" /> OPEN-SOURCE AGENTIC DEPLOYMENT
+              <span className="status-dot" />
+              Open-source agentic deployment
             </p>
             <h1>
               Give your agents
-              <br />a clear path
               <br />
-              <em>to production.</em>
+              the access to
+              <br />
+              <em>follow through.</em>
             </h1>
+          </div>
+          <div className="hero-intro">
             <p className="lead">
-              GroundControl gives ChatGPT controlled access to manage
-              deployments, so it can act on approved requests and verify the
-              result without repeatedly asking you to provide access or
-              credentials.
+              Discover your applications, choose what to manage, and let
+              ChatGPT help operate them.
+            </p>
+            <p>
+              GroundControl is a self-hosted control plane for your VPS. It
+              gives agents controlled access through OAuth and MCP, so approved
+              work can move from a request to a verified result without repeated
+              access and credential handoffs.
             </p>
             <div className="actions">
-              <Link className="button" href="/docs/agent-access">
-                Connect ChatGPT <span>↗︎</span>
+              <Link className="button" href="/docs/getting-started">
+                Install GroundControl <span aria-hidden="true">↗︎</span>
               </Link>
-              <Link className="text-link" href="/docs/getting-started">
-                Install on your VPS →
+              <Link className="text-link" href="/docs/after-install">
+                Already installed? Start here →
               </Link>
             </div>
-            <p className="hero-note">
-              MCP + OAuth <span>·</span> Your infrastructure <span>·</span>{" "}
-              Observable operations
-            </p>
-          </div>
-          <div className="hero-proof">
-            <div className="proof-label">
-              <span className="mono">IN THE PRODUCT</span>
-              <span>01 / Agent access</span>
-            </div>
-            <Capture
-              file="agents-desktop.jpg"
-              alt="GroundControl desktop Agents page showing a real active ChatGPT grant"
-              caption="An actual operator instance. The agent gets an endpoint, capabilities and selected workloads."
-              priority
-            />
-            <div className="hero-proof-foot">
-              <span>
-                <b>Scoped</b> by capability and workload
-              </span>
-              <Link href="/docs/agent-access#consent">
-                See the connection steps →
-              </Link>
+            <div className="hero-spec">
+              <span>Docker Compose</span>
+              <span>Your VPS</span>
+              <span>MCP + OAuth</span>
             </div>
           </div>
         </section>
-        <section className="principles wrap">
-          <p className="eyebrow">SAFE. SMOOTH. OBSERVABLE. AGENTIC.</p>
-          <div>
-            <h2>
-              Connect your agent.
-              <br />
-              Keep the controls.
-            </h2>
-            <p>
-              Authorize a workload and its operations through OAuth.
-              GroundControl holds the infrastructure credentials, runs typed
-              actions and records what happened. Your agent can follow the
-              result, even after the conversation disconnects.
-            </p>
-          </div>
-        </section>
-        <section className="walkthrough wrap">
+        <section className="tour-section wrap" id="product">
           <div className="section-label">
-            <p className="eyebrow">A PATH YOU CAN FOLLOW</p>
-            <Link className="text-link" href="/docs">
-              Open the complete docs →
-            </Link>
+            <p className="eyebrow">
+              A working connection to your infrastructure
+            </p>
+            <span className="small">Explore the actual interface</span>
           </div>
-          <div className="journey-grid">
+          <ProductTour />
+        </section>
+        <section className="onboarding-story wrap" id="after-install">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Installation is the beginning</p>
+              <h2>
+                You installed it.
+                <br />
+                Here is what comes next.
+              </h2>
+            </div>
+            <p>
+              The local host is connected. GroundControl can now help you
+              understand what is running and bring one application into its
+              control plane.
+            </p>
+          </div>
+          <div className="route-list">
             {[
               [
                 "01",
-                "Install & claim",
-                "Start privately on your VPS and create the owner account.",
-                "getting-started",
+                "Review what was found",
+                "Confirm the server, Compose folders, containers and proxy. Correct scan paths when something is missing.",
+                "discovery",
               ],
               [
                 "02",
-                "Connect ChatGPT",
-                "Add your MCP endpoint, sign in and approve the workload.",
-                "agent-access",
+                "Choose your workload",
+                "Enrol an existing application in place, or use Templates to create and enroll a new deployment.",
+                "after-install#choose-path",
               ],
               [
                 "03",
-                "Operate & verify",
-                "Inspect health, request a redeploy and follow its evidence.",
+                "Establish its identity",
+                "Check the source, runtime, configuration and public address. Understand tracking and management mode.",
+                "first-deployment#management-mode",
+              ],
+              [
+                "04",
+                "Connect, operate and verify",
+                "Approve the agent’s scope. Start with a health check and follow each authorized operation to its recorded result.",
+                "agent-access",
+              ],
+            ].map(([n, title, description, href]) => (
+              <Link key={n} href={`/docs/${href}`}>
+                <span className="route-number">{n}</span>
+                <h3>{title}</h3>
+                <p>{description}</p>
+                <span aria-hidden="true">↗︎</span>
+              </Link>
+            ))}
+          </div>
+          <Link className="text-link" href="/docs/after-install">
+            Open the post-install checklist →
+          </Link>
+        </section>
+        <section className="philosophy-band" id="approach">
+          <div className="wrap philosophy-grid">
+            <div>
+              <p className="eyebrow">The GroundControl approach</p>
+              <h2>
+                Your application is
+                <br />
+                more than a container.
+              </h2>
+              <p>
+                GroundControl connects the source, runtime and public route to
+                one workload identity. Your team and your agents can work from
+                that shared context.
+              </p>
+              <p>
+                You choose the scope. The control plane holds the infrastructure
+                credentials and records execution. Verification shows what
+                worked and what still needs attention.
+              </p>
+              <Link className="text-link" href="/docs/philosophy">
+                Read the philosophy and core concepts →
+              </Link>
+            </div>
+            <WorkloadModel />
+          </div>
+        </section>
+        <section className="proof-story wrap" id="proof">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Used on a real VPS</p>
+              <h2>
+                The work leaves
+                <br />
+                something you can inspect.
+              </h2>
+            </div>
+            <p>
+              ChatGPT used a scoped GroundControl connection to inspect
+              RentAWeekend and retrieve its deployment evidence. These are dated
+              records you can open.
+            </p>
+          </div>
+          <div className="proof-grid">
+            <Capture
+              file="verification-desktop.jpg"
+              alt="GroundControl runtime image verification and public HTTP 200 evidence for RentAWeekend"
+              caption="Recorded RentAWeekend release · 21 September 2026 · opened in the desktop UI on 22 September"
+            />
+            <div className="proof-details">
+              <p className="eyebrow">Captured through MCP</p>
+              <h3>RentAWeekend</h3>
+              <dl>
+                <div>
+                  <dt>Health check</dt>
+                  <dd>22 Sep 2026</dd>
+                </div>
+                <div>
+                  <dt>Runtime</dt>
+                  <dd>4 containers healthy</dd>
+                </div>
+                <div>
+                  <dt>Public endpoint</dt>
+                  <dd>HTTP 200</dd>
+                </div>
+              </dl>
+              <p>
+                This is a captured response, not a live status feed. The
+                deployment operation was triggered by GitHub; ChatGPT retrieved
+                and inspected it.
+              </p>
+              <a href="/evidence/rentaweekend-health-2026-09-22.json">
+                Open the health response ↗︎
+              </a>
+              <Link href="/docs/evidence">
+                Read the evidence and its limits →
+              </Link>
+            </div>
+          </div>
+          <Link
+            href="/articles/chatgpt-operated-my-deployment"
+            className="article-strip"
+          >
+            <span className="eyebrow">Engineering field notes</span>
+            <h3>GroundControl brings agentic deployment to ChatGPT.</h3>
+            <span>
+              Read the article <span aria-hidden="true">↗︎</span>
+            </span>
+          </Link>
+        </section>
+        <section className="learning-section wrap">
+          <div>
+            <p className="eyebrow">Documentation you can work from</p>
+            <h2>
+              Understand it.
+              <br />
+              Then put it to work.
+            </h2>
+            <p>
+              Stay on the site for the complete walkthrough, from your first
+              scan to OAuth setup, operations and recovery.
+            </p>
+            <Link className="text-link" href="/docs">
+              Explore the handbook →
+            </Link>
+          </div>
+          <div className="learning-links">
+            {[
+              [
+                "How GroundControl works",
+                "The philosophy, entities and permission boundaries.",
+                "philosophy",
+              ],
+              [
+                "Discovery & enrollment",
+                "Where the scanner looks and what enrollment changes.",
+                "discovery",
+              ],
+              [
+                "Connect ChatGPT",
+                "Plugin setup, OAuth consent and your first tool call.",
+                "agent-access",
+              ],
+              [
+                "Deploy & automate",
+                "Durable operations, merge automation and verification.",
                 "deployment-automation",
               ],
-            ].map(([n, t, d, s]) => (
-              <Link key={n} href={`/docs/${s}`}>
-                <span className="mono">
-                  {n} <span aria-hidden="true">↗︎</span>
-                </span>
-                <h3>{t}</h3>
-                <p>{d}</p>
+            ].map(([title, description, href]) => (
+              <Link key={href} href={`/docs/${href}`}>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                </div>
+                <span aria-hidden="true">↗︎</span>
               </Link>
             ))}
           </div>
         </section>
-        <section className="evidence-section" id="proof">
-          <div className="wrap">
-            <div className="section-label">
-              <p className="eyebrow">THE WORK, WITH RECEIPTS</p>
-              <Link href="/docs/evidence" className="text-link">
-                Inspect all evidence →
-              </Link>
-            </div>
-            <div className="evidence-heading">
+        <section className="start-section">
+          <div className="wrap start-grid">
+            <div>
+              <p className="eyebrow">Start with one host and one application</p>
               <h2>
-                A real application.
-                <br />A recorded outcome.
+                Make your infrastructure
+                <br />
+                accessible to your agent.
               </h2>
               <p>
-                RentAWeekend runs on the owner’s VPS. These desktop captures and
-                tool results show the actual grant, runtime verification and
-                public health check.
+                Install privately, claim ownership, and choose the first
+                workload.
+              </p>
+              <Link className="button" href="/docs/getting-started">
+                Follow the installation guide <span aria-hidden="true">↗︎</span>
+              </Link>
+            </div>
+            <div>
+              <CodeBlock
+                label="Run on your VPS"
+                code="curl -fsSL https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/install | sudo bash"
+              />
+              <p className="small">
+                Linux · Docker · root or sudo
+                <br />
+                Read the installation guide for prerequisites and host access.
               </p>
             </div>
-            <div className="evidence-layout">
-              <Capture
-                file="verification-desktop.jpg"
-                alt="GroundControl desktop deployment evidence showing runtime image verification and public HTTP 200"
-                caption="RentAWeekend · recorded 21 September release · desktop capture 22 September 2026"
-              />
-              <aside className="evidence-receipt">
-                <p className="eyebrow">OBSERVED THROUGH MCP</p>
-                <h3>rentaweekend</h3>
-                <dl>
-                  <div>
-                    <dt>Health read</dt>
-                    <dd>22 Sep 2026</dd>
-                  </div>
-                  <div>
-                    <dt>Runtime</dt>
-                    <dd className="good">4 / 4 healthy</dd>
-                  </div>
-                  <div>
-                    <dt>Public endpoint</dt>
-                    <dd className="good">HTTP 200</dd>
-                  </div>
-                </dl>
-                <CodeBlock
-                  label="Selected response fields"
-                  copy={false}
-                  code={
-                    '"deployment": "rentaweekend"\n"healthy": true\n"public": {\n  "checked": true,\n  "status": 200\n}'
-                  }
-                />
-                <p className="small">
-                  A captured tool response, not a live status feed. The raw
-                  response is available to inspect.
-                </p>
-                <a href="/evidence/rentaweekend-health-2026-09-22.json">
-                  Open health evidence ↗︎
-                </a>
-              </aside>
-            </div>
-          </div>
-        </section>
-        <section className="story-teaser wrap">
-          <p className="eyebrow">FIELD NOTES / 001</p>
-          <div>
-            <h2>
-              How ChatGPT became
-              <br />
-              part of the operations flow.
-            </h2>
-            <p>
-              The connection, the deployment record, the timeouts and what the
-              evidence really proves.
-            </p>
-            <Link
-              className="text-link"
-              href="/articles/chatgpt-operated-my-deployment"
-            >
-              Read the engineering story →
-            </Link>
-          </div>
-          <span className="story-mark" aria-hidden="true">
-            ↗︎
-          </span>
-        </section>
-        <section className="install-section wrap" id="install">
-          <div>
-            <p className="eyebrow">START WITH YOUR OWN INSTANCE</p>
-            <h2>
-              Your VPS.
-              <br />
-              Your control plane.
-            </h2>
-            <p>
-              Install privately, claim the instance, then publish a stable HTTPS
-              endpoint for your agent.
-            </p>
-            <Link className="text-link" href="/docs/getting-started">
-              Follow installation with expected results →
-            </Link>
-          </div>
-          <div>
-            <CodeBlock
-              label="On your authorized Linux VPS"
-              code="curl -fsSL https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/install | sudo bash"
-            />
-            <p className="small">
-              Requires root/sudo and Docker Compose. The installer returns a
-              one-time claim URL and binds to loopback.{" "}
-              <Link href="/docs/getting-started#before-you-start">
-                Read the prerequisites.
-              </Link>
-            </p>
           </div>
         </section>
       </main>

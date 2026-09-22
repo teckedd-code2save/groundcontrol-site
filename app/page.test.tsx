@@ -13,6 +13,7 @@ import DocsPage from "@/app/docs/page";
 import GuidePage from "@/app/docs/[slug]/page";
 import EndpointBuilder from "@/app/docs/_components/EndpointBuilder";
 import CodeBlock from "@/app/components/CodeBlock";
+import NextSteps from "@/app/components/NextSteps";
 import { guideIndex } from "@/content/guide-index";
 import { guides } from "@/content/guides";
 
@@ -111,6 +112,10 @@ describe("The self-contained adoption journey", () => {
   it("replaces phone captures with current desktop evidence and clear provenance", () => {
     render(<Home />);
     expect(
+      screen.getByAltText(/GroundControl discovered workloads/),
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("tab", { name: /Connect/ }));
+    expect(
       screen.getByAltText(/real active ChatGPT grant/),
     ).toBeInTheDocument();
     expect(
@@ -124,5 +129,44 @@ describe("The self-contained adoption journey", () => {
           (img) => !img.getAttribute("src")?.includes("oauth-scoped-grant"),
         ),
     ).toBe(true);
+  });
+  it("lets readers navigate the product walkthrough using the keyboard", () => {
+    render(<Home />);
+    const first = screen.getByRole("tab", { name: /Discover/ });
+    fireEvent.keyDown(first, { key: "ArrowRight" });
+    const enroll = screen.getByRole("tab", { name: /Enrol/ });
+    expect(enroll).toHaveAttribute("aria-selected", "true");
+    expect(enroll).toHaveFocus();
+    expect(screen.getByRole("tabpanel")).toHaveTextContent(
+      "Choose what belongs",
+    );
+    fireEvent.keyDown(enroll, { key: "End" });
+    expect(screen.getByRole("tab", { name: /Verify/ })).toHaveFocus();
+    expect(screen.getByRole("tabpanel")).toHaveTextContent("recorded release");
+  });
+  it("keeps the existing-app and new-app checklists independent", () => {
+    render(<NextSteps />);
+    fireEvent.click(
+      screen.getByRole("checkbox", {
+        name: "Confirm the active host and scan paths",
+      }),
+    );
+    expect(screen.getByText("1 / 5 checked")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: /deploy a new app/ }));
+    expect(screen.getByText("0 / 5 checked")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Guide: Choose a template/ }),
+    ).toHaveAttribute("href", "/docs/new-deployment#choose");
+    fireEvent.click(
+      screen.getByRole("button", { name: /apps already run here/ }),
+    );
+    expect(
+      screen.getByRole("checkbox", {
+        name: "Confirm the active host and scan paths",
+      }),
+    ).toBeChecked();
+    expect(
+      screen.getByText(/does not run an action or verify a server/),
+    ).toBeInTheDocument();
   });
 });

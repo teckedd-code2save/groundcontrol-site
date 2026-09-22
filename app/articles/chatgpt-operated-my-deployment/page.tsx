@@ -27,7 +27,7 @@ export default function ArticlePage() {
           <p className="lead">
             The useful moment was when the conversation could inspect my running
             application, retrieve its deployment evidence and check the public
-            result—all through a scoped connection.
+            result through a scoped connection.
           </p>
           <div className="article-meta">
             <span>Edward Kwabena Twumasi</span>
@@ -247,8 +247,8 @@ export default function ArticlePage() {
                 <Link className="button" href="/docs/getting-started">
                   Start the walkthrough ↗︎
                 </Link>
-                <Link className="text-link" href="/docs/agent-access">
-                  Already installed? Connect ChatGPT →
+                <Link className="text-link" href="/docs/after-install">
+                  Already installed? Find your next step →
                 </Link>
               </div>
             </section>
