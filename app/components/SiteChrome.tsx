@@ -37,7 +37,9 @@ export function Header() {
         <Link href="/#product">Product</Link>
         <Link href="/docs/philosophy">Approach</Link>
         <Link href="/docs">Docs</Link>
-        <Link href="/articles/chatgpt-operated-my-deployment">Field notes</Link>
+        <Link href="/articles/agentic-deployment-with-oauth-and-mcp">
+          Field notes
+        </Link>
       </nav>
       <Link className="button compact" href="/docs/getting-started">
         Get started <span aria-hidden="true">↗︎</span>
@@ -59,7 +61,7 @@ export function Footer() {
       </div>
       <nav aria-label="Footer navigation">
         <Link href="/docs/after-install">After installation</Link>
-        <Link href="/docs/agent-access">Connect ChatGPT</Link>
+        <Link href="/docs/agent-access">Connect your agent</Link>
         <Link href="/docs/philosophy">The approach</Link>
         <Link href="/docs/evidence">Evidence</Link>
         <a href={SOURCE} target="_blank" rel="noreferrer">

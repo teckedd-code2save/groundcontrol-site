@@ -25,8 +25,8 @@ export default function Home() {
           </div>
           <div className="hero-intro">
             <p className="lead">
-              Discover your applications, choose what to manage, and let
-              ChatGPT help operate them.
+              Discover your applications, choose what to manage, and let your
+              agents help operate them.
             </p>
             <p>
               GroundControl is a self-hosted control plane for your VPS. It
@@ -54,7 +54,7 @@ export default function Home() {
             <p className="eyebrow">
               A working connection to your infrastructure
             </p>
-            <span className="small">Explore the actual interface</span>
+            <span className="small">Explore the product</span>
           </div>
           <ProductTour />
         </section>
@@ -150,9 +150,9 @@ export default function Home() {
               </h2>
             </div>
             <p>
-              ChatGPT used a scoped GroundControl connection to inspect
-              RentAWeekend and retrieve its deployment evidence. These are dated
-              records you can open.
+              GroundControl deployed RentAWeekend from a GitHub push. ChatGPT
+              connected through MCP to inspect its health and read the operation
+              record.
             </p>
           </div>
           <div className="proof-grid">
@@ -178,25 +178,21 @@ export default function Home() {
                   <dd>HTTP 200</dd>
                 </div>
               </dl>
-              <p>
-                This is a captured response, not a live status feed. The
-                deployment operation was triggered by GitHub; ChatGPT retrieved
-                and inspected it.
-              </p>
+              <p>Recorded 22 September 2026 through a scoped MCP connection.</p>
               <a href="/evidence/rentaweekend-health-2026-09-22.json">
                 Open the health response ↗︎
               </a>
-              <Link href="/docs/evidence">
-                Read the evidence and its limits →
-              </Link>
+              <Link href="/docs/evidence">Inspect the deployment record →</Link>
             </div>
           </div>
           <Link
-            href="/articles/chatgpt-operated-my-deployment"
+            href="/articles/agentic-deployment-with-oauth-and-mcp"
             className="article-strip"
           >
             <span className="eyebrow">Engineering field notes</span>
-            <h3>GroundControl brings agentic deployment to ChatGPT.</h3>
+            <h3>
+              GroundControl: open-source agentic deployment with OAuth and MCP.
+            </h3>
             <span>
               Read the article <span aria-hidden="true">↗︎</span>
             </span>
@@ -204,15 +200,15 @@ export default function Home() {
         </section>
         <section className="learning-section wrap">
           <div>
-            <p className="eyebrow">Documentation you can work from</p>
+            <p className="eyebrow">The operator’s handbook</p>
             <h2>
               Understand it.
               <br />
               Then put it to work.
             </h2>
             <p>
-              Stay on the site for the complete walkthrough, from your first
-              scan to OAuth setup, operations and recovery.
+              Follow the commands, product steps and checks for installation,
+              discovery, agent access and deployment.
             </p>
             <Link className="text-link" href="/docs">
               Explore the handbook →
@@ -231,8 +227,8 @@ export default function Home() {
                 "discovery",
               ],
               [
-                "Connect ChatGPT",
-                "Plugin setup, OAuth consent and your first tool call.",
+                "Connect your agent",
+                "MCP client setup, OAuth consent and a ChatGPT walkthrough.",
                 "agent-access",
               ],
               [

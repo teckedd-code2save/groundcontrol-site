@@ -66,12 +66,13 @@ export const guideIndex = [
   },
   {
     slug: "agent-access",
-    title: "Connect ChatGPT",
+    title: "Connect your agent",
     short: "Authorize OAuth + MCP",
     group: "Set up",
     description:
-      "Add the plugin, sign in, select workloads and make your first tool call.",
-    keywords: "oauth mcp plugin apps developer mode permissions scopes",
+      "MCP client requirements, OAuth consent and a step-by-step ChatGPT example.",
+    keywords:
+      "oauth mcp client ChatGPT plugin apps developer mode permissions scopes",
   },
   {
     slug: "deployment-automation",
@@ -103,7 +104,7 @@ export const guideIndex = [
   },
   {
     slug: "evidence",
-    title: "Evidence & limits",
+    title: "Deployment evidence",
     short: "Inspect the records",
     group: "Operate",
     description:

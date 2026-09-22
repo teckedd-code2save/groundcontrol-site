@@ -121,7 +121,11 @@ describe("The self-contained adoption journey", () => {
     expect(
       screen.getByAltText(/runtime image verification/),
     ).toBeInTheDocument();
-    expect(screen.getByText(/not a live status feed/)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Recorded 22 September 2026 through a scoped MCP connection/,
+      ),
+    ).toBeInTheDocument();
     expect(
       screen
         .getAllByRole("img")

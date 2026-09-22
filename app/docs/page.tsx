@@ -5,7 +5,7 @@ import { guideGroups, guideIndex } from "@/content/guide-index";
 export const metadata = {
   title: "GroundControl docs | Understand, set up and operate",
   description:
-    "Understand GroundControl, install it, discover and enroll workloads, connect ChatGPT through OAuth and MCP, and verify operations.",
+    "Understand GroundControl, install it, discover and enroll workloads, connect an agent through OAuth and MCP, and verify operations.",
 };
 export default function DocsPage() {
   return (
@@ -42,7 +42,7 @@ export default function DocsPage() {
             <Link href="/docs/agent-access">
               <span>03 / Connect</span>
               <h2>My workload is ready.</h2>
-              <p>Add ChatGPT and approve its deployment scope.</p>
+              <p>Connect an MCP client and approve its deployment scope.</p>
               <b>Connect your agent →</b>
             </Link>
           </div>
