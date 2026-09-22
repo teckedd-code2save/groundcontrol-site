@@ -1,102 +1,128 @@
 import { describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  cleanup,
+} from "@testing-library/react";
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
 import Home from "@/app/page";
 import DocsPage from "@/app/docs/page";
-import ArticlePage from "@/app/articles/chatgpt-operated-my-deployment/page";
+import GuidePage from "@/app/docs/[slug]/page";
+import EndpointBuilder from "@/app/docs/_components/EndpointBuilder";
+import CodeBlock from "@/app/components/CodeBlock";
+import { guideIndex } from "@/content/guide-index";
+import { guides } from "@/content/guides";
 
-const GITHUB_URL = "https://github.com/teckedd-code2save/groundcontrol";
-
-describe("GroundControl public site", () => {
-  it("states the open-source agentic deployment product clearly", () => {
-    render(<Home />);
+describe("The self-contained adoption journey", () => {
+  it("keeps guide navigation on the site and provides every destination", () => {
+    render(<DocsPage />);
+    for (const guide of guideIndex) {
+      expect(guides[guide.slug]).toBeDefined();
+      expect(
+        screen
+          .getAllByRole("link")
+          .some((a) => a.getAttribute("href") === `/docs/${guide.slug}`),
+      ).toBe(true);
+    }
+    expect(screen.queryByText(/read on GitHub/i)).not.toBeInTheDocument();
+  });
+  it("renders all guide anchors and resolves every guide link and screenshot", async () => {
+    for (const { slug } of guideIndex) {
+      const { container } = render(
+        await GuidePage({ params: Promise.resolve({ slug }) }),
+      );
+      for (const section of guides[slug].sections)
+        expect(container.querySelector(`[id="${section.id}"]`)).not.toBeNull();
+      for (const link of container.querySelectorAll('a[href^="/docs/"]')) {
+        const [path, anchor] = link.getAttribute("href")!.split("#");
+        const destination = guides[path.replace("/docs/", "")];
+        expect(destination, path).toBeDefined();
+        if (anchor)
+          expect(
+            destination.sections.some((s) => s.id === anchor),
+            `${path}#${anchor}`,
+          ).toBe(true);
+      }
+      for (const link of container.querySelectorAll(
+        'a[href^="/proof/"], a[href^="/evidence/"]',
+      ))
+        expect(
+          existsSync(
+            resolve(process.cwd(), "public" + link.getAttribute("href")),
+          ),
+        ).toBe(true);
+      cleanup();
+    }
+  });
+  it("makes plugin setup, OAuth consent and a first tool call readable in one guide", async () => {
+    render(
+      await GuidePage({ params: Promise.resolve({ slug: "agent-access" }) }),
+    );
     expect(
-      screen.getByRole("heading", { level: 1, name: /give AI agents controlled access to deploy/i }),
+      screen.getByText("Settings → Security and login"),
     ).toBeInTheDocument();
-    expect(screen.getByText(/No repeated permission prompts/i)).toBeInTheDocument();
-    expect(screen.getByText(/one scoped OAuth grant/i)).toBeInTheDocument();
-  });
-
-  it("shows a real evidence chain with authentic proof images", () => {
-    render(<Home />);
-    expect(screen.getByText(/operation cmubbc14l/i)).toBeInTheDocument();
-    expect(screen.getByText(/HTTP 200 · 99 ms/i)).toBeInTheDocument();
-    expect(screen.getByText(/one attempt with no recorded error/i)).toBeInTheDocument();
-    expect(screen.queryByText(/capture unavailable/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Daytona remains an early-access/i)).not.toBeInTheDocument();
-    expect(screen.getByAltText(/OAuth screen granting ChatGPT/i)).toHaveAttribute("src", expect.stringContaining("oauth-scoped-grant.jpg"));
-    expect(screen.getByAltText(/live RentAWeekend application/i)).toHaveAttribute("src", expect.stringContaining("rentaweekend-live.jpg"));
-  });
-
-  it("links public documentation and the technical article", () => {
-    render(<Home />);
-    expect(screen.getAllByRole("link", { name: /docs|technical docs/i }).length).toBeGreaterThan(0);
-    expect(screen.getAllByRole("link", { name: /article|deployment story/i }).length).toBeGreaterThan(0);
-  });
-
-  it("keeps the public site separate from the private operator login", () => {
-    render(<Home />);
     expect(
-      screen.getAllByRole("link").some(
-        (link) => link.getAttribute("href") === "https://groundcontrol.serendepify.com",
-      ),
-    ).toBe(false);
+      screen.getByRole("heading", { name: /Add the connection in ChatGPT/ }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Requested capabilities")).toBeInTheDocument();
+    expect(
+      screen.getByText(/Use GroundControl to list the deployments/),
+    ).toBeInTheDocument();
   });
-
-  it("shows the scoped MCP tool surface", () => {
-    render(<Home />);
-    for (const tool of [
-      "deployment.list",
-      "deployment.health",
-      "deployment.config.check",
-      "deployment.redeploy",
-      "operation.get",
+  it("formats a valid HTTPS origin and rejects credentials and non-HTTPS URLs", () => {
+    render(<EndpointBuilder />);
+    const input = screen.getByLabelText("Your GroundControl HTTPS address");
+    fireEvent.change(input, { target: { value: "https://gc.example.org/" } });
+    expect(screen.getByText("https://gc.example.org/mcp")).toBeInTheDocument();
+    for (const value of [
+      "http://gc.example.org",
+      "https://secret@gc.example.org",
+      "https://gc.example.org/?token=secret",
+      "https://gc.example.org/extra",
     ]) {
-      expect(screen.getByText(tool)).toBeInTheDocument();
+      fireEvent.change(input, { target: { value } });
+      expect(screen.getByRole("alert")).toBeInTheDocument();
+      expect(screen.queryByText(`${value}/mcp`)).not.toBeInTheDocument();
     }
   });
-
-  it("points GitHub links at the product repository", () => {
-    render(<Home />);
-    for (const link of screen.getAllByRole("link", { name: /github|view source/i })) {
-      expect(link).toHaveAttribute("href", GITHUB_URL);
-    }
-  });
-
-  it("shows the agent-assisted installer by default and can switch modes", () => {
-    render(<Home />);
-    expect(screen.getByRole("tab", { name: /agent/i })).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByText(/--json/)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("tab", { name: /on your vps/i }));
-    expect(screen.queryByText(/--json/)).not.toBeInTheDocument();
-  });
-
-  it("copies the active install command", async () => {
-    const writeText = vi.fn().mockResolvedValue(undefined);
+  it("copies the actual command and reports clipboard failures honestly", async () => {
+    const writeText = vi
+      .fn()
+      .mockRejectedValueOnce(new Error("Clipboard denied"))
+      .mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", {
       value: { writeText },
       configurable: true,
     });
-
+    render(<CodeBlock code="example command" label="Test command" />);
+    fireEvent.click(screen.getByRole("button", { name: "Copy Test command" }));
+    await waitFor(() =>
+      expect(screen.getByRole("status")).toHaveTextContent("Select and copy"),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Copy Test command" }));
+    await waitFor(() =>
+      expect(screen.getByRole("status")).toHaveTextContent("Copied"),
+    );
+    expect(writeText).toHaveBeenCalledWith("example command");
+  });
+  it("replaces phone captures with current desktop evidence and clear provenance", () => {
     render(<Home />);
-    fireEvent.click(screen.getByRole("button", { name: "Copy installation command" }));
-    await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1));
-    expect(writeText).toHaveBeenCalledWith(expect.stringContaining("scripts/install"));
-  });
-
-  it("publishes a useful docs index", () => {
-    render(<DocsPage />);
-    expect(screen.getByRole("heading", { name: /install it\. connect one deployment/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Adopt GroundControl" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Agent access with OAuth and MCP" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Adopt GroundControl/i })).toHaveAttribute("href", "/docs/getting-started");
-  });
-
-  it("publishes the complete technical article", () => {
-    render(<ArticlePage />);
     expect(
-      screen.getByRole("heading", { name: /How ChatGPT deployed a real app without receiving SSH access/i }),
+      screen.getByAltText(/real active ChatGPT grant/),
     ).toBeInTheDocument();
-    expect(screen.getByText("cmubbc14l0002tjpa0r56r1sm")).toBeInTheDocument();
-    expect(screen.getByText(/Give agents infrastructure capabilities/i)).toBeInTheDocument();
+    expect(
+      screen.getByAltText(/runtime image verification/),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/not a live status feed/)).toBeInTheDocument();
+    expect(
+      screen
+        .getAllByRole("img")
+        .every(
+          (img) => !img.getAttribute("src")?.includes("oauth-scoped-grant"),
+        ),
+    ).toBe(true);
   });
 });

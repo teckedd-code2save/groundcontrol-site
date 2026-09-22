@@ -30,7 +30,9 @@ describe("RootLayout", () => {
     );
 
     expect(document.documentElement).toHaveAttribute("lang", "en");
-    expect(document.documentElement).toHaveClass("bg-[#090b0a]");
+    expect(
+      screen.getByRole("link", { name: "Skip to content" }),
+    ).toHaveAttribute("href", "#main");
     expect(document.body.className).toContain("antialiased");
     expect(screen.getByText("GroundControl installer")).toBeInTheDocument();
   });
