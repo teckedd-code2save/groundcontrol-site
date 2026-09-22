@@ -24,7 +24,7 @@ export default function CodeBlock({
         <span>{label}</span>
         {copy && (
           <button type="button" onClick={copyCode} aria-label={`Copy ${label}`}>
-            Copy <span aria-hidden="true">↗</span>
+            Copy <span aria-hidden="true">↗︎</span>
           </button>
         )}
       </div>

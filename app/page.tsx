@@ -20,12 +20,13 @@ export default function Home() {
             </h1>
             <p className="lead">
               GroundControl gives ChatGPT controlled access to manage
-              deployments, so work can move from request to verified result
-              without the repeated credential handoffs.
+              deployments, so it can act on approved requests and verify the
+              result without repeatedly asking you to provide access or
+              credentials.
             </p>
             <div className="actions">
               <Link className="button" href="/docs/agent-access">
-                Connect ChatGPT <span>↗</span>
+                Connect ChatGPT <span>↗︎</span>
               </Link>
               <Link className="text-link" href="/docs/getting-started">
                 Install on your VPS →
@@ -103,7 +104,7 @@ export default function Home() {
             ].map(([n, t, d, s]) => (
               <Link key={n} href={`/docs/${s}`}>
                 <span className="mono">
-                  {n} <span aria-hidden="true">↗</span>
+                  {n} <span aria-hidden="true">↗︎</span>
                 </span>
                 <h3>{t}</h3>
                 <p>{d}</p>
@@ -165,7 +166,7 @@ export default function Home() {
                   response is available to inspect.
                 </p>
                 <a href="/evidence/rentaweekend-health-2026-09-22.json">
-                  Open health evidence ↗
+                  Open health evidence ↗︎
                 </a>
               </aside>
             </div>
@@ -191,7 +192,7 @@ export default function Home() {
             </Link>
           </div>
           <span className="story-mark" aria-hidden="true">
-            ↗
+            ↗︎
           </span>
         </section>
         <section className="install-section wrap" id="install">
