@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Header, Footer } from "@/app/components/SiteChrome";
 import DocsNav from "./_components/DocsNav";
-import { guideIndex } from "@/content/guide-index";
+import { guideGroups, guideIndex } from "@/content/guide-index";
 export const metadata = {
-  title: "GroundControl docs — From VPS to connected agent",
+  title: "GroundControl docs | Understand, set up and operate",
   description:
-    "Follow the complete GroundControl installation, HTTPS publishing, ChatGPT plugin, OAuth consent and first deployment walkthrough.",
+    "Understand GroundControl, install it, discover and enroll workloads, connect ChatGPT through OAuth and MCP, and verify operations.",
 };
 export default function DocsPage() {
   return (
@@ -15,55 +15,69 @@ export default function DocsPage() {
         <DocsNav />
         <main id="main" className="doc-main">
           <header className="doc-header">
-            <p className="eyebrow">GROUNDCONTROL DOCS</p>
-            <h1>From your VPS to your first agent operation.</h1>
+            <p className="eyebrow">The operator’s handbook</p>
+            <h1>
+              From your first scan
+              <br />
+              to a verified operation.
+            </h1>
             <p className="lead">
-              Install the control plane, connect a workload, and give ChatGPT a
-              verified path to operate it. Commands, expected results and
-              recovery steps are all here.
+              Learn how GroundControl thinks about your infrastructure, then
+              follow the path that matches where you are.
             </p>
           </header>
-          <div className="start-paths">
+          <div className="docs-entrypoints">
             <Link href="/docs/getting-started">
-              <span>START FROM SCRATCH</span>
-              <h2>I have a VPS.</h2>
-              <p>Install, claim and publish GroundControl.</p>
-              <strong>Start installation →</strong>
+              <span>01 / Start</span>
+              <h2>I need to install it.</h2>
+              <p>Install, claim and connect the local host.</p>
+              <b>Installation guide →</b>
+            </Link>
+            <Link href="/docs/after-install">
+              <span>02 / Continue</span>
+              <h2>It’s installed. Now what?</h2>
+              <p>Review discovery and choose your first application.</p>
+              <b>Follow the next steps →</b>
             </Link>
             <Link href="/docs/agent-access">
-              <span>ALREADY INSTALLED?</span>
-              <h2>Connect ChatGPT.</h2>
-              <p>Add the MCP plugin and complete OAuth.</p>
-              <strong>Open the connection guide →</strong>
+              <span>03 / Connect</span>
+              <h2>My workload is ready.</h2>
+              <p>Add ChatGPT and approve its deployment scope.</p>
+              <b>Connect your agent →</b>
             </Link>
           </div>
-          <section className="guide-list">
-            <div className="section-label">
-              <h2>The complete walkthrough</h2>
-              <span className="mono">SET UP → OPERATE → MAINTAIN</span>
+          <Link className="concept-banner" href="/docs/philosophy">
+            <span>Before the commands</span>
+            <div>
+              <h2>Understand the GroundControl approach.</h2>
+              <p>
+                What is a deployment? How is a project different? What does an
+                agent actually control?
+              </p>
             </div>
-            {guideIndex.map((g, i) => (
-              <Link key={g.slug} href={`/docs/${g.slug}`}>
-                <span className="guide-number">
-                  {String(i + 1).padStart(2, "0")}
+            <span aria-hidden="true">↗︎</span>
+          </Link>
+          {guideGroups.map((group) => (
+            <section className="guide-list" key={group}>
+              <div className="section-label">
+                <h2>{group}</h2>
+                <span className="mono">
+                  {guideIndex.filter((g) => g.group === group).length} guides
                 </span>
-                <div>
-                  <h3>{g.title}</h3>
-                  <p>{g.description}</p>
-                </div>
-                <span aria-hidden="true">↗︎</span>
-              </Link>
-            ))}
-          </section>
-          <div className="callout">
-            <strong>What is being installed?</strong>
-            <p>
-              GroundControl runs on your infrastructure. ChatGPT connects to
-              your instance through MCP and OAuth. The public product site hosts
-              these guides; each installation has its own login, credentials and
-              grants.
-            </p>
-          </div>
+              </div>
+              {guideIndex
+                .filter((g) => g.group === group)
+                .map((g) => (
+                  <Link key={g.slug} href={`/docs/${g.slug}`}>
+                    <div>
+                      <h3>{g.title}</h3>
+                      <p>{g.description}</p>
+                    </div>
+                    <span aria-hidden="true">↗︎</span>
+                  </Link>
+                ))}
+            </section>
+          ))}
         </main>
       </div>
       <Footer />

@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { Check, Note, Table } from "./guide-parts";
+import { journeyGuides } from "./journey-guides";
 import Link from "next/link";
 import CodeBlock from "@/app/components/CodeBlock";
 import Capture from "@/app/components/Capture";
@@ -11,47 +13,8 @@ export type Guide = {
 };
 const install =
   "https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/install";
-function Check({ children }: { children: ReactNode }) {
-  return (
-    <div className="callout check">
-      <strong>Check before continuing</strong>
-      <div>{children}</div>
-    </div>
-  );
-}
-function Note({ children }: { children: ReactNode }) {
-  return (
-    <div className="callout">
-      <strong>Keep in mind</strong>
-      <div>{children}</div>
-    </div>
-  );
-}
-function Table({ headers, rows }: { headers: string[]; rows: string[][] }) {
-  return (
-    <div className="table-scroll">
-      <table>
-        <thead>
-          <tr>
-            {headers.map((h) => (
-              <th key={h}>{h}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i}>
-              {r.map((c, j) => (
-                <td key={j}>{c}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 export const guides: Record<string, Guide> = {
+  ...journeyGuides,
   "getting-started": {
     title: "Install GroundControl and claim your instance",
     description:
@@ -209,10 +172,12 @@ export const guides: Record<string, Guide> = {
               ]}
             />
             <p>
-              Continue to{" "}
-              <Link href="/docs/publishing">publish over HTTPS</Link> if you
-              want ChatGPT to connect. For a private evaluation, keep using the
-              tunnel.
+              Continue with{" "}
+              <Link href="/docs/after-install">After installation</Link> to
+              review the host scan and choose your first application. Remote
+              agents need{" "}
+              <Link href="/docs/publishing">a reachable HTTPS address</Link>;{" "}
+              for a private evaluation, keep using the tunnel.
             </p>
           </>
         ),
@@ -362,7 +327,8 @@ export const guides: Record<string, Guide> = {
                 error. The resource should identify your HTTPS <code>/mcp</code>{" "}
                 endpoint; issuer and authorization URLs should use the same
                 public host. A bare unauthenticated request to <code>/mcp</code>{" "}
-                may return 401 to start discovery—that is not by itself a fault.
+                may return 401 to start discovery. That response alone does not
+                indicate a fault.
               </p>
             </Check>
             <p>
@@ -377,11 +343,11 @@ export const guides: Record<string, Guide> = {
     ],
   },
   "first-deployment": {
-    title: "Connect one real deployment",
+    title: "Enrol an existing application",
     description:
       "Start with an existing Docker Compose application. Give GroundControl an explicit workload identity before granting an agent access.",
     outcome:
-      "An enrolled workload with a repository, public URL, runtime identity and visible verification evidence.",
+      "A tracked workload whose source, containers and public identity you have checked.",
     sections: [
       {
         id: "enroll",
@@ -402,6 +368,13 @@ export const guides: Record<string, Guide> = {
               application before allowing mutations. Begin with an application
               you can redeploy and recover safely.
             </p>
+            <p>
+              If the application is missing, use the{" "}
+              <Link href="/docs/discovery#missing">discovery checks</Link>{" "}
+              first. Enrollment registers its host, source or container and
+              optional Compose path. It does not move its files, restart
+              containers or deploy a new release.
+            </p>
             <Check>
               <p>
                 The workload appears under <strong>Enrolled deployments</strong>
@@ -414,8 +387,88 @@ export const guides: Record<string, Guide> = {
         ),
       },
       {
+        id: "project",
+        title: "2. Group it into a project, if useful",
+        body: (
+          <>
+            <p>
+              <strong>Enrol deployment</strong> adds the candidate without a
+              project group. To group it immediately, open its options menu and
+              choose <strong>Enrol into project</strong> or{" "}
+              <strong>Create project and enrol</strong>. Selecting a project
+              completes that enrollment; there is no separate final submit
+              button in the selection dialog.
+            </p>
+            <Capture
+              file="enrollment-desktop.jpg"
+              alt="The GroundControl Enrol into a project dialog with existing projects and Create and link"
+              caption="Actual enrollment dialog. The project groups deployments; it does not relocate their folders or change their runtime."
+            />
+            <p>
+              You can change this later with the enrolled workload’s{" "}
+              <strong>Move to project</strong> action. Several environments or
+              applications can share a group while retaining distinct deployment
+              identities.
+            </p>
+          </>
+        ),
+      },
+      {
+        id: "management-mode",
+        title: "3. Understand tracking and management mode",
+        body: (
+          <>
+            <p>
+              Enrollment from the discovery UI normally creates a{" "}
+              <code>track</code> record with an initial <code>observed</code>{" "}
+              status. A deployment created through Templates is enrolled as{" "}
+              <code>managed</code>. Applications already known to GroundControl
+              can also be reconciled into its managed inventory.
+            </p>
+            <Table
+              headers={["State", "What it means"]}
+              rows={[
+                [
+                  "Discovered candidate",
+                  "A host finding. It is not yet an enrolled deployment or an external-agent grant.",
+                ],
+                [
+                  "Enrolled / track",
+                  "GroundControl has a persistent workload identity. Available operator and agent actions have their own permissions and runtime requirements.",
+                ],
+                [
+                  "Managed",
+                  "Eligible for managed source deployment when source, configuration and repository requirements are met.",
+                ],
+                [
+                  "Agent-authorized",
+                  "A separate OAuth grant permits named capabilities on the selected enrolled deployment.",
+                ],
+              ]}
+            />
+            <Note>
+              <p>
+                There is currently no general “promote tracked workload to
+                managed” control in this UI. Saving a GitHub URL does not
+                perform that conversion. A disabled{" "}
+                <strong>Autopilot after merge</strong> switch may mean the
+                workload is not managed or the explicit repository is not
+                linked. Do not change database flags or create a duplicate
+                production stack to bypass that requirement.
+              </p>
+            </Note>
+            <p>
+              Tracking mode is not a guarantee that every action is read-only.
+              For an external agent, inspect the OAuth scopes and selected
+              workload. Start with inspection and health before any authorized
+              runtime action.
+            </p>
+          </>
+        ),
+      },
+      {
         id: "source",
-        title: "2. Record source and public identity",
+        title: "4. Record source and public identity",
         body: (
           <>
             <p>
@@ -465,7 +518,7 @@ export const guides: Record<string, Guide> = {
       },
       {
         id: "configuration",
-        title: "3. Check configuration and runtime",
+        title: "5. Check configuration and runtime",
         body: (
           <>
             <p>
@@ -493,7 +546,7 @@ export const guides: Record<string, Guide> = {
       },
       {
         id: "agent-next",
-        title: "4. Connect your agent to this workload",
+        title: "6. Connect your agent to this workload",
         body: (
           <>
             <p>
@@ -503,7 +556,14 @@ export const guides: Record<string, Guide> = {
               <Link href="/docs/deployment-automation">
                 Deploy &amp; automate
               </Link>{" "}
-              for the first controlled redeploy.
+              for the first controlled redeploy. Enrollment does not grant
+              ChatGPT any access by itself.
+            </p>
+            <p>
+              To remove a workload from the inventory, its actions menu offers{" "}
+              <strong>Stop tracking</strong>. This removes the enrollment
+              record; it does not remove the application’s files or containers.
+              Review any dependent grants and records before using it.
             </p>
           </>
         ),
