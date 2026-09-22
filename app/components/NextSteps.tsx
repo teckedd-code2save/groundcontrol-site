@@ -13,7 +13,7 @@ const paths = [
       ["Scan and inspect the correct candidate", "discovery#scan"],
       ["Enrol it and verify its runtime identity", "first-deployment#enroll"],
       ["Add its repository and public URL", "first-deployment#source"],
-      ["Connect ChatGPT and make a read-only call", "agent-access#first-call"],
+      ["Connect your agent and make a read-only call", "agent-access#first-call"],
     ],
   },
   {

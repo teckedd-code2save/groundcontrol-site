@@ -97,7 +97,7 @@ export default async function GuidePage({
             ))}
           </nav>
           <p className="small">
-            Checked against product code and evidence
+            Updated
             <br />
             22 September 2026
           </p>

@@ -70,11 +70,6 @@ export default function DocsNav({ current = "" }: { current?: string }) {
             No guide found. Try “discovery”, “OAuth” or “health”.
           </p>
         )}
-        <div className="sidebar-note">
-          Your host. Your workloads.
-          <br />
-          Explicit access. Recorded outcomes.
-        </div>
       </div>
     </aside>
   );

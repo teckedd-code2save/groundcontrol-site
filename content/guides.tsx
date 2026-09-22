@@ -187,7 +187,7 @@ export const guides: Record<string, Guide> = {
   publishing: {
     title: "Give your instance a stable HTTPS address",
     description:
-      "Publish the control plane from onboarding, then verify the address that ChatGPT will use for MCP and OAuth.",
+      "Publish the control plane from onboarding, then verify the address your agent client will use for MCP and OAuth.",
     outcome:
       "An HTTPS origin that serves your login and advertises OAuth for /mcp.",
     sections: [
@@ -550,14 +550,14 @@ export const guides: Record<string, Guide> = {
         body: (
           <>
             <p>
-              Go to <Link href="/docs/agent-access">Connect ChatGPT</Link>.
+              Go to <Link href="/docs/agent-access">Connect your agent</Link>.
               During OAuth consent, select this deployment. After connection,
               ask the agent to inspect it and run a health check. Follow{" "}
               <Link href="/docs/deployment-automation">
                 Deploy &amp; automate
               </Link>{" "}
-              for the first controlled redeploy. Enrollment does not grant
-              ChatGPT any access by itself.
+              for the first controlled redeploy. Enrollment does not grant an
+              external agent any access by itself.
             </p>
             <p>
               To remove a workload from the inventory, its actions menu offers{" "}
@@ -571,12 +571,54 @@ export const guides: Record<string, Guide> = {
     ],
   },
   "agent-access": {
-    title: "Connect ChatGPT through OAuth and MCP",
+    title: "Connect an agent through OAuth and MCP",
     description:
-      "Add your own GroundControl instance as a custom MCP connection, approve its workload scope, then verify that ChatGPT can use it.",
+      "Authorize a compatible MCP client to use your GroundControl instance. Follow the shared setup and the ChatGPT example below.",
     outcome:
-      "ChatGPT can list the granted deployment, inspect it and return a real health result.",
+      "Your agent can list a granted deployment, inspect it and return a health result.",
     sections: [
+      {
+        id: "client",
+        title: "Choose your MCP client",
+        body: (
+          <>
+            <p>
+              GroundControl exposes its agent tools through MCP and authorizes
+              clients through OAuth. Choose a client that supports remote HTTP
+              MCP connections, OAuth discovery and browser sign-in. Each client
+              receives its own grant with selected capabilities and deployments.
+            </p>
+            <Table
+              headers={["Connection setting", "Use this"]}
+              rows={[
+                [
+                  "Server URL",
+                  "Your GroundControl HTTPS origin followed by /mcp",
+                ],
+                [
+                  "Authentication",
+                  "OAuth, using the instance’s discovery metadata",
+                ],
+                [
+                  "Authorization",
+                  "Sign in to GroundControl and select the workloads",
+                ],
+                [
+                  "First check",
+                  "List deployments, then inspect one and check its health",
+                ],
+              ]}
+            />
+            <p>
+              The walkthrough uses ChatGPT as a tested client. For another
+              compatible client, add the same endpoint in its MCP server
+              settings and complete the GroundControl consent flow. The
+              endpoint, deployment scope and operation records belong to your
+              instance.
+            </p>
+          </>
+        ),
+      },
       {
         id: "requirements",
         title: "Before you connect",
@@ -599,16 +641,16 @@ export const guides: Record<string, Guide> = {
                 .
               </li>
               <li>
-                Your ChatGPT account or workspace permits custom MCP
-                connections. Availability and approval requirements depend on
-                the client and workspace policy.
+                Your client or workspace permits custom MCP connections.
+                Availability and approval requirements depend on the client and
+                workspace policy.
               </li>
             </ul>
             <p>
               For a self-hosted instance, the connection starts from its MCP
               URL. OAuth is built into GroundControl; there is no separate OAuth
-              package to install on the VPS. A plugin or custom connection in
-              ChatGPT points to your own instance.
+              package to install on the VPS. Add your instance as a remote MCP
+              server in the client you use.
             </p>
           </>
         ),
@@ -628,7 +670,7 @@ export const guides: Record<string, Guide> = {
             <Capture
               file="agents-desktop.jpg"
               alt="GroundControl Agents workspace with the MCP endpoint and an active ChatGPT grant"
-              caption="Actual desktop capture, 22 September 2026. The endpoint is at the top; the authorized ChatGPT client and its workload scope are below. Older product builds call the ChatGPT destination Apps."
+              caption="Agents workspace, 22 September 2026. This instance has a ChatGPT grant; each connected client appears with its own scope."
             />
           </>
         ),
@@ -638,6 +680,10 @@ export const guides: Record<string, Guide> = {
         title: "2. Add the connection in ChatGPT",
         body: (
           <>
+            <p>
+              This example uses ChatGPT on the web. Your account or workspace
+              must allow custom MCP connections.
+            </p>
             <ol>
               <li>
                 In ChatGPT on the web, open{" "}
@@ -707,7 +753,7 @@ export const guides: Record<string, Guide> = {
             >
               <div>
                 <span>WHO</span>
-                <strong>ChatGPT client</strong>
+                <strong>Authorized client</strong>
                 <small>Your connected agent</small>
               </div>
               <div>
@@ -753,8 +799,8 @@ export const guides: Record<string, Guide> = {
             <Check>
               <p>
                 Return to <strong>Agents</strong> in GroundControl. Under{" "}
-                <strong>Authorized clients</strong>, ChatGPT should be active
-                and the correct deployment slugs should be listed.
+                <strong>Authorized clients</strong>, your client should be
+                active and the correct deployment slugs should be listed.
               </p>
             </Check>
           </>
@@ -766,11 +812,12 @@ export const guides: Record<string, Guide> = {
         body: (
           <>
             <p>
-              Start a new ChatGPT conversation and select the connection from
-              its tools menu. Send this first:
+              Open a new session with the GroundControl connection enabled. In
+              ChatGPT, select it from the conversation’s tools menu. Send this
+              first:
             </p>
             <CodeBlock
-              label="Prompt for ChatGPT"
+              label="First agent request"
               code="Use GroundControl to list the deployments available to you. Do not change anything."
             />
             <p>
@@ -783,11 +830,11 @@ export const guides: Record<string, Guide> = {
             />
             <Check>
               <p>
-                ChatGPT should actually call GroundControl and report tool
-                evidence. If it only explains how you could run Docker yourself,
-                check that the plugin is enabled in this conversation. A
-                configured public URL should produce an explicit public check; a
-                skipped check is not proof of HTTP health.
+                Your agent should call GroundControl and report tool evidence.
+                If it only explains how you could run Docker yourself, check
+                that the plugin is enabled in this conversation. A configured
+                public URL should produce an explicit public check; a skipped
+                check is not proof of HTTP health.
               </p>
             </Check>
             <p>
@@ -998,7 +1045,7 @@ export const guides: Record<string, Guide> = {
               The intended flow checks out the exact revision in an isolated
               sandbox, validates a candidate fix, then proposes a reviewable
               change. A sandbox setup failure is not evidence that the
-              application is broken. Daytona is not required to connect ChatGPT
+              application is broken. Daytona is not required to connect an agent
               or perform a standard redeploy.
             </p>
             <p>
@@ -1090,7 +1137,7 @@ export const guides: Record<string, Guide> = {
           <>
             <p>
               Open your public instance URL and sign in. Confirm the enrolled
-              deployments and agent grant are present. Ask ChatGPT for a new
+              deployments and agent grant are present. Ask your agent for a new
               health check. A successful startup gate is necessary, but it is
               not a substitute for checking your publishing route and plugin
               connection.

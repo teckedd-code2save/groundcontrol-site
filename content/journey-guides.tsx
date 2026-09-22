@@ -371,7 +371,7 @@ export const journeyGuides: Record<string, Guide> = {
           <>
             <p>
               Open your enrolled application, confirm its source and containers,
-              and record the real public URL. Connect ChatGPT only after you can
+              and record the real public URL. Connect your agent after you can
               identify that workload. Start with a read-only request:
             </p>
             <CodeBlock

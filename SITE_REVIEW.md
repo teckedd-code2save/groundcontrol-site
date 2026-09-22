@@ -20,7 +20,11 @@ Local lint, TypeScript, nine tests and production build passed. Tests validate i
 
 ## Browser verification and limits
 
-The preceding public revision was reviewed at 1363 CSS pixels. The product images loaded, guide anchors and search worked, the endpoint builder produced the expected HTTPS MCP address and Copy placed it on the clipboard. There was no horizontal document overflow. The current journey revision requires a fresh public-page review after deployment; do not treat the preceding review as verification of this revision.
+The product journey revision (`796ee6b`, PR #19) was opened on the public site at 1363 CSS pixels. The homepage images loaded and tour selection changed the image, description and guide link. The post-install checklist changed from 1/5 checked to 0/5 when switching paths and retained the original check on return. Guide search for “discovery” returned the publishing and discovery guides. Neither the homepage nor the post-install page had horizontal document overflow.
+
+The preceding revision's endpoint builder was also verified in the browser: the HTTPS MCP address was correct and Copy placed it on the clipboard. The current automated checks retain coverage of those interactions.
+
+The editorial follow-up makes the product positioning apply to compatible MCP clients, with ChatGPT as the documented example. It replaces the original field report with a focused product/deployment article at `/articles/agentic-deployment-with-oauth-and-mcp`, retains a permanent redirect from the old URL, and keeps detailed provenance qualifications in the evidence guide.
 
 The available browser does not expose mobile viewport emulation. Responsive rules at 1200, 950 and 700 pixels have been inspected, including local table/code scrolling, product-tour layout, accessible control sizes and collapsible guide navigation. Actual phone-browser testing remains unverified.
 

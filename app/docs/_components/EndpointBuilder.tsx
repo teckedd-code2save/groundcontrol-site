@@ -43,7 +43,7 @@ export default function EndpointBuilder() {
       />
       <span className="small">
         {origin
-          ? "Copy this into the MCP server URL field in ChatGPT."
+          ? "Copy this into your client’s MCP server URL field."
           : "Example only. Replace gc.example.com with your own hostname."}
       </span>
     </div>

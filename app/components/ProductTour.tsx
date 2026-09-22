@@ -9,7 +9,7 @@ const stages = [
     title: "Discover",
     heading: "Start with what is already running.",
     text: "GroundControl reads the active host, finds Compose folders and containers, and presents candidates you can inspect.",
-    fact: "A scan does not take ownership of a workload.",
+    fact: "Review the candidates and choose which to enroll.",
     file: "discovery-desktop.jpg",
     alt: "GroundControl discovered workloads with source paths and Enrol deployment buttons",
     href: "/docs/discovery",
@@ -19,7 +19,7 @@ const stages = [
     title: "Enrol",
     heading: "Choose what belongs in GroundControl.",
     text: "Enrol one candidate, keep its files where they are, and optionally group it into a project. Confirm its source, runtime and public address.",
-    fact: "Tracking, managed deployment and agent permission are distinct.",
+    fact: "Enrollment preserves the workload’s existing location.",
     file: "enrollment-desktop.jpg",
     alt: "GroundControl enrollment dialog showing optional project grouping",
     href: "/docs/first-deployment",
@@ -28,18 +28,18 @@ const stages = [
   {
     title: "Connect",
     heading: "Give your agent a scoped connection.",
-    text: "Add your instance’s MCP endpoint in ChatGPT, sign in through OAuth and select the deployments the client may access.",
+    text: "Add your instance’s MCP endpoint to a compatible client, sign in through OAuth and select the deployments it may access.",
     fact: "The grant names the capabilities and workloads.",
     file: "agents-desktop.jpg",
     alt: "GroundControl Agents workspace showing a real active ChatGPT grant",
     href: "/docs/agent-access",
-    link: "Connect ChatGPT",
+    link: "Connect your agent",
   },
   {
     title: "Verify",
     heading: "Follow the operation to its outcome.",
     text: "Read runtime checks and the public endpoint result. A durable operation ID lets your agent return to the same work after a timeout.",
-    fact: "This capture shows a recorded release, not live status.",
+    fact: "RentAWeekend recorded release · 21 September 2026.",
     file: "verification-desktop.jpg",
     alt: "GroundControl runtime image verification and public endpoint evidence",
     href: "/docs/evidence",
@@ -109,7 +109,7 @@ export default function ProductTour() {
         <Capture
           file={stage.file}
           alt={stage.alt}
-          caption="Actual operator interface · captured 22 September 2026"
+          caption="Operator interface · captured 22 September 2026"
           priority
         />
       </div>
