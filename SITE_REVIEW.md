@@ -2,7 +2,7 @@
 
 ## Serendepify brand alignment, 3 October 2026
 
-The public marketing site adopts the company site's current visual language and outcome-focused messaging: “Keep your software running.” The new capability section explains application context, recorded evidence and scoped access. Warm paper, lime accents, an outlined headline and the company's font families connect the two sites without replacing GroundControl's identity or its real product screenshots.
+The public marketing site adopts the company site's current visual language while leading with GroundControl’s own promise: “Put your agents to work.” The opening explains agentic deployment on infrastructure the reader owns. The capability section brings forward the article’s application context, scoped execution and durable results, and links directly to the full story. The navigation now calls that article “Why GroundControl.” The proof section explains signed GitHub deployment automation and the agent’s access to recorded outcomes. Warm paper, lime accents, an outlined headline and the company's font families connect the two sites without replacing GroundControl's identity or its real product screenshots.
 
 Available capabilities stay separate from the clearly labeled Autopilot product direction. The existing September evidence dates and provenance qualifications are preserved. Installation, native guides, product-tour behavior and operator-owned authentication boundaries are unchanged. No operator instance or deployment is part of this revision.
 

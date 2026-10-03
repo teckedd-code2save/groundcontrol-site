@@ -6,7 +6,9 @@ GroundControl itself is a self-hosted, single-tenant control plane. Each operato
 
 ## Current product story
 
-“Keep your software running” connects GroundControl to Serendepify’s broader operational-intelligence story: understand the application, work from evidence, and retain control over agent access. The homepage uses the company site’s warm paper, ink, lime and coral palette, with Schibsted Grotesk headings, Hanken Grotesk body text and JetBrains Mono details. Fonts are self-hosted through Next.js.
+“Put your agents to work” leads with GroundControl’s promise: deploy and operate applications with the agents you use, on infrastructure you own. The homepage brings the article’s operational context, MCP tools, OAuth access and durable execution into the product story. It explains what the connection enables: inspect application state, request supported deployments, and return to their recorded results.
+
+The homepage uses Serendepify’s warm paper, ink, lime and coral palette, with Schibsted Grotesk headings, Hanken Grotesk body text and JetBrains Mono details. Fonts are self-hosted through Next.js.
 
 The product tour and dated deployment evidence describe available capabilities. The separate Autopilot section is explicitly marked **Product direction**; customer-journey testing and proactive recovery are not presented as available features. The installation guide remains the primary call to action.
 

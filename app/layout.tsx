@@ -18,9 +18,9 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GroundControl | Keep your software running",
+  title: "GroundControl | Agentic deployment on infrastructure you own",
   description:
-    "Understand your applications, operate with evidence, and stay in control. GroundControl brings self-hosted operations and scoped agent access to infrastructure you own. Built by Serendepify.",
+    "Connect your agents to your applications through MCP and OAuth. Inspect workloads, run supported deployments, and verify results on infrastructure you own. Open source and self-hosted.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

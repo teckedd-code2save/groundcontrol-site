@@ -38,7 +38,7 @@ export function Header() {
         <Link href="/docs/philosophy">Approach</Link>
         <Link href="/docs">Docs</Link>
         <Link href="/articles/agentic-deployment-with-oauth-and-mcp">
-          Field notes
+          Why GroundControl
         </Link>
       </nav>
       <Link className="button compact" href="/docs/getting-started">
@@ -55,7 +55,7 @@ export function Footer() {
           GroundControl
         </Link>
         <p>
-          Operational intelligence for infrastructure you own.
+          Agentic deployment on infrastructure you own.
           <br />Built by{" "}
           <a className="company-link" href="https://www.serendepify.com/">
             Serendepify

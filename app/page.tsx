@@ -14,32 +14,32 @@ export default function Home() {
             <div className="hero-heading">
               <p className="eyebrow">
                 <span className="status-dot" />
-                Operational intelligence, by Serendepify
+                Open-source agentic deployment
               </p>
               <h1 id="hero-title">
-                Keep your
+                Put your
                 <br />
-                <em>software</em>
+                <em>agents</em>
                 <br />
-                running.
+                to work.
               </h1>
             </div>
             <div className="hero-intro">
               <p className="lead">
-                For the teams who own the infrastructure—and the outcome.
+                Deploy and operate on infrastructure you own.
               </p>
               <p>
-                Understand what is running. Investigate what changed. Give your
-                team and your agents the context to act, with evidence to check
-                the result. GroundControl brings your applications, deployments,
-                and infrastructure into one place you control.
+                Connect ChatGPT or a compatible MCP agent to your applications.
+                Give it the context and tools to deploy changes, inspect
+                workloads, and verify the result. You choose its
+                access. Your infrastructure stays yours.
               </p>
               <div className="actions">
                 <Link className="button" href="/docs/getting-started">
                   Install GroundControl <span aria-hidden="true">↗︎</span>
                 </Link>
                 <a className="button secondary" href="#product">
-                  See how it works <span aria-hidden="true">↓</span>
+                  See agents in action <span aria-hidden="true">↓</span>
                 </a>
               </div>
               <Link className="text-link returning-link" href="/docs/after-install">
@@ -47,14 +47,14 @@ export default function Home() {
               </Link>
               <div className="hero-spec">
                 <span>Self-hosted</span>
-                <span>Docker Compose first</span>
+                <span>MCP + OAuth</span>
                 <span>Open source</span>
               </div>
             </div>
           </section>
           <section className="tour-section wrap" id="product">
             <div className="section-label">
-              <p className="eyebrow">Inside GroundControl</p>
+              <p className="eyebrow">Connect your workloads. Put your agent to work.</p>
               <span className="small">The product today · actual interface</span>
             </div>
             <ProductTour />
@@ -63,31 +63,32 @@ export default function Home() {
         <section className="capability-story wrap" id="capabilities">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">01 / Understand the whole system</p>
-              <h2>Your VPS is a living system.</h2>
+              <p className="eyebrow">01 / From instruction to execution</p>
+              <h2>Give agents the context to act.</h2>
             </div>
             <p>
-              A running container is only part of the story. Bring the source,
-              services, configuration, and public address into the same view,
-              so the next decision starts with context.
+              GroundControl connects your application’s source, containers,
+              configuration, and public address. Your agent works from that
+              shared context, with tools to carry an authorized request through
+              to a result you can inspect.
             </p>
           </div>
           <div className="capability-columns">
             {[
               [
                 "01",
-                "See how it fits together.",
-                "Discover existing applications and inspect their source, runtime, and public route. Start with the infrastructure you already own.",
+                "Inspect real application state.",
+                "Ask your agent what is deployed, read the logs, and check service health. It works from your application’s state and deployment history.",
               ],
               [
                 "02",
-                "Work from evidence.",
-                "Read deployment history, runtime checks, and endpoint results. Follow an operation to its recorded outcome, including what still needs attention.",
+                "Let your agent take action.",
+                "Approve the capabilities and deployments it can use through OAuth. GroundControl executes supported deployment requests on your infrastructure while holding the credentials.",
               ],
               [
                 "03",
-                "Keep your final say.",
-                "Choose the deployments and capabilities an agent can access. GroundControl keeps infrastructure credentials behind that boundary.",
+                "Follow through to the result.",
+                "Get runtime checks and public endpoint evidence for the operation. A durable operation ID lets your agent return to the same work after a timeout or in a later conversation.",
               ],
             ].map(([number, title, text]) => (
               <article key={number}>
@@ -97,6 +98,16 @@ export default function Home() {
               </article>
             ))}
           </div>
+          <Link
+            href="/articles/agentic-deployment-with-oauth-and-mcp"
+            className="article-strip"
+          >
+            <span className="eyebrow">Why GroundControl</span>
+            <h3>Your infrastructure, connected to the agents you use.</h3>
+            <span>
+              Read the story <span aria-hidden="true">↗︎</span>
+            </span>
+          </Link>
         </section>
         <section className="onboarding-story wrap" id="after-install">
           <div className="section-heading">
@@ -165,14 +176,15 @@ export default function Home() {
                 Your final say.
               </h2>
               <p>
-                Keep the infrastructure you own and the workflows you know.
-                GroundControl gives your team and your agents a shared picture
-                of each application, without handing over unrestricted access.
+                Start with the applications already on your VPS, or launch a
+                new workload through Templates. Keep your existing files in
+                place and bring the applications you choose into GroundControl.
               </p>
               <p>
-                You choose the scope. The control plane holds the infrastructure
-                credentials and records execution. Verification shows what
-                worked and what still needs attention.
+                MCP gives your agent the tools. OAuth defines its access. You
+                can work through the interface or your agent, using the same
+                application identity and recorded results. Review and revoke
+                access from the Agents workspace.
               </p>
               <Link className="text-link" href="/docs/philosophy">
                 Read the philosophy and core concepts →
@@ -186,15 +198,16 @@ export default function Home() {
             <div>
               <p className="eyebrow">04 / Evidence from a real VPS</p>
               <h2>
-                Proof you can
+                From GitHub push
                 <br />
-                open and inspect.
+                to agent insight.
               </h2>
             </div>
             <p>
-              GroundControl deployed RentAWeekend from a GitHub push. ChatGPT
-              connected through MCP to inspect its health and read the operation
-              record.
+              For managed workloads with merge automation enabled, a signed
+              GitHub push starts a deployment your agent can follow. In this
+              recorded example, GroundControl deployed RentAWeekend, and ChatGPT
+              inspected its health and operation record through MCP.
             </p>
           </div>
           <div className="proof-grid">
@@ -227,18 +240,6 @@ export default function Home() {
               <Link href="/docs/evidence">Inspect the deployment record →</Link>
             </div>
           </div>
-          <Link
-            href="/articles/agentic-deployment-with-oauth-and-mcp"
-            className="article-strip"
-          >
-            <span className="eyebrow">Engineering field notes</span>
-            <h3>
-              GroundControl: open-source agentic deployment with OAuth and MCP.
-            </h3>
-            <span>
-              Read the article <span aria-hidden="true">↗︎</span>
-            </span>
-          </Link>
         </section>
         <section className="direction-section wrap" aria-labelledby="direction-title">
           <div className="direction-label"><span className="eyebrow">Where we’re going</span><span className="direction-badge">Product direction</span></div>
@@ -307,13 +308,14 @@ export default function Home() {
             <div>
               <p className="eyebrow">Start with one host and one application</p>
               <h2>
-                Your next application.
+                Your infrastructure.
                 <br />
-                Under your control.
+                Ready for your agent.
               </h2>
               <p>
-                Install privately, claim ownership, and choose the first
-                workload.
+                Install GroundControl, choose an application, and connect your
+                agent. Start with a health check, then explore the operations
+                your workload supports.
               </p>
               <Link className="button" href="/docs/getting-started">
                 Follow the installation guide <span aria-hidden="true">↗︎</span>
