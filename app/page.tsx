@@ -8,60 +8,100 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main id="main">
-        <section className="landing-hero wrap">
-          <div className="hero-heading">
-            <p className="eyebrow">
-              <span className="status-dot" />
-              Open-source agentic deployment
-            </p>
-            <h1>
-              Give your agents
-              <br />
-              the access to
-              <br />
-              <em>follow through.</em>
-            </h1>
-          </div>
-          <div className="hero-intro">
-            <p className="lead">
-              Discover your applications, choose what to manage, and let your
-              agents help operate them.
-            </p>
+      <main id="main" className="home-page">
+        <div className="hero-field">
+          <section className="landing-hero wrap" aria-labelledby="hero-title">
+            <div className="hero-heading">
+              <p className="eyebrow">
+                <span className="status-dot" />
+                Operational intelligence, by Serendepify
+              </p>
+              <h1 id="hero-title">
+                Keep your
+                <br />
+                <em>software</em>
+                <br />
+                running.
+              </h1>
+            </div>
+            <div className="hero-intro">
+              <p className="lead">
+                For the teams who own the infrastructure—and the outcome.
+              </p>
+              <p>
+                Understand what is running. Investigate what changed. Give your
+                team and your agents the context to act, with evidence to check
+                the result. GroundControl brings your applications, deployments,
+                and infrastructure into one place you control.
+              </p>
+              <div className="actions">
+                <Link className="button" href="/docs/getting-started">
+                  Install GroundControl <span aria-hidden="true">↗︎</span>
+                </Link>
+                <a className="button secondary" href="#product">
+                  See how it works <span aria-hidden="true">↓</span>
+                </a>
+              </div>
+              <Link className="text-link returning-link" href="/docs/after-install">
+                Already installed? Continue setup →
+              </Link>
+              <div className="hero-spec">
+                <span>Self-hosted</span>
+                <span>Docker Compose first</span>
+                <span>Open source</span>
+              </div>
+            </div>
+          </section>
+          <section className="tour-section wrap" id="product">
+            <div className="section-label">
+              <p className="eyebrow">Inside GroundControl</p>
+              <span className="small">The product today · actual interface</span>
+            </div>
+            <ProductTour />
+          </section>
+        </div>
+        <section className="capability-story wrap" id="capabilities">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">01 / Understand the whole system</p>
+              <h2>Your VPS is a living system.</h2>
+            </div>
             <p>
-              GroundControl is a self-hosted control plane for your VPS. It
-              gives agents controlled access through OAuth and MCP, so approved
-              work can move from a request to a verified result without repeated
-              access and credential handoffs.
+              A running container is only part of the story. Bring the source,
+              services, configuration, and public address into the same view,
+              so the next decision starts with context.
             </p>
-            <div className="actions">
-              <Link className="button" href="/docs/getting-started">
-                Install GroundControl <span aria-hidden="true">↗︎</span>
-              </Link>
-              <Link className="text-link" href="/docs/after-install">
-                Already installed? Start here →
-              </Link>
-            </div>
-            <div className="hero-spec">
-              <span>Docker Compose</span>
-              <span>Your VPS</span>
-              <span>MCP + OAuth</span>
-            </div>
           </div>
-        </section>
-        <section className="tour-section wrap" id="product">
-          <div className="section-label">
-            <p className="eyebrow">
-              A working connection to your infrastructure
-            </p>
-            <span className="small">Explore the product</span>
+          <div className="capability-columns">
+            {[
+              [
+                "01",
+                "See how it fits together.",
+                "Discover existing applications and inspect their source, runtime, and public route. Start with the infrastructure you already own.",
+              ],
+              [
+                "02",
+                "Work from evidence.",
+                "Read deployment history, runtime checks, and endpoint results. Follow an operation to its recorded outcome, including what still needs attention.",
+              ],
+              [
+                "03",
+                "Keep your final say.",
+                "Choose the deployments and capabilities an agent can access. GroundControl keeps infrastructure credentials behind that boundary.",
+              ],
+            ].map(([number, title, text]) => (
+              <article key={number}>
+                <span className="mono">{number}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
           </div>
-          <ProductTour />
         </section>
         <section className="onboarding-story wrap" id="after-install">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Installation is the beginning</p>
+              <p className="eyebrow">02 / Start with what you have</p>
               <h2>
                 You installed it.
                 <br />
@@ -116,16 +156,18 @@ export default function Home() {
         <section className="philosophy-band" id="approach">
           <div className="wrap philosophy-grid">
             <div>
-              <p className="eyebrow">The GroundControl approach</p>
+              <p className="eyebrow">03 / Autonomy without surrender</p>
               <h2>
-                Your application is
+                Your infrastructure.
                 <br />
-                more than a container.
+                Your agents.
+                <br />
+                Your final say.
               </h2>
               <p>
-                GroundControl connects the source, runtime and public route to
-                one workload identity. Your team and your agents can work from
-                that shared context.
+                Keep the infrastructure you own and the workflows you know.
+                GroundControl gives your team and your agents a shared picture
+                of each application, without handing over unrestricted access.
               </p>
               <p>
                 You choose the scope. The control plane holds the infrastructure
@@ -142,11 +184,11 @@ export default function Home() {
         <section className="proof-story wrap" id="proof">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Used on a real VPS</p>
+              <p className="eyebrow">04 / Evidence from a real VPS</p>
               <h2>
-                The work leaves
+                Proof you can
                 <br />
-                something you can inspect.
+                open and inspect.
               </h2>
             </div>
             <p>
@@ -197,6 +239,19 @@ export default function Home() {
               Read the article <span aria-hidden="true">↗︎</span>
             </span>
           </Link>
+        </section>
+        <section className="direction-section wrap" aria-labelledby="direction-title">
+          <div className="direction-label"><span className="eyebrow">Where we’re going</span><span className="direction-badge">Product direction</span></div>
+          <div>
+            <h2 id="direction-title">From verified operations<br />to proactive recovery.</h2>
+            <p>
+              Serendepify’s vision is a system that understands service relationships,
+              tests affected customer journeys, and helps recover from regressions
+              within an operator’s policy. This is the direction for Autopilot,
+              not a promise of unattended recovery in today’s release.
+            </p>
+            <a className="text-link" href="https://www.serendepify.com/#autopilot">Explore the Serendepify vision <span aria-hidden="true">↗</span></a>
+          </div>
         </section>
         <section className="learning-section wrap">
           <div>
@@ -252,9 +307,9 @@ export default function Home() {
             <div>
               <p className="eyebrow">Start with one host and one application</p>
               <h2>
-                Make your infrastructure
+                Your next application.
                 <br />
-                accessible to your agent.
+                Under your control.
               </h2>
               <p>
                 Install privately, claim ownership, and choose the first

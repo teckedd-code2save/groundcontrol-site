@@ -55,8 +55,12 @@ export function Footer() {
           GroundControl
         </Link>
         <p>
-          Open-source operations for infrastructure you own.
-          <br />A Serendepify product.
+          Operational intelligence for infrastructure you own.
+          <br />Built by{" "}
+          <a className="company-link" href="https://www.serendepify.com/">
+            Serendepify
+          </a>{" "}
+          in Accra, Ghana.
         </p>
       </div>
       <nav aria-label="Footer navigation">
@@ -68,7 +72,7 @@ export function Footer() {
           View source ↗︎
         </a>
       </nav>
-      <span className="mono">Safe, smooth, observable, agentic.</span>
+      <span className="mono">Your infrastructure. Your final say.</span>
     </footer>
   );
 }

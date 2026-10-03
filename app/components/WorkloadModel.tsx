@@ -10,7 +10,7 @@ export default function WorkloadModel() {
       <div className="model-row">
         <span>Project</span>
         <strong>Weekend planner</strong>
-        <small>Optional organization</small>
+        <small>Your application or product</small>
       </div>
       <div className="model-deployment">
         <div className="model-row">
