@@ -4,6 +4,7 @@ import Capture from "@/app/components/Capture";
 import CodeBlock from "@/app/components/CodeBlock";
 import ProductTour from "@/app/components/ProductTour";
 import WorkloadModel from "@/app/components/WorkloadModel";
+import DeploymentStory from "@/app/components/DeploymentStory";
 export default function Home() {
   return (
     <>
@@ -12,34 +13,28 @@ export default function Home() {
         <div className="hero-field">
           <section className="landing-hero wrap" aria-labelledby="hero-title">
             <div className="hero-heading">
-              <p className="eyebrow">
-                <span className="status-dot" />
-                Open-source agentic deployment
-              </p>
               <h1 id="hero-title">
-                Put your
-                <br />
-                <em>agents</em>
-                <br />
-                to work.
+                <span>Own the path</span>{" "}
+                <span>to <em>production.</em></span>
               </h1>
             </div>
             <div className="hero-intro">
               <p className="lead">
-                Deploy and operate on infrastructure you own.
+                Agent-assisted deployment.
+                <br />
+                End to end.
               </p>
               <p>
-                Connect ChatGPT or a compatible MCP agent to your applications.
-                Give it the context and tools to deploy changes, inspect
-                workloads, and verify the result. You choose its
-                access. Your infrastructure stays yours.
+                Bring your project and the agents you already use. GroundControl
+                connects configuration, rollout and verification on infrastructure
+                you own, with a clear record of every deployment.
               </p>
               <div className="actions">
                 <Link className="button" href="/docs/getting-started">
                   Install GroundControl <span aria-hidden="true">↗︎</span>
                 </Link>
                 <a className="button secondary" href="#product">
-                  See agents in action <span aria-hidden="true">↓</span>
+                  Explore the workflow <span aria-hidden="true">↓</span>
                 </a>
               </div>
               <Link className="text-link returning-link" href="/docs/after-install">
@@ -52,9 +47,10 @@ export default function Home() {
               </div>
             </div>
           </section>
+          <DeploymentStory />
           <section className="tour-section wrap" id="product">
             <div className="section-label">
-              <p className="eyebrow">Connect your workloads. Put your agent to work.</p>
+              <p className="eyebrow">Your project. Every stage of deployment.</p>
               <span className="small">The product today · actual interface</span>
             </div>
             <ProductTour />
@@ -64,7 +60,7 @@ export default function Home() {
           <div className="section-heading">
             <div>
               <p className="eyebrow">01 / From instruction to execution</p>
-              <h2>Give agents the context to act.</h2>
+              <h2>One shared view. From intent to result.</h2>
             </div>
             <p>
               GroundControl connects your application’s source, containers,

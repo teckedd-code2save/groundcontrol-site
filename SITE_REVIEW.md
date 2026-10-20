@@ -1,4 +1,12 @@
-# Distribution release site review · 20 October 2026
+# Deployment ownership and motion · 20 October 2026
+
+The opening now reads “Own the path to production,” supported by “Agent-assisted deployment. End to end.” It speaks to people who already work with agents and connects their project, configuration, rollout and verification on their own infrastructure. The previous eyebrow and headline are removed from the homepage and share metadata. The generated social card and footer use the same positioning.
+
+A large paragraph reveals words in reading order as the visitor scrolls, with a matching source-to-verification line. The headline enters in two restrained stages and call-to-action arrows respond to hover or keyboard focus. No animation dependency was added. Server-rendered text is complete and visible; reduced motion disables the enhancement, including when the preference changes during the visit. Increased-contrast and forced-color modes also keep the full paragraph visible.
+
+Validation: lint, TypeScript, all thirteen tests and the production build passed. Four motion tests cover server-rendered fallback, unavailable browser APIs, reduced motion, scroll progress, event batching and cleanup. Browser review at 1280 and 390 pixels confirmed no horizontal overflow; the passage changed from partially revealed to fully visible as scrolling advanced. The 1200×630 social preview was checked visually. Physical device and operating-system reduced-motion testing remain unverified.
+
+## Distribution release site review · 20 October 2026
 
 The homepage, article and all thirteen handbook guides now share a dark theme with lime calls to action. The copy leads with agentic deployment on infrastructure the visitor owns, and explains the new local/remote computer launcher, folder/GitHub project import, and connect-existing/launch-new deployment paths. The project model separates application source from runtime instances. Desktop limits, WSL, AMD64 emulation and the server-only HTTPS/upgrade flows are explicit in the relevant guides.
 

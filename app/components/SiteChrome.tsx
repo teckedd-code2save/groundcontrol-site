@@ -55,7 +55,7 @@ export function Footer() {
           GroundControl
         </Link>
         <p>
-          Agentic deployment on infrastructure you own.
+          Agent-assisted deployment on infrastructure you own.
           <br />Built by{" "}
           <a className="company-link" href="https://www.serendepify.com/">
             Serendepify
