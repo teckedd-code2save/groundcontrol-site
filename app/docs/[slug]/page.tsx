@@ -99,7 +99,7 @@ export default async function GuidePage({
           <p className="small">
             Updated
             <br />
-            22 September 2026
+            {guide.updated ?? "22 September 2026"}
           </p>
         </aside>
       </div>

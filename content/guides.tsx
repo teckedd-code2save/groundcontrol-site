@@ -7,6 +7,7 @@ import CodeBlock from "@/app/components/CodeBlock";
 import Capture from "@/app/components/Capture";
 import EndpointBuilder from "@/app/docs/_components/EndpointBuilder";
 export type Guide = {
+  updated?: string;
   title: string;
   description: string;
   outcome: string;
@@ -18,7 +19,7 @@ export const guides: Record<string, Guide> = {
   ...journeyGuides,
   ...setupGuides,
   publishing: {
-    title: "Give your instance a stable HTTPS address",
+    updated: "20 October 2026",    title: "Give your instance a stable HTTPS address",
     description:
       "Publish the control plane from onboarding, then verify the address your agent client will use for MCP and OAuth.",
     outcome:
@@ -176,7 +177,7 @@ export const guides: Record<string, Guide> = {
     ],
   },
   "first-deployment": {
-    title: "Enrol an existing application",
+    updated: "20 October 2026",    title: "Enrol an existing application",
     description:
       "Start with an existing Docker Compose application. Give GroundControl an explicit workload identity before granting an agent access.",
     outcome:
@@ -876,7 +877,7 @@ export const guides: Record<string, Guide> = {
     ],
   },
   distribution: {
-    title: "Upgrade, recover and uninstall",
+    updated: "20 October 2026",    title: "Upgrade, recover and uninstall",
     description:
       "Use the same installer for maintenance, with an explicit preview and a database/configuration backup before upgrade.",
     outcome:

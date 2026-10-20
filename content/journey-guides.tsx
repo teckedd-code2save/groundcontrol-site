@@ -8,6 +8,7 @@ import CodeBlock from "@/app/components/CodeBlock";
 
 export const journeyGuides: Record<string, Guide> = {
   philosophy: {
+    updated: "20 October 2026",
     title: "The GroundControl approach",
     description:
       "Understand the product, the things it manages, and how an agent gets a useful but bounded role in operating them.",
@@ -224,6 +225,7 @@ export const journeyGuides: Record<string, Guide> = {
     ],
   },
   "after-install": {
+    updated: "20 October 2026",
     title: "GroundControl is installed. What next?",
     description:
       "Go from a claimed instance to one understood workload and a verified agent connection.",
@@ -401,6 +403,7 @@ export const journeyGuides: Record<string, Guide> = {
     ],
   },
   discovery: {
+    updated: "20 October 2026",
     title: "Discover workloads on your host",
     description:
       "Understand where GroundControl looks, what a discovered candidate means, and how to resolve missing or unexpected results.",
@@ -602,6 +605,7 @@ export const journeyGuides: Record<string, Guide> = {
     ],
   },
   "new-deployment": {
+    updated: "20 October 2026",
     title: "Deploy a new application from a template",
     description:
       "Use GroundControl’s Choose, Source, Config, Review and Deploy workflow to create and enroll a workload.",

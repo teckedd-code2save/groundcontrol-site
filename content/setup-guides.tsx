@@ -6,6 +6,7 @@ import CodeBlock from "@/app/components/CodeBlock";
 
 export const setupGuides: Record<string, Guide> = {
   "getting-started": {
+    updated: "20 October 2026",
     title: "Start GroundControl from your computer",
     description: "Choose this computer or an existing Linux server. The launcher prepares the instance and prints a private link for setup or login.",
     outcome: "A private GroundControl workspace, your owner account and a clear next step for your first project.",
@@ -54,6 +55,7 @@ export const setupGuides: Record<string, Guide> = {
     ],
   },
   projects: {
+    updated: "20 October 2026",
     title: "Your project, from source to deployments",
     description: "Bring a folder or GitHub repository into GroundControl, then connect the instances of that application running on your infrastructure.",
     outcome: "One project with its source and explicitly selected deployment instances, each with its own host and environment.",
