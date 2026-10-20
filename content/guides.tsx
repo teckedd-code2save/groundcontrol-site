@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Check, Note, Table } from "./guide-parts";
+import { setupGuides } from "./setup-guides";
 import { journeyGuides } from "./journey-guides";
 import Link from "next/link";
 import CodeBlock from "@/app/components/CodeBlock";
@@ -15,175 +16,7 @@ const install =
   "https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/install";
 export const guides: Record<string, Guide> = {
   ...journeyGuides,
-  "getting-started": {
-    title: "Install GroundControl and claim your instance",
-    description:
-      "Start on a Linux VPS, reach the private installer through an SSH tunnel, and create your administrator account.",
-    outcome:
-      "A claimed, healthy GroundControl instance with its local server enrolled.",
-    sections: [
-      {
-        id: "before-you-start",
-        title: "What you need",
-        body: (
-          <>
-            <Table
-              headers={["Requirement", "Why it is needed"]}
-              rows={[
-                [
-                  "A Linux host you administer",
-                  "The installer runs on the destination server using root or sudo.",
-                ],
-                [
-                  "curl, a working Docker daemon and Compose",
-                  "The installer can install Docker when it is missing and runs with root; Compose must be available.",
-                ],
-                [
-                  "SSH access from your computer",
-                  "You will use a local tunnel to claim the private instance.",
-                ],
-                [
-                  "A hostname for the next step",
-                  "A stable HTTPS address is the documented route for connecting a remote agent.",
-                ],
-              ]}
-            />
-            <p>
-              GroundControl is a privileged host operations tool. Its canonical
-              Compose file mounts the Docker socket and host directories such as{" "}
-              <code>/opt</code>, <code>/etc</code> and <code>/var/www</code>.
-              Install it on a host you intend it to manage. The MCP grant later
-              exposes a much narrower set of operations to an agent.
-            </p>
-          </>
-        ),
-      },
-      {
-        id: "install",
-        title: "1. Run the installer on the VPS",
-        body: (
-          <>
-            <p>
-              SSH into your VPS, then run this there. The script downloads the
-              published image, writes installation files under{" "}
-              <code>/opt/groundcontrol</code>, creates persistent database
-              storage and starts the container on <code>127.0.0.1:3003</code>.
-            </p>
-            <CodeBlock
-              code={`curl -fsSL ${install} | sudo bash`}
-              label="On your VPS"
-            />
-            <p>For an agent or script that needs structured output, use:</p>
-            <CodeBlock
-              code={`curl -fsSL ${install} | sudo bash -s -- --json`}
-              label="On your VPS · JSON output"
-            />
-            <Check>
-              <p>
-                Look for <code>claim_required</code>, healthy container checks,
-                a <code>claimUrl</code> and its expiry. The claim is single-use
-                and lasts 30 minutes by default. Keep its token private.
-              </p>
-            </Check>
-          </>
-        ),
-      },
-      {
-        id: "tunnel",
-        title: "2. Open the private instance from your computer",
-        body: (
-          <>
-            <p>
-              In a second terminal on your own computer, open a tunnel. Replace{" "}
-              <code>YOUR_USER</code> and <code>YOUR_VPS_IP</code> with the SSH
-              account and address you normally use.
-            </p>
-            <CodeBlock
-              code="ssh -N -L 3003:127.0.0.1:3003 YOUR_USER@YOUR_VPS_IP"
-              label="On your computer"
-            />
-            <p>
-              Leave that terminal running. Open the installer’s full{" "}
-              <code>http://127.0.0.1:3003/claim#token=…</code> URL in your
-              computer’s browser. The URL reaches the VPS through your tunnel;
-              it is not a public management endpoint.
-            </p>
-            <Note>
-              <p>
-                If local port 3003 is occupied, use{" "}
-                <code>
-                  ssh -N -L 13003:127.0.0.1:3003 YOUR_USER@YOUR_VPS_IP
-                </code>{" "}
-                and change only the port in the claim URL to <code>13003</code>.
-              </p>
-            </Note>
-          </>
-        ),
-      },
-      {
-        id: "claim",
-        title: "3. Create the owner account",
-        body: (
-          <>
-            <p>
-              On <strong>Claim GroundControl</strong>, enter an administrator
-              username, a password and its confirmation. The password requires
-              at least 12 characters with upper and lower case letters, a number
-              and a symbol. The installing agent should not retain it.
-            </p>
-            <p>
-              The claim code is read from the URL fragment. Submit the form to
-              establish ownership. If the claim expired before you used it,
-              rerun the installer on that still-unclaimed instance for a new
-              claim; an already-claimed instance uses its existing login.
-            </p>
-            <Check>
-              <p>
-                Onboarding opens after claim. The local host should already be
-                enrolled. You do not need to paste its SSH private key back into
-                GroundControl. Additional remote servers can be added separately
-                through <strong>Add server</strong>.
-              </p>
-            </Check>
-          </>
-        ),
-      },
-      {
-        id: "verify",
-        title: "4. Verify the installation",
-        body: (
-          <>
-            <p>
-              Run these read-only checks on the VPS. Replace the port if you
-              changed it during installation.
-            </p>
-            <CodeBlock
-              label="On your VPS · read-only checks"
-              code={
-                "docker inspect --format '{{.State.Health.Status}}' groundcontrol-web\ndocker port groundcontrol-web\ncurl -fsS http://127.0.0.1:3003/api/auth/claim"
-              }
-            />
-            <Table
-              headers={["Check", "Expected result"]}
-              rows={[
-                ["Container health", "healthy"],
-                ["Port mapping", "127.0.0.1:3003, rather than a public bind"],
-                ["Claim status", "claimed: true after you finish claiming"],
-              ]}
-            />
-            <p>
-              Continue with{" "}
-              <Link href="/docs/after-install">After installation</Link> to
-              review the host scan and choose your first application. Remote
-              agents need{" "}
-              <Link href="/docs/publishing">a reachable HTTPS address</Link>;{" "}
-              for a private evaluation, keep using the tunnel.
-            </p>
-          </>
-        ),
-      },
-    ],
-  },
+  ...setupGuides,
   publishing: {
     title: "Give your instance a stable HTTPS address",
     description:
@@ -198,7 +31,7 @@ export const guides: Record<string, Guide> = {
           <>
             <p>
               After claim, continue to the onboarding step titled{" "}
-              <strong>Publish this GroundControl instance</strong>. Choose a
+              <strong>Publish this GroundControl instance</strong> on a Linux server installation. Desktop installations remain local; this publishing flow is for servers. Choose a
               method appropriate for the host and DNS you control.
             </p>
             <Table
@@ -388,28 +221,12 @@ export const guides: Record<string, Guide> = {
       },
       {
         id: "project",
-        title: "2. Group it into a project, if useful",
+        title: "2. Connect it to your application’s project",
         body: (
           <>
-            <p>
-              <strong>Enrol deployment</strong> adds the candidate without a
-              project group. To group it immediately, open its options menu and
-              choose <strong>Enrol into project</strong> or{" "}
-              <strong>Create project and enrol</strong>. Selecting a project
-              completes that enrollment; there is no separate final submit
-              button in the selection dialog.
-            </p>
-            <Capture
-              file="enrollment-desktop.jpg"
-              alt="The GroundControl Enrol into a project dialog with existing projects and Create and link"
-              caption="Actual enrollment dialog. The project groups deployments; it does not relocate their folders or change their runtime."
-            />
-            <p>
-              You can change this later with the enrolled workload’s{" "}
-              <strong>Move to project</strong> action. Several environments or
-              applications can share a group while retaining distinct deployment
-              identities.
-            </p>
+            <p>From a project, choose <strong>Add deployment → Connect existing</strong>, select the workload and confirm its name and environment. The project holds your application’s source and its deployment instances.</p>
+            <p>You can also enrol from discovery, then use <strong>Move to project</strong> to organize it later. Moving or registering a deployment does not relocate files or restart its runtime.</p>
+            <p>See <Link href="/docs/projects">Projects &amp; deployments</Link> to add sources from the folder picker or GitHub and connect additional environments.</p>
           </>
         ),
       },
@@ -1070,6 +887,7 @@ export const guides: Record<string, Guide> = {
         title: "1. Preview the target version",
         body: (
           <>
+            <Note><p>This maintenance flow is for the canonical Linux server installation. Rerunning the computer launcher reconnects; it does not upgrade an existing desktop instance. Keep the desktop configuration folder and database volume together.</p></Note>
             <p>
               Run this on the VPS that already hosts GroundControl. Replace{" "}
               <code>YOUR_TAG</code> with the published version or image tag you

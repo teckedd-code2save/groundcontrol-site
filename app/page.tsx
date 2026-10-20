@@ -120,30 +120,30 @@ export default function Home() {
               </h2>
             </div>
             <p>
-              The local host is connected. GroundControl can now help you
-              understand what is running and bring one application into its
-              control plane.
+              Start on your computer or connect an existing Linux server.
+              Add the application you’re building, then decide where and how
+              its deployments run.
             </p>
           </div>
           <div className="route-list">
             {[
               [
                 "01",
-                "Review what was found",
-                "Confirm the server, Compose folders, containers and proxy. Correct scan paths when something is missing.",
-                "discovery",
+                "Choose your starting point",
+                "Run the launcher on your computer. Choose local Docker or a remote Linux server and open your private setup link.",
+                "getting-started",
               ],
               [
                 "02",
-                "Choose your workload",
-                "Enrol an existing application in place, or use Templates to create and enroll a new deployment.",
-                "after-install#choose-path",
+                "Add your project",
+                "Pick a folder or a GitHub repository. Keep the source, context and deployments for your application together.",
+                "projects",
               ],
               [
                 "03",
-                "Establish its identity",
-                "Check the source, runtime, configuration and public address. Understand tracking and management mode.",
-                "first-deployment#management-mode",
+                "Connect or launch a deployment",
+                "Connect an app that already runs, or launch a new instance. Give each deployment its own environment and host.",
+                "projects#deployments",
               ],
               [
                 "04",
@@ -176,9 +176,9 @@ export default function Home() {
                 Your final say.
               </h2>
               <p>
-                Start with the applications already on your VPS, or launch a
-                new workload through Templates. Keep your existing files in
-                place and bring the applications you choose into GroundControl.
+                Bring a project from your computer or GitHub. Connect its
+                existing deployments or launch a new instance on your own
+                infrastructure. Keep your sources and environments together.
               </p>
               <p>
                 MCP gives your agent the tools. OAuth defines its access. You
@@ -278,9 +278,9 @@ export default function Home() {
                 "philosophy",
               ],
               [
-                "Discovery & enrollment",
-                "Where the scanner looks and what enrollment changes.",
-                "discovery",
+                "Projects & deployments",
+                "Folder and GitHub imports, environments and running instances.",
+                "projects",
               ],
               [
                 "Connect your agent",
@@ -323,13 +323,13 @@ export default function Home() {
             </div>
             <div>
               <CodeBlock
-                label="Run on your VPS"
-                code="curl -fsSL https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/install | sudo bash"
+                label="Start from your computer"
+                code={"curl -fsSL https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/start -o groundcontrol-start\nbash groundcontrol-start"}
               />
               <p className="small">
-                Linux · Docker · root or sudo
+                Choose this computer or a remote Linux server.
                 <br />
-                Read the installation guide for prerequisites and host access.
+                macOS / Linux · Windows through WSL · Docker for local installs.
               </p>
             </div>
           </div>

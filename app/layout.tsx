@@ -18,6 +18,14 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://trygroundcontrol.serendepify.com"),
+  openGraph: {
+    type: "website",
+    siteName: "GroundControl",
+    title: "Put your agents to work | GroundControl",
+    description: "Deploy and operate on infrastructure you own. Start on your computer or a Linux server, bring a project from a folder or GitHub, and connect your agent.",
+  },
+  twitter: { card: "summary_large_image" },
   title: "GroundControl | Agentic deployment on infrastructure you own",
   description:
     "Connect your agents to your applications through MCP and OAuth. Inspect workloads, run supported deployments, and verify results on infrastructure you own. Open source and self-hosted.",

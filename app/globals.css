@@ -1,26 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  /* Shared with Serendepify's v5 brand: warm paper, ink, lime, and coral. */
-  --paper: #f1f0e8;
-  --paper-deep: #e8e7dc;
+  /* Serendepify's lime and coral on a dark, warm-neutral canvas. */
+  --paper: #11130f;
+  --paper-deep: #171b14;
   --lime: #c8ff3d;
-  --coral: #ff6846;
-  --grid-line: rgba(23, 24, 18, 0.055);
-  --lime-wash: rgba(200, 255, 61, 0.2);
-  --light-ink: #f1f0e8;
-  --dark-muted: #b6bbad;
-  --dark-active: #242a19;
-  --panel-line: #c8cabb;
-  --surface: #ffffff;
-  --ink: #171812;
-  --muted: #606358;
-  --line: #d6d7cc;
-  --dark: #12140f;
-  --dark-line: #383d30;
-  --green: #475d1c;
-  --soft-green: #e8e7dc;
-  --code: #e5e8d7;
+  --coral: #ff8165;
+  --grid-line: rgba(225, 237, 203, 0.045);
+  --lime-wash: rgba(200, 255, 61, 0.08);
+  --light-ink: #f0f2e8;
+  --dark-muted: #b7bfab;
+  --dark-active: #252d1b;
+  --panel-line: #414a36;
+  --surface: #1c2118;
+  --ink: #f0f2e8;
+  --muted: #b7bfab;
+  --line: #353d2d;
+  --dark: #0b0e09;
+  --dark-line: #353d2d;
+  --green: #c8ff3d;
+  --soft-green: #232c18;
+  --code: #20271a;
+  --on-accent: #11160a;
+  --accent-hover: #daff84;
   --font-sans: var(--font-brand-body);
   --font-display: var(--font-brand-display);
   --font-mono: var(--font-brand-mono);
@@ -29,6 +31,7 @@
   box-sizing: border-box;
 }
 html {
+  color-scheme: dark;
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }
@@ -68,7 +71,7 @@ pre:focus-visible,
 }
 ::selection {
   background: var(--lime);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 h1,
 h2,
@@ -130,8 +133,8 @@ img {
   top: -100px;
   z-index: 99;
   padding: 14px 22px;
-  background: var(--ink);
-  color: white;
+  background: var(--lime);
+  color: var(--on-accent);
 }
 .skip-link:focus {
   top: 12px;
@@ -151,19 +154,19 @@ img {
   gap: 30px;
   min-height: 48px;
   padding: 15px 21px;
-  background: var(--ink);
-  color: white;
-  border: 1px solid var(--ink);
+  background: var(--lime);
+  color: var(--on-accent);
+  border: 1px solid var(--lime);
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   transition: background 0.2s;
 }
 .button:hover {
-  background: var(--dark-active);
+  background: var(--accent-hover);
 }
 .button > span {
-  color: var(--lime);
+  color: inherit;
 }
 .button.compact {
   min-height: 42px;
@@ -541,7 +544,7 @@ img {
   flex-wrap: wrap;
   gap: 7px 18px;
   padding: 17px;
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--panel-line);
   align-items: center;
 }
@@ -813,7 +816,7 @@ img {
   width: 100%;
   min-height: 48px;
   padding: 13px;
-  border: 1px solid #b6c0b5;
+  border: 1px solid var(--panel-line);
   border-radius: 3px;
   color: var(--ink);
   font-family: var(--font-mono);
@@ -825,7 +828,7 @@ img {
   margin-top: 13px !important;
 }
 .endpoint-builder .input-error {
-  color: #a03f2e !important;
+  color: var(--coral) !important;
 }
 .endpoint-builder .code-block {
   margin-bottom: 13px;
@@ -872,7 +875,7 @@ img {
 }
 .docs-sidebar nav a:hover {
   color: var(--ink);
-  background: #ecefe7;
+  background: var(--surface);
 }
 .docs-sidebar nav a.active {
   border-left-color: var(--green);
@@ -886,7 +889,7 @@ img {
 .nav-group > p {
   font-size: 10px;
   font-family: var(--font-mono);
-  color: #737a72;
+  color: var(--muted);
   padding: 7px 12px 8px;
 }
 .sidebar-note {
@@ -991,7 +994,7 @@ img {
 .prose li {
   font-size: 16px;
   line-height: 1.8;
-  color: #4c584e;
+  color: var(--muted);
 }
 .prose p + p {
   margin-top: 19px;
@@ -1024,9 +1027,9 @@ img {
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.82em;
-  background: #eaf0e5;
-  color: #375534;
-  border: 1px solid #dbe4d6;
+  background: var(--soft-green);
+  color: var(--ink);
+  border: 1px solid var(--line);
   padding: 2px 4px;
   border-radius: 3px;
   overflow-wrap: anywhere;
@@ -1044,8 +1047,8 @@ img {
 }
 .callout {
   padding: 19px 21px;
-  border-left: 2px solid #adbda5;
-  background: #eff1e9;
+  border-left: 2px solid var(--panel-line);
+  background: var(--paper-deep);
   margin-block: 26px;
 }
 .callout > strong {
@@ -1085,11 +1088,11 @@ td {
 }
 th {
   font-weight: 600;
-  background: #eaf0e5;
-  color: #42553d;
+  background: var(--soft-green);
+  color: var(--ink);
 }
 td {
-  color: #4f5c4c;
+  color: var(--muted);
 }
 td + td,
 th + th {
@@ -1114,7 +1117,7 @@ tr:last-child td {
   flex-direction: column;
   gap: 10px;
   padding: 19px;
-  background: white;
+  background: var(--surface);
 }
 .scope-map > div + div {
   border-left: 1px solid var(--line);
@@ -1172,7 +1175,7 @@ tr:last-child td {
   gap: 0;
   margin-block: 15px 27px;
   border: 1px solid var(--line);
-  background: white;
+  background: var(--surface);
   border-radius: 5px;
 }
 .docs-entrypoints > a {
@@ -1284,7 +1287,7 @@ tr:last-child td {
 }
 .next-steps {
   border: 1px solid var(--line);
-  background: white;
+  background: var(--surface);
   border-radius: 5px;
   margin-block: 26px;
   overflow: hidden;
@@ -1373,7 +1376,7 @@ tr:last-child td {
   margin: 0;
   padding: 16px 20px;
   font-size: 11px;
-  background: #f4f6f0;
+  background: var(--paper-deep);
   color: var(--muted);
   line-height: 1.7;
 }
@@ -1475,7 +1478,7 @@ tr:last-child td {
 .operation-record {
   padding: 25px;
   background: var(--soft-green);
-  border: 1px solid #cedbc8;
+  border: 1px solid var(--line);
   margin-block: 25px;
 }
 .operation-record > code {
@@ -1492,7 +1495,7 @@ tr:last-child td {
 .operation-record dl > div {
   display: flex;
   gap: 22px;
-  border-top: 1px solid #cdd9c8;
+  border-top: 1px solid var(--line);
   padding: 13px 0;
   font-size: 13px;
 }
@@ -1974,7 +1977,7 @@ tr:last-child td {
     padding: 0;
     border: 1px solid var(--line);
     border-radius: 4px;
-    background: white;
+    background: var(--surface);
   }
   .docs-toggle {
     display: flex;

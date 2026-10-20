@@ -1,3 +1,13 @@
+# Distribution release site review · 20 October 2026
+
+The homepage, article and all thirteen handbook guides now share a dark theme with lime calls to action. The copy leads with agentic deployment on infrastructure the visitor owns, and explains the new local/remote computer launcher, folder/GitHub project import, and connect-existing/launch-new deployment paths. The project model separates application source from runtime instances. Desktop limits, WSL, AMD64 emulation and the server-only HTTPS/upgrade flows are explicit in the relevant guides.
+
+The first two walkthrough stages use fresh captures of the distribution UI with a disposable example project. The September OAuth and production-operation evidence keeps its original dates and qualifications. No production deployment was used or changed for the new captures. A static dark Open Graph image and large social card make the public URL ready to share.
+
+Validation: lint, TypeScript, all nine behavior/navigation tests and the production build passed. Browser review covered the homepage at 1280 and 390 pixels, walkthrough switching, the 390-pixel installation guide and expandable documentation navigation, image loading and the generated 1200×630 share card. No horizontal page overflow was observed. Actual physical-device testing remains unverified.
+
+## Earlier reviews
+
 # Public site review
 
 ## Serendepify brand alignment, 3 October 2026

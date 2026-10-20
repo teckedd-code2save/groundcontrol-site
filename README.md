@@ -8,7 +8,7 @@ GroundControl itself is a self-hosted, single-tenant control plane. Each operato
 
 “Put your agents to work” leads with GroundControl’s promise: deploy and operate applications with the agents you use, on infrastructure you own. The homepage brings the article’s operational context, MCP tools, OAuth access and durable execution into the product story. It explains what the connection enables: inspect application state, request supported deployments, and return to their recorded results.
 
-The homepage uses Serendepify’s warm paper, ink, lime and coral palette, with Schibsted Grotesk headings, Hanken Grotesk body text and JetBrains Mono details. Fonts are self-hosted through Next.js.
+The homepage uses a dark theme with Serendepify’s lime and coral accents, with Schibsted Grotesk headings, Hanken Grotesk body text and JetBrains Mono details. Fonts are self-hosted through Next.js.
 
 The product tour and dated deployment evidence describe available capabilities. The separate Autopilot section is explicitly marked **Product direction**; customer-journey testing and proactive recovery are not presented as available features. The installation guide remains the primary call to action.
 
@@ -21,7 +21,7 @@ GroundControl gives software agents bounded infrastructure capabilities through 
 - use connector capability health for GitHub, GHCR and Daytona;
 - keep SSH keys, provider credentials and the human PTY outside the agent tool surface.
 
-Fresh installs use the canonical on-host installer and a one-time human ownership claim.
+Fresh installs start with the computer launcher: local Docker or a remote Linux server, followed by a one-time ownership claim. The canonical on-host installer remains available for server operators.
 
 ## Verified deployment proof
 
@@ -40,13 +40,14 @@ The full deployment and Daytona contract is maintained in the main repository at
 
 ## Install
 
-Human-readable:
+On your computer (macOS / Linux, or Windows through WSL):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/install | sudo bash
+curl -fsSL https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/start -o groundcontrol-start
+bash groundcontrol-start
 ```
 
-Agent-oriented JSON result:
+Directly on a Linux server, with an agent-oriented JSON result:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/install \
@@ -84,8 +85,9 @@ MIT
 
 ## Native documentation and public evidence
 
-The complete adoption path lives at `/docs`. Twelve guides cover the philosophy and workload model, install/claim, next steps after installation, HTTPS publishing, host discovery, existing application enrollment, new template deployments, ChatGPT OAuth/MCP, deployment automation, maintenance, troubleshooting and evidence. No GitHub visit is required to follow a guide.
+The complete adoption path lives at `/docs`. Thirteen guides cover projects and deployment instances, the philosophy and workload model, install/claim, next steps after installation, HTTPS publishing, host discovery, existing application enrollment, new template deployments, ChatGPT OAuth/MCP, deployment automation, maintenance, troubleshooting and evidence. No GitHub visit is required to follow a guide.
 
+- `content/setup-guides.tsx` contains local/remote setup and the project/source/deployment model.
 - `content/guides.tsx` contains the guide sections, runnable examples and expected results.
 - `content/journey-guides.tsx` contains the philosophy, post-install, discovery and new-deployment guides. `content/guide-parts.tsx` supplies shared guide elements.
 - `content/guide-index.ts` defines sidebar order and search terms.
@@ -96,3 +98,7 @@ The complete adoption path lives at `/docs`. Twelve guides cover the philosophy 
 - See `MEDIA_CAPTURE.md` for capture provenance, dates and claim boundaries.
 
 Validate guide links/anchors, assets, endpoint formatting, clipboard behavior, product-tour keyboard navigation and checklist state with `npm test`. Review the actual rendered pages and capture any limits in `SITE_REVIEW.md`. Browser viewport testing covers desktop and narrow layouts; physical phone testing remains outstanding.
+
+## Sharing
+
+Share https://trygroundcontrol.serendepify.com/ or link directly to `/docs/getting-started`. The root metadata provides a dark Open Graph image and a large social card, generated at build time by `app/opengraph-image.tsx`. The install guide is self-contained; the public site does not collect credentials or expose an operator login.

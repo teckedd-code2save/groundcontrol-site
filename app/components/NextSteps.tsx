@@ -19,10 +19,10 @@ const paths = [
   {
     id: "new",
     title: "I want to deploy a new app",
-    intro: "Use a template to validate, create and enroll a new deployment.",
+    intro: "Add your project, then choose the launch path supported by its host.",
     steps: [
-      ["Choose a template for your application", "new-deployment#choose"],
-      ["Connect and verify the source", "new-deployment#source"],
+      ["Add your project from a folder or GitHub", "projects#sources"],
+      ["Choose a host and deployment environment", "projects#deployments"],
       ["Configure and review the proposed deployment", "new-deployment#review"],
       ["Deploy and check the public result", "new-deployment#verify"],
       ["Grant your agent access to that workload", "agent-access#consent"],

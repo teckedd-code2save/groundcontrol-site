@@ -17,7 +17,7 @@ export default function DocsPage() {
           <header className="doc-header">
             <p className="eyebrow">The operator’s handbook</p>
             <h1>
-              From your first scan
+              From your first project
               <br />
               to a verified operation.
             </h1>
@@ -30,13 +30,13 @@ export default function DocsPage() {
             <Link href="/docs/getting-started">
               <span>01 / Start</span>
               <h2>I need to install it.</h2>
-              <p>Install, claim and connect the local host.</p>
+              <p>Choose your computer or a server and open the setup link.</p>
               <b>Installation guide →</b>
             </Link>
             <Link href="/docs/after-install">
               <span>02 / Continue</span>
               <h2>It’s installed. Now what?</h2>
-              <p>Review discovery and choose your first application.</p>
+              <p>Add a project, then connect or launch a deployment.</p>
               <b>Follow the next steps →</b>
             </Link>
             <Link href="/docs/agent-access">
