@@ -6,9 +6,9 @@ GroundControl itself is a self-hosted, single-tenant control plane. Each operato
 
 ## Current product story
 
-“Put your agents to work” leads with GroundControl’s promise: deploy and operate applications with the agents you use, on infrastructure you own. The homepage brings the article’s operational context, MCP tools, OAuth access and durable execution into the product story. It explains what the connection enables: inspect application state, request supported deployments, and return to their recorded results.
+“Own the path to production” leads with GroundControl’s promise: agent-assisted deployment, end to end, on infrastructure you own. It meets people who already use agents and connects their project, configuration, rollout and verification. The homepage brings the article’s operational context, MCP tools, OAuth access and durable execution into that story.
 
-The homepage uses a dark theme with Serendepify’s lime and coral accents, with Schibsted Grotesk headings, Hanken Grotesk body text and JetBrains Mono details. Fonts are self-hosted through Next.js.
+The homepage uses a dark theme with Serendepify’s lime and coral accents, with Schibsted Grotesk headings, Hanken Grotesk body text and JetBrains Mono details. Fonts are self-hosted through Next.js. A scroll-driven passage reveals the deployment story word by word, alongside a source-to-verification line. Text stays readable before JavaScript loads, and reduced-motion preferences turn off the reveal and entrance effects.
 
 The product tour and dated deployment evidence describe available capabilities. The separate Autopilot section is explicitly marked **Product direction**; customer-journey testing and proactive recovery are not presented as available features. The installation guide remains the primary call to action.
 

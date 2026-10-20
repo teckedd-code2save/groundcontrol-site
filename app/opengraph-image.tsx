@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "GroundControl — Put your agents to work. Deploy and operate on infrastructure you own.";
+export const alt = "GroundControl — Own the path to production. Agent-assisted deployment, end to end, on infrastructure you own.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -13,12 +13,12 @@ export default function Image() {
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 88, fontWeight: 700, letterSpacing: -4, lineHeight: 1.04 }}>
-          <div>Put your agents</div><div style={{ color: "#c8ff3d" }}>to work.</div>
+          <div>Own the path</div><div style={{ color: "#c8ff3d" }}>to production.</div>
         </div>
-        <div style={{ fontSize: 32, color: "#b7bfab" }}>Deploy and operate on infrastructure you own.</div>
+        <div style={{ fontSize: 32, color: "#b7bfab" }}>Agent-assisted deployment. End to end.</div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #353d2d", paddingTop: 22, fontSize: 20 }}>
-        <div>Your computer or your server.</div><div style={{ color: "#c8ff3d" }}>trygroundcontrol.serendepify.com</div>
+        <div>On infrastructure you own.</div><div style={{ color: "#c8ff3d" }}>trygroundcontrol.serendepify.com</div>
       </div>
     </div>,
     size,
