@@ -38,7 +38,7 @@ export function Header() {
         <Link href="/docs/philosophy">Approach</Link>
         <Link href="/docs">Docs</Link>
         <Link href="/articles/agentic-deployment-with-oauth-and-mcp">
-          Field notes
+          Why GroundControl
         </Link>
       </nav>
       <Link className="button compact" href="/docs/getting-started">
@@ -55,8 +55,12 @@ export function Footer() {
           GroundControl
         </Link>
         <p>
-          Open-source operations for infrastructure you own.
-          <br />A Serendepify product.
+          Agentic deployment on infrastructure you own.
+          <br />Built by{" "}
+          <a className="company-link" href="https://www.serendepify.com/">
+            Serendepify
+          </a>{" "}
+          in Accra, Ghana.
         </p>
       </div>
       <nav aria-label="Footer navigation">
@@ -68,7 +72,7 @@ export function Footer() {
           View source ↗︎
         </a>
       </nav>
-      <span className="mono">Safe, smooth, observable, agentic.</span>
+      <span className="mono">Your infrastructure. Your final say.</span>
     </footer>
   );
 }

@@ -1,6 +1,25 @@
-# Public site review, 22 September 2026
+# Distribution release site review · 20 October 2026
 
-## Product journey revision
+The homepage, article and all thirteen handbook guides now share a dark theme with lime calls to action. The copy leads with agentic deployment on infrastructure the visitor owns, and explains the new local/remote computer launcher, folder/GitHub project import, and connect-existing/launch-new deployment paths. The project model separates application source from runtime instances. Desktop limits, WSL, AMD64 emulation and the server-only HTTPS/upgrade flows are explicit in the relevant guides.
+
+The first two walkthrough stages use fresh captures of the distribution UI with a disposable example project. The September OAuth and production-operation evidence keeps its original dates and qualifications. No production deployment was used or changed for the new captures. A static dark Open Graph image and large social card make the public URL ready to share.
+
+Validation: lint, TypeScript, all nine behavior/navigation tests and the production build passed. Browser review covered the homepage at 1280 and 390 pixels, walkthrough switching, the 390-pixel installation guide and expandable documentation navigation, image loading and the generated 1200×630 share card. No horizontal page overflow was observed. Actual physical-device testing remains unverified.
+
+## Earlier reviews
+
+# Public site review
+
+## Serendepify brand alignment, 3 October 2026
+
+The public marketing site adopts the company site's current visual language while leading with GroundControl’s own promise: “Put your agents to work.” The opening explains agentic deployment on infrastructure the reader owns. The capability section brings forward the article’s application context, scoped execution and durable results, and links directly to the full story. The navigation now calls that article “Why GroundControl.” The proof section explains signed GitHub deployment automation and the agent’s access to recorded outcomes. Warm paper, lime accents, an outlined headline and the company's font families connect the two sites without replacing GroundControl's identity or its real product screenshots.
+
+Available capabilities stay separate from the clearly labeled Autopilot product direction. The existing September evidence dates and provenance qualifications are preserved. Installation, native guides, product-tour behavior and operator-owned authentication boundaries are unchanged. No operator instance or deployment is part of this revision.
+
+Local lint, TypeScript, all nine tests and the static production build passed. Browser review covered the homepage at 1280 pixels, its tour selection, the installation link, and the installation guide's expandable documentation menu at 390 pixels. Font inspection confirmed Schibsted Grotesk headings and Hanken Grotesk body text. Neither the homepage nor the installation guide had horizontal document overflow at 390 pixels after constraining the installation panel's grid columns; long commands retain their own scroll area. Physical device testing remains outstanding.
+
+## Product journey revision, 22 September 2026
+
 
 The homepage now has a four-part product tour using actual desktop captures, a post-install sequence, an illustrated workload model, inspectable deployment proof and direct learning paths. Twelve native guides cover the GroundControl philosophy, installation, next steps, publishing, discovery, enrollment, new template deployments, agent access, automation, maintenance, troubleshooting and evidence.
 

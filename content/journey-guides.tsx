@@ -8,6 +8,7 @@ import CodeBlock from "@/app/components/CodeBlock";
 
 export const journeyGuides: Record<string, Guide> = {
   philosophy: {
+    updated: "20 October 2026",
     title: "The GroundControl approach",
     description:
       "Understand the product, the things it manages, and how an agent gets a useful but bounded role in operating them.",
@@ -34,8 +35,8 @@ export const journeyGuides: Record<string, Guide> = {
               confirmations and expired grants still need attention.
             </p>
             <p>
-              The starting point is a founder or small team running applications
-              with Docker Compose on a VPS. GroundControl also has human
+              Start on your computer with Docker, or on a Linux server with
+              the applications you already operate. GroundControl also has human
               controls for runtime, logs, environment, proxy configuration and
               terminal access. You can begin using those before connecting an
               external agent.
@@ -58,11 +59,11 @@ export const journeyGuides: Record<string, Guide> = {
                 ],
                 [
                   "Project",
-                  "An optional group of related deployments. Moving a deployment between project groups changes organization, not its files or runtime.",
+                  "Your application or product, with folder or GitHub sources and deployment instances. Organizing deployments preserves their files and runtime.",
                 ],
                 [
                   "Deployment",
-                  "The enrolled application identity: host, source or container, Compose identity, repository, public URL and recorded releases where available.",
+                  "An instance of an application on a particular host and environment, with a Compose or container runtime identity, public URL and recorded releases where available.",
                 ],
                 [
                   "Service / container",
@@ -224,6 +225,7 @@ export const journeyGuides: Record<string, Guide> = {
     ],
   },
   "after-install": {
+    updated: "20 October 2026",
     title: "GroundControl is installed. What next?",
     description:
       "Go from a claimed instance to one understood workload and a verified agent connection.",
@@ -236,15 +238,15 @@ export const journeyGuides: Record<string, Guide> = {
         body: (
           <>
             <p>
-              The canonical installer starts GroundControl privately, creates
-              persistent storage and connects the VPS it is running on as a
-              local host. Claim establishes your administrator account. You do
+              The launcher starts GroundControl privately, creates persistent
+              storage and connects the local Docker workspace or destination
+              Linux server. Claim establishes your administrator account. You do
               not need to add that same host again using SSH.
             </p>
             <p>
-              After claim, onboarding asks how to publish the control plane.
-              Choose a stable HTTPS origin for remote MCP clients, or keep it
-              private while evaluating. On completion, GroundControl probes the
+              After claim, desktop onboarding verifies private local access.
+              On a Linux server, you can publish a stable HTTPS origin for
+              remote MCP clients or keep it private while evaluating. On completion, GroundControl probes the
               host and shows its findings.
             </p>
             <Table
@@ -307,10 +309,10 @@ export const journeyGuides: Record<string, Guide> = {
           <>
             <NextSteps />
             <p>
-              For existing software, start in <strong>Deployments</strong>. For
-              a new workload, start in <strong>Templates</strong>. A template
-              deployment creates runtime resources and registers the result;
-              discovery and enrollment describe software already present.
+              Start in <strong>Projects → Add project</strong> and pick a folder
+              or GitHub repository. In that project, choose <strong>Add deployment</strong>
+              to connect an existing workload or launch a new instance. The
+              <Link href="/docs/projects">projects guide</Link> explains each path.
             </p>
           </>
         ),
@@ -333,7 +335,7 @@ export const journeyGuides: Record<string, Guide> = {
                 ],
                 [
                   "Projects",
-                  "Organize related deployments. Grouping does not relocate application files.",
+                  "Add an application from a folder or GitHub and organize its deployment instances by host and environment.",
                 ],
                 [
                   "Runtime",
@@ -401,7 +403,8 @@ export const journeyGuides: Record<string, Guide> = {
     ],
   },
   discovery: {
-    title: "Discover what is running on your VPS",
+    updated: "20 October 2026",
+    title: "Discover workloads on your host",
     description:
       "Understand where GroundControl looks, what a discovered candidate means, and how to resolve missing or unexpected results.",
     outcome:
@@ -486,9 +489,11 @@ export const journeyGuides: Record<string, Guide> = {
               ]}
             />
             <p>
-              Only enroll candidates you intend to track. A host can contain
-              temporary helper containers, old releases and infrastructure
-              services as well as customer applications.
+              Only enroll candidates you intend to track. Compose services from
+              the same stack are grouped together. Use Dismiss to hide a
+              suggestion, then Undo or Restore hidden to bring it back. This
+              does not stop or delete the workload. GroundControl excludes
+              its own helper containers.
             </p>
           </>
         ),
@@ -600,12 +605,22 @@ export const journeyGuides: Record<string, Guide> = {
     ],
   },
   "new-deployment": {
+    updated: "20 October 2026",
     title: "Deploy a new application from a template",
     description:
       "Use GroundControl’s Choose, Source, Config, Review and Deploy workflow to create and enroll a workload.",
     outcome:
       "A new deployment with its runtime, source identity and public verification result recorded in GroundControl.",
     sections: [
+      {
+        id: "host",
+        title: "Start with your project and host",
+        body: <>
+          <p>Open your project and choose <strong>Add deployment → Launch new</strong>. Select the host and environment for this instance.</p>
+          <p>On local Docker, the current flow launches a single container image using its default command without custom environment variables. It does not build arbitrary folder or repository source. On a Linux server, continue through the Templates steps below.</p>
+          <p>If you have not added your application yet, <Link href="/docs/projects#sources">pick a folder or GitHub repository</Link> first.</p>
+        </>,
+      },
       {
         id: "choose",
         title: "1. Choose the deployment shape",

@@ -6,24 +6,26 @@ import Capture from "./Capture";
 
 const stages = [
   {
-    title: "Discover",
-    heading: "Start with what is already running.",
-    text: "GroundControl reads the active host, finds Compose folders and containers, and presents candidates you can inspect.",
-    fact: "Review the candidates and choose which to enroll.",
-    file: "discovery-desktop.jpg",
-    alt: "GroundControl discovered workloads with source paths and Enrol deployment buttons",
-    href: "/docs/discovery",
-    link: "How discovery works",
+    title: "Project",
+    heading: "Start with the application you’re building.",
+    text: "Pick a folder from your computer or import a GitHub repository. Your project brings the source, purpose and deployment instances together.",
+    fact: "Add source first. Choose its deployments separately.",
+    file: "project-import-2026-10-20.png",
+    alt: "GroundControl Add project chooser with folder and GitHub import options",
+    caption: "Current interface · isolated demo · 20 October 2026",
+    href: "/docs/projects#sources",
+    link: "Add your first project",
   },
   {
-    title: "Enrol",
-    heading: "Choose what belongs in GroundControl.",
-    text: "Enrol one candidate, keep its files where they are, and optionally group it into a project. Confirm its source, runtime and public address.",
-    fact: "Enrollment preserves the workload’s existing location.",
-    file: "enrollment-desktop.jpg",
-    alt: "GroundControl enrollment dialog showing optional project grouping",
-    href: "/docs/first-deployment",
-    link: "Follow the enrollment guide",
+    title: "Deploy",
+    heading: "Give each environment its own instance.",
+    text: "Connect an application already running on your host, or launch a new instance. Each deployment has its own environment, configuration and release history.",
+    fact: "Local Docker or your Linux server. Your infrastructure.",
+    file: "project-deployments-2026-10-20.png",
+    alt: "GroundControl Add deployment dialog offering connect existing or launch new",
+    caption: "Current interface · example project · 20 October 2026",
+    href: "/docs/projects#deployments",
+    link: "Choose a deployment path",
   },
   {
     title: "Connect",
@@ -31,6 +33,7 @@ const stages = [
     text: "Add your instance’s MCP endpoint to a compatible client, sign in through OAuth and select the deployments it may access.",
     fact: "The grant names the capabilities and workloads.",
     file: "agents-desktop.jpg",
+    caption: "Operator interface · captured 22 September 2026",
     alt: "GroundControl Agents workspace showing a real active ChatGPT grant",
     href: "/docs/agent-access",
     link: "Connect your agent",
@@ -41,6 +44,7 @@ const stages = [
     text: "Read runtime checks and the public endpoint result. A durable operation ID lets your agent return to the same work after a timeout.",
     fact: "RentAWeekend recorded release · 21 September 2026.",
     file: "verification-desktop.jpg",
+    caption: "Recorded release · captured 22 September 2026",
     alt: "GroundControl runtime image verification and public endpoint evidence",
     href: "/docs/evidence",
     link: "Inspect the recorded evidence",
@@ -109,7 +113,7 @@ export default function ProductTour() {
         <Capture
           file={stage.file}
           alt={stage.alt}
-          caption="Operator interface · captured 22 September 2026"
+          caption={stage.caption}
           priority
         />
       </div>

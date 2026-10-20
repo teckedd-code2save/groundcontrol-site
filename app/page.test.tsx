@@ -112,7 +112,7 @@ describe("The self-contained adoption journey", () => {
   it("replaces phone captures with current desktop evidence and clear provenance", () => {
     render(<Home />);
     expect(
-      screen.getByAltText(/GroundControl discovered workloads/),
+      screen.getByAltText(/GroundControl Add project chooser/),
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole("tab", { name: /Connect/ }));
     expect(
@@ -136,13 +136,13 @@ describe("The self-contained adoption journey", () => {
   });
   it("lets readers navigate the product walkthrough using the keyboard", () => {
     render(<Home />);
-    const first = screen.getByRole("tab", { name: /Discover/ });
+    const first = screen.getByRole("tab", { name: /Project/ });
     fireEvent.keyDown(first, { key: "ArrowRight" });
-    const enroll = screen.getByRole("tab", { name: /Enrol/ });
+    const enroll = screen.getByRole("tab", { name: /Deploy/ });
     expect(enroll).toHaveAttribute("aria-selected", "true");
     expect(enroll).toHaveFocus();
     expect(screen.getByRole("tabpanel")).toHaveTextContent(
-      "Choose what belongs",
+      "Give each environment",
     );
     fireEvent.keyDown(enroll, { key: "End" });
     expect(screen.getByRole("tab", { name: /Verify/ })).toHaveFocus();
@@ -159,8 +159,8 @@ describe("The self-contained adoption journey", () => {
     fireEvent.click(screen.getByRole("button", { name: /deploy a new app/ }));
     expect(screen.getByText("0 / 5 checked")).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /Guide: Choose a template/ }),
-    ).toHaveAttribute("href", "/docs/new-deployment#choose");
+      screen.getByRole("link", { name: /Guide: Add your project/ }),
+    ).toHaveAttribute("href", "/docs/projects#sources");
     fireEvent.click(
       screen.getByRole("button", { name: /apps already run here/ }),
     );

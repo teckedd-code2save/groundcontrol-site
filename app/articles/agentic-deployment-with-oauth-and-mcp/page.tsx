@@ -45,7 +45,7 @@ export default function ArticlePage() {
             <a href="#connection">Connect an agent</a>
             <a href="#deployment">From merge to deployment</a>
             <a href="#work">The agent’s view</a>
-            <a href="#try-it">Use it on your VPS</a>
+            <a href="#try-it">Use your own infrastructure</a>
           </aside>
           <div className="prose article-prose">
             <section id="purpose">
@@ -183,9 +183,9 @@ export default function ArticlePage() {
             <section id="try-it">
               <h2>Put it to work on your infrastructure.</h2>
               <p>
-                Install GroundControl, claim your instance and review the host
-                scan. Choose one application, confirm its identity and connect
-                your agent. A health check gives you a first result you can
+                Start GroundControl from your computer, locally or on a Linux
+                server. Add a project from a folder or GitHub, connect or launch
+                its deployment, and authorize your agent. A health check gives you a first result you can
                 compare with the product interface. From there, follow the
                 deployment guide for the operations your workload supports.
               </p>

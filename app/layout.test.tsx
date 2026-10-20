@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
 vi.mock("next/font/google", () => ({
-  Geist: () => ({ variable: "--font-geist-sans" }),
-  Geist_Mono: () => ({ variable: "--font-geist-mono" }),
+  Hanken_Grotesk: () => ({ variable: "--font-brand-body" }),
+  Schibsted_Grotesk: () => ({ variable: "--font-brand-display" }),
+  JetBrains_Mono: () => ({ variable: "--font-brand-mono" }),
 }));
 
 import { render, screen } from "@testing-library/react";

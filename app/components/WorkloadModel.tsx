@@ -5,16 +5,21 @@ export default function WorkloadModel() {
       aria-label="Example of GroundControl entities and their relationships"
     >
       <figcaption>
-        Example · one application, one deployment, several services
+        Example · one application, independent deployments
       </figcaption>
       <div className="model-row">
         <span>Project</span>
         <strong>Weekend planner</strong>
-        <small>Optional organization</small>
+        <small>Folder / GitHub repository</small>
+      </div>
+      <div className="model-row">
+        <span>Development</span>
+        <strong>weekend-local</strong>
+        <small>Docker on your computer</small>
       </div>
       <div className="model-deployment">
         <div className="model-row">
-          <span>Deployment</span>
+          <span>Production</span>
           <strong>weekend-production</strong>
           <small>On your VPS</small>
         </div>

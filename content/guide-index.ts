@@ -13,11 +13,11 @@ export const guideIndex = [
   {
     slug: "getting-started",
     title: "Install & claim",
-    short: "Start on your VPS",
+    short: "Start on your computer",
     group: "Set up",
     description:
-      "Installation commands, SSH tunnel, ownership and host checks.",
-    keywords: "linux VPS docker bootstrap install claim setup",
+      "Choose local Docker or a remote Linux server and open your private setup link.",
+    keywords: "linux macOS Windows WSL desktop VPS docker bootstrap install claim setup",
   },
   {
     slug: "after-install",
@@ -27,6 +27,14 @@ export const guideIndex = [
     description:
       "Review the host scan and follow a checklist for your first application.",
     keywords: "next onboarding first steps dashboard workflow",
+  },
+  {
+    slug: "projects",
+    title: "Projects & deployments",
+    short: "Bring your application together",
+    group: "Set up",
+    description: "Pick a folder or GitHub repository, then connect or launch deployment instances.",
+    keywords: "project folder picker GitHub source import environment deployment local desktop",
   },
   {
     slug: "publishing",
@@ -58,7 +66,7 @@ export const guideIndex = [
   {
     slug: "new-deployment",
     title: "Deploy a new app",
-    short: "Create with Templates",
+    short: "Launch a new instance",
     group: "Set up",
     description:
       "Choose a template, verify source, review configuration and deploy.",

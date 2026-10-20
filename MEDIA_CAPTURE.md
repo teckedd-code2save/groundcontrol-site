@@ -1,3 +1,7 @@
+# October 2026 distribution UI
+
+`project-import-2026-10-20.png` and `project-deployments-2026-10-20.png` are unaltered captures of the merged distribution UI, built from the product release branch on 20 October 2026. They use a disposable local Docker instance and a synthetic Weekend planner source folder. The folder contained a package.json and no Compose file; folder browsing, import and opening Add deployment were exercised through the UI. No production workload was changed. These are interface demonstrations, not deployment-success evidence. The tour captions distinguish them from the dated production evidence below.
+
 # Public evidence captures
 
 The public site uses unaltered desktop captures from the operator's authenticated GroundControl interface, captured on 22 September 2026. No generated interface or chat image is presented as product evidence.
