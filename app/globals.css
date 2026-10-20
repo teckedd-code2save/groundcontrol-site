@@ -20,7 +20,7 @@
   --dark-line: #353d2d;
   --green: #c8ff3d;
   --soft-green: #232c18;
-  --code: #20271a;
+  --code: #dce7cd;
   --on-accent: #11160a;
   --accent-hover: #daff84;
   --font-sans: var(--font-brand-body);
@@ -730,9 +730,9 @@ img {
 }
 .start-grid .button {
   margin-top: 27px;
-  background: #eef2e9;
-  color: var(--ink);
-  border-color: #eef2e9;
+  background: var(--lime);
+  color: var(--on-accent);
+  border-color: var(--lime);
 }
 .start-grid .code-block {
   border-color: #425447;
@@ -2324,11 +2324,11 @@ tr:last-child td {
 }
 .start-grid .button {
   background: var(--lime);
-  color: var(--ink);
+  color: var(--on-accent);
   border-color: var(--lime);
 }
 .start-grid .button > span {
-  color: var(--ink);
+  color: var(--on-accent);
 }
 .start-grid .button:hover {
   background: var(--light-ink);
