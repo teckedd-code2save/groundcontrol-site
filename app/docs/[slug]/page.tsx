@@ -29,7 +29,7 @@ export default async function GuidePage({
   if (!guide) notFound();
   const index = guideIndex.findIndex((g) => g.slug === slug);
   const nextFor: Record<string, string> = {
-    "after-install": "discovery",
+    "after-install": "projects",
     publishing: "discovery",
     "first-deployment": "agent-access",
     "new-deployment": "agent-access",
