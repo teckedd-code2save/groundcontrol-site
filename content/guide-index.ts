@@ -1,4 +1,4 @@
-export const guideGroups = ["Understand", "Set up", "Operate"] as const;
+export const guideGroups = ["Set up", "Operate", "Understand"] as const;
 export const guideIndex = [
   {
     slug: "philosophy",
@@ -91,6 +91,15 @@ export const guideIndex = [
       "Controlled redeploys, operation evidence and merge automation.",
     keywords:
       "autopilot webhook redeploy durable operation idempotency Daytona",
+  },
+  {
+    slug: "build-and-release", title: "Build & release", short: "From commit to verified release", group: "Operate",
+    description: "BuildKit, Docker cloud sandboxes, image publishing, tests and digest-based releases.",
+    keywords: "CI GitHub Actions build publish release SHA digest registry GHCR sandbox buildkit MCP",
+  },
+  {
+    slug: "roadmap", title: "Product direction", short: "What comes next", group: "Understand",
+    description: "The next steps for operational intelligence and recovery.", keywords: "roadmap Loop autonomy recovery future",
   },
   {
     slug: "distribution",

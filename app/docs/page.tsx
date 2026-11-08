@@ -15,15 +15,12 @@ export default function DocsPage() {
         <DocsNav />
         <main id="main" className="doc-main">
           <header className="doc-header">
-            <p className="eyebrow">The operator’s handbook</p>
+            <p className="eyebrow">Documentation</p>
             <h1>
-              From your first project
-              <br />
-              to a verified operation.
+              Find your next step.
             </h1>
             <p className="lead">
-              Learn how GroundControl thinks about your infrastructure, then
-              follow the path that matches where you are.
+              Install GroundControl, connect your agent, or build and release an application.
             </p>
           </header>
           <div className="docs-entrypoints">
@@ -46,17 +43,6 @@ export default function DocsPage() {
               <b>Connect your agent →</b>
             </Link>
           </div>
-          <Link className="concept-banner" href="/docs/philosophy">
-            <span>Before the commands</span>
-            <div>
-              <h2>Understand the GroundControl approach.</h2>
-              <p>
-                What is a deployment? How is a project different? What does an
-                agent actually control?
-              </p>
-            </div>
-            <span aria-hidden="true">↗︎</span>
-          </Link>
           {guideGroups.map((group) => (
             <section className="guide-list" key={group}>
               <div className="section-label">

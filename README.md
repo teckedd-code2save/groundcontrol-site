@@ -6,11 +6,9 @@ GroundControl itself is a self-hosted, single-tenant control plane. Each operato
 
 ## Current product story
 
-“Own the path to production” leads with GroundControl’s promise: agent-assisted deployment, end to end, on infrastructure you own. It meets people who already use agents and connects their project, configuration, rollout and verification. The homepage brings the article’s operational context, MCP tools, OAuth access and durable execution into that story.
+The homepage introduces GroundControl in a short sequence: the product promise, connect/build/deploy/verify workflow, real product tour, working capabilities and installation. It retains the dark Serendepify palette and existing product captures.
 
-The homepage uses a dark theme with Serendepify’s lime and coral accents, with Schibsted Grotesk headings, Hanken Grotesk body text and JetBrains Mono details. Fonts are self-hosted through Next.js. A scroll-driven passage reveals the deployment story word by word, alongside a source-to-verification line. Text stays readable before JavaScript loads, and reduced-motion preferences turn off the reveal and entrance effects.
-
-The product tour and dated deployment evidence describe available capabilities. The separate Autopilot section is explicitly marked **Product direction**; customer-journey testing and proactive recovery are not presented as available features. The installation guide remains the primary call to action.
+Setup, concepts, evidence and technical reference live in the linked `/docs` pages. `/docs/build-and-release` covers the current MCP build and release tools; `/docs/roadmap` separates future development from present capabilities. The navigation exposes Documentation and GitHub directly.
 
 GroundControl gives software agents bounded infrastructure capabilities through MCP + OAuth:
 
@@ -85,7 +83,7 @@ MIT
 
 ## Native documentation and public evidence
 
-The complete adoption path lives at `/docs`. Thirteen guides cover projects and deployment instances, the philosophy and workload model, install/claim, next steps after installation, HTTPS publishing, host discovery, existing application enrollment, new template deployments, ChatGPT OAuth/MCP, deployment automation, maintenance, troubleshooting and evidence. No GitHub visit is required to follow a guide.
+The complete adoption path lives at `/docs`. Fifteen guides cover projects and deployment instances, the philosophy and workload model, install/claim, next steps after installation, HTTPS publishing, host discovery, existing application enrollment, new template deployments, ChatGPT OAuth/MCP, deployment automation, maintenance, troubleshooting and evidence. No GitHub visit is required to follow a guide.
 
 - `content/setup-guides.tsx` contains local/remote setup and the project/source/deployment model.
 - `content/guides.tsx` contains the guide sections, runnable examples and expected results.
