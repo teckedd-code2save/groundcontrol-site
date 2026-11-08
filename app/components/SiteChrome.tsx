@@ -35,11 +35,8 @@ export function Header() {
       </Link>
       <nav aria-label="Primary navigation">
         <Link href="/#product">Product</Link>
-        <Link href="/docs/philosophy">Approach</Link>
-        <Link href="/docs">Docs</Link>
-        <Link href="/articles/agentic-deployment-with-oauth-and-mcp">
-          Why GroundControl
-        </Link>
+        <Link href="/docs">Documentation</Link>
+        <a href={SOURCE} target="_blank" rel="noreferrer">GitHub ↗</a>
       </nav>
       <Link className="button compact" href="/docs/getting-started">
         Get started <span aria-hidden="true">↗︎</span>
@@ -66,7 +63,7 @@ export function Footer() {
       <nav aria-label="Footer navigation">
         <Link href="/docs/after-install">After installation</Link>
         <Link href="/docs/agent-access">Connect your agent</Link>
-        <Link href="/docs/philosophy">The approach</Link>
+        <Link href="/docs/roadmap">Roadmap</Link>
         <Link href="/docs/evidence">Evidence</Link>
         <a href={SOURCE} target="_blank" rel="noreferrer">
           View source ↗︎

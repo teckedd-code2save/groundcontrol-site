@@ -1,3 +1,4 @@
+import { releaseGuides } from "./release-guides";
 import type { ReactNode } from "react";
 import { Check, Note, Table } from "./guide-parts";
 import { setupGuides } from "./setup-guides";
@@ -17,6 +18,7 @@ const install =
   "https://raw.githubusercontent.com/teckedd-code2save/groundcontrol/main/scripts/install";
 export const guides: Record<string, Guide> = {
   ...journeyGuides,
+  ...releaseGuides,
   ...setupGuides,
   publishing: {
     updated: "20 October 2026",

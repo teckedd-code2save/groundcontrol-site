@@ -118,14 +118,9 @@ describe("The self-contained adoption journey", () => {
     expect(
       screen.getByAltText(/real active ChatGPT grant/),
     ).toBeInTheDocument();
-    expect(
-      screen.getByAltText(/runtime image verification/),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        /Recorded 22 September 2026 through a scoped MCP connection/,
-      ),
-    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("tab", { name: /Verify/ }));
+    expect(screen.getByAltText(/runtime image verification/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Inspect the recorded evidence/ })).toHaveAttribute("href", "/docs/evidence");
     expect(
       screen
         .getAllByRole("img")

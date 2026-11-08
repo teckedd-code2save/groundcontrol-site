@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "GroundControl",
-    title: "Own the path to production | GroundControl",
-    description: "Agent-assisted deployment, end to end. Bring your project and the agents you already use. Configure, deploy and verify on infrastructure you own.",
+    title: "Build, deploy and operate with your agents | GroundControl",
+    description: "Give your AI agents controlled access to build, deploy and operate applications on infrastructure you own.",
   },
   twitter: { card: "summary_large_image" },
-  title: "GroundControl | Own the path to production",
+  title: "GroundControl | Build, deploy and operate with your agents",
   description:
-    "Agent-assisted deployment, end to end. Bring your project and the agents you already use. Configure, deploy and verify on infrastructure you own. Open source and self-hosted.",
+    "Give your AI agents controlled access to build, deploy and operate applications on infrastructure you own. Open source and self-hosted.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
